@@ -9,13 +9,12 @@ if (Meteor.isClient) {
             if (userVar == 'sandbox') {
 
             } else {
-                Meteor.loginWithPassword(userVar, passwordVar);
+                Meteor.loginWithPassword(userVar, passwordVar)
                 FlowRouter.go('/');
             }
 
         }
     });
-
 
     Template.MainLayout.events({
         'click .logout': function (event) {
