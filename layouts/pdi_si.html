@@ -1,0 +1,38 @@
+<template name="si">
+    {{#if currentUser}}
+            {{> MainLayout_3}}
+        <br>
+        <a class="btn" href="/">Back to Main Overview</a>
+        <a class="btn" href="/inspectionStart">Back to Inspections Over View</a>
+            <br>
+    <h1>SI's or special Items per Machine</h1>
+    <form class="siItems">
+        <button type="submit" class="reserveId">Submit</button>
+        <label for="siItem" class="mLocationId" ></label>
+        <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine" required>
+        <label for="siItem" class="" ></label>
+        <input type="text" class="siItem" id="siItem" name="siItemText" placeholder="Description" required>
+        <br>
+        <button type="submit" class="reserveId siItemRemove">Remove marked Machine</button>
+    </form>
+    {{> siItemList}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="siItemList">
+    <h2>Active List</h2>
+    <div class="rTable">
+        <div class="rTableRow ">
+            <div class="rTableHead"><strong>Machine</strong></div>
+            <div class="rTableHead"><strong>SI Description</strong></div>
+        </div>
+        {{#each siList}}
+            <div class="rTableRow selectedSiItem {{selectedItem}}">
+                <div class="rTableCell">{{machineNr}}</div>
+                <div class="rTableCell">{{errorDescription}}</div>
+            </div>
+        {{/each}}
+    </div>
+</template>

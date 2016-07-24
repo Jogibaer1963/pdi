@@ -1,0 +1,37 @@
+<template name="statistics">
+    <body>
+    {{#if currentUser}}
+        {{> MainLayout_3}}
+    {{> statisticView}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+    </body>
+</template>
+
+<template name="statisticView">
+        <h2>Time Consumption Over View</h2>
+        <div class="rTable">
+            <div class="rTableRow">
+                <div class="rTableHead"><strong>Machine</strong></div>
+                <div class="rTableHead"><strong><span>Ship Date</span></strong></div>
+                <div class="rTableHead"><strong>Created at</strong></div>
+                <div class="rTableHead"><strong>Time after Created /<br>PDI Duration</strong></div>
+                <div class="rTableHead"><strong>Time after Created /<br>Rep Duration</strong></div>
+                <div class="rTableHead"><strong>Time after Created /<br>Wash Duration</strong></div>
+                <div class="rTableHead"><strong>Time after Created /<br>Ship Duration</strong></div>
+            </div>
+            {{#each overView}}
+                <div class="rTableRow timeStatistics">
+                    <div class="rTableCell">{{machineId}}{{newHeadId}}</div>
+                    <div class="rTableCell">{{date}}</div>
+                    <div class="rTableCell">{{dateOfCreation}}<br>{{timeOfCreation}}</div>
+                    <div class="rTableCell">{{waitPdiTime}}<br>{{pdiDuration}}</div>
+                    <div class="rTableCell">{{waitRepairTime}}<br>{{repairDuration}}</div>
+                    <div class="rTableCell">{{waitWashTime}}<br>{{washDuration}}</div>
+                    <div class="rTableCell">{{waitShipTime}}<br>{{shipDuration}}</div>
+                </div>
+            {{/each}}
+        </div>
+</template>
+

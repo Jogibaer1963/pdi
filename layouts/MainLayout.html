@@ -1,0 +1,135 @@
+<template name="mainLayout">
+<body>
+{{#if currentUser}}
+  {{#if isInRole 'admin'}}
+    {{> MainLayout}}
+    {{> overViewList}}
+    {{> headerList}}
+    {{/if}}
+  {{#if isInRole 'shipping'}}
+      {{> shippingLayout}}
+      {{> overViewList}}
+      {{> headerList}}
+  {{/if}}
+  {{#if isInRole 'pdi'}}
+      {{> pdiLayout}}
+      {{> overViewList}}
+      {{> headerList}}
+  {{/if}}
+  {{#if isInRole 'repair'}}
+      {{> repairLayout}}
+      {{> overViewList}}
+      {{> headerList}}
+  {{/if}}
+  {{#if isInRole 'outBound'}}
+      {{> washLayout}}
+      {{> overViewList}}
+      {{> headerList}}
+  {{/if}}
+ {{else}}
+    {{> login}}
+    <br><br>
+ <!-- {{> register}} -->
+    <br><br>
+
+{{/if}}
+</body>
+</template>
+
+<template name="MainLayout">
+  <div>
+    <nav>
+        <a class="btn " href="/shippingMachines">Shipping</a>
+        <a class="btn" href="/inspectionStart">Inspection</a>
+        <a class="btn" href="/repairView">Repair</a>
+        <a class="btn" href="/washList">Wash Bay</a>
+        <a class="btn" href="/readyShipList">Final Status</a>
+        <br><br>
+        <a class="btn" href="/statistics">Statistics</a>
+        <a class="btn" href="/admin">Admin</a>
+        <a class="btn" href="/machineSearch">Machine Search</a>
+        <a class="btn" href="/machineLocation">Locations</a>
+        <a class="logout btn" href="/" >Logout</a>
+    </nav>
+  </div>
+</template>
+
+<template name="shippingLayout">
+    <div>
+        <nav>
+            <a class="btn " href="/shippingMachines">Shipping</a>
+            <a class="btn" href="/machineSearch">Machine Search</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/statistics">Statistics</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="pdiLayout">
+    <div>
+        <nav>
+            <a class="btn" href="/inspectionStart">Inspection</a>
+            <a class="btn" href="/machineSearch">Machine Search</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/statistics">Statistics</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="repairLayout">
+    <div>
+        <nav>
+            <a class="btn" href="/repairView">Repair</a>
+            <a class="btn" href="/machineSearch">Machine Search</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/charts">Charts</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="washLayout">
+    <div>
+        <nav>
+            <a class="btn " href="/shippingMachines">Shipping</a>
+            <a class="btn" href="/washList">Wash Bay</a>
+            <a class="btn" href="/readyShipList">Final Status</a>
+            <a class="btn" href="/machineSearch">Machine Search</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/charts">Charts</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="outBound">
+    <div>
+        <nav>
+            <a class="btn " href="/shippingMachines">Shipping</a>
+            <a class="btn" href="/readyShipList">Ready to Ship</a>
+            <a class="btn" href="/machineSearch">Machine Search</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/statistics">Statistics</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="MainLayout_3">
+    <div>
+        <nav>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
+            <a class="btn" href="/machineLocation">Locations</a>
+            <a class="btn" href="/statistics">Statistics</a>
+            <a class="logout btn" href="/" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="unAuthorized">
+    <h1>Password / Username wrong or not Authorized</h1>
+</template>
+
+

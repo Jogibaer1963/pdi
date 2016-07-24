@@ -1,0 +1,219 @@
+<template name="checkList">
+{{#if currentUser}}
+<head>
+    <title>Check List</title>
+</head>
+<a class="btn" href="/">Back to Main Overview</a>
+<a class="btn" href="/inspectionStart">Back to Inspections Overview</a>
+<a class="btn" href="/failureList">Switch to Failure List</a>
+{{> inputNewCheckPoint}} {{> input_new_checklistItems}} {{> deactivatedCheckPoints}}
+{{else}}
+    {{> login}}
+{{/if}}
+</template>
+
+
+
+<template name="inputNewCheckPoint">
+{{#if currentUser}}
+    <h1>Add New Check point</h1>
+    <div class="inputBox">
+        <br>
+        <form class="inputNewCheck">
+            <div class="">
+                <label for="newPosition" class="input"></label>
+                <select name="newPosition" id="newPosition" class="inputComment">
+                  <option>Top</option>
+                  <option>Bottom</option>
+                  <option>Front</option>
+                  <option>Back</option>
+                  <option>Left</option>
+                  <option>Right</option>
+                  <option>Over All</option>
+                  <option>Cab Inside/Outside</option>
+                </select>
+            </div>
+            <div class="newCheckPoint">
+              {{#dropdown name="newFailureList" classes="dropDownList"}}
+                  {{> newListOfFailures}}
+              {{/dropdown}}
+                {{#dropdownTrigger  name="newFailureList"}}
+                    <button class="dropDownButtonNew"></button>
+                {{/dropdownTrigger}}
+            </div>
+            <div class="inputCheck">
+              <label for="itemPos"></label>
+              <input type="number" id="itemPos" name="errorNr" placeholder="Failure Id" value="{{errorNew}}">
+              <label for="errorDescription"></label>
+              <input type="text" id="errorDescription" name="errorDescription"  placeholder="Description" required>
+            </div>
+            <div class="rangeInput">
+                <br>
+                <ul class="checkbox rangeBox">
+                    <li>
+                        <div>
+                            <label for="C67">
+                                <input type="checkbox" value="C67" id="C67" name="range" class="C67">C67</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <label for="C68">
+                                <input type="checkbox" value="C68" id="C68" name="range" class="C68">C68</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <label for="C69">
+                                <input type="checkbox" value="C69" id="C69" name="range" class="C69">C69</label>
+                        </div>
+                    </li>
+                    <br>
+                    <li>
+                        <div>
+                            <label for="C77">
+                                <input type="checkbox" value="C77" id="C77" name="range" class="C77">C77</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <label for="C78">
+                                <input type="checkbox" value="C78" id="C78" name="range" class="C78">C78</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <label for="C79">
+                                <input type="checkbox" value="C79" id="C79" name="range" class="C79">C79</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox rangeBox2">
+                            <label for="allMachines">
+                                <input type="checkbox" value="All Machines" id="allMachines" name="range">All Machines</label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="rangeBox3">
+                    <label for="machineFromTo"></label>
+                    <input type="text" id="machineRange" name="machineFromTo" placeholder="Machine Range" disabled/>
+                </div>
+                <div class="rangeBox4">
+                    <label for="addText"></label>
+                    <input type="text" id="machineRange" name="addText" placeholder="Additional Text" disabled/>
+                </div>
+            </div>
+            <button class="newCheck" type="submit">Add New Check Point</button>
+        </form>
+    </div>
+    <br><br>
+{{else}}
+    {{> login}}
+{{/if}}
+</template>
+
+
+<template name="input_new_checklistItems">
+  <form class="inputNewCheckListItems">
+    <div>
+        <button class="deActiveCheck" type="submit">Deactivate Check Point</button>
+        <button class="reActiveCheck" type="submit">Re-activate / Edit </button>
+        <br>
+    </div>
+
+{{#with editCheckpoint}}
+        <div class="userBox">
+            <label for="selectMe" class="input"></label>
+            <select name="newPosition" id="selectMe" class="inputComment">
+                <option selected="selected">{{errorPos}}</option>
+                <option>Top</option>
+                <option>Bottom</option>
+                <option>Front</option>
+                <option>Back</option>
+                <option>Left</option>
+                <option>Right</option>
+                <option>Over All</option>
+                <option>Cab Inside/Outside</option>
+            </select>
+        </div>
+        <div>
+            {{#dropdown name="failureList" classes="dropDownList"}}
+                {{> chooseListOfFailures}}
+            {{/dropdown}}
+        </div>
+        <label for="itemPos"></label>
+        <input type="number" id="itemPos" name="errorNr" placeholder="Failure Id" value="{{errorId}}">
+        <label for="errorDescription"></label>
+        <input type="text" id="errorDescription" name="errorDescription"  placeholder="Description" value="{{errorDescription}}" required>
+        <label for="machineRange"></label>
+        <input type="text" id="machineRange" name="machineRange"  placeholder="Machine Range" value="{{machineRange}}" required>
+{{/with}}
+        {{#dropdownTrigger  name="failureList"}}
+            <button class="dropDownButtonCheckList"></button>
+        {{/dropdownTrigger}}
+    </form>
+    <br><br><br>
+    <div class="checkListBox">
+        <div class="rTable" style="background-color: #6fd981">
+            <div class="rTableRow">
+                <div class="rTableHead"><strong>Pos</strong></div>
+                <div class="rTableHead"><strong>Id</strong></div>
+                <div class="rTableHead"><strong>Active Failures</strong></div>
+                <div class="rTableHead" style="width: 80px"><strong>Range</strong></div>
+            </div>
+            {{#each checkList}}
+                <div class="rTableRow showCheckList {{selectedClass}}">
+                    <div class="rTableCell">{{errorPos}}</div>
+                    <div class="rTableCell">{{errorNr}}</div>
+                    <div class="rTableCell">{{errorDescription}}</div>
+                    <div class="rTableCell" style="font-size: 15px">{{machineRange}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="deactivatedCheckPoints">
+    <div class="checkListBox2">
+        <div class="rTable" style="background-color: #e80525">
+            <div class="rTableRow inActiveCheck">
+                <div class="rTableHead"><strong>Id</strong></div>
+                <div class="rTableHead"><strong>In-active Failures </strong></div>
+                <div class="rTableHead" style="width: 80px"><strong>Range</strong></div>
+            </div>
+            {{#each inActiveCheckPoints}}
+                <div class="rTableRow showCheckList {{selectedClass}}">
+                    <div class="rTableCell">{{errorNr}}</div>
+                    <div class="rTableCell">{{errorDescription}}</div>
+                    <div class="rTableCell" style="font-size: 15px">{{machineRange}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="chooseListOfFailures">
+    <div class="dropDownCheckList">
+        <div class="rTable">
+            {{#each failureList}}
+                <div class="rTableRow showFailureList {{selectedClass}}">
+                    <div class="rTableCell">{{error_describ}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+
+<template name="newListOfFailures">
+    <div class="dropDownCheckList">
+        <div class="rTable">
+            {{#each newFailureList}}
+                <div class="rTableRow showFailureList {{selectedClass}}">
+                    <div class="rTableCell">{{error_describ}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+

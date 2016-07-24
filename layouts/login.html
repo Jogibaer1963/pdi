@@ -1,0 +1,23 @@
+<template name="login">
+       <form class="orangeredBox">
+            <div class="userBox">
+              <label for="loginUser" class="userLoginText">User Name</label>
+                <br>
+                <div class="userBox">
+                   <input type="text" name="loginUser" id="loginUser" placeholder="User Name">
+                </div>
+            </div>
+            <div class="passwordBox">
+              <label for="password" class="userPassword">Password</label>
+                <div class="userPassword">
+                  <input type="password" name="loginPassword" id="password" placeholder="Password">
+                </div>
+            </div>
+          <div>
+            <input type="submit" class="loginSubmit" value="Login">
+        </div>
+      </form>
+    {{errorLogIn}}
+
+</template>
+
