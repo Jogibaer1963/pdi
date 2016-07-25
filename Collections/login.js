@@ -9,7 +9,7 @@ if (Meteor.isClient) {
             if (userVar == 'sandbox') {
 
             } else {
-                Meteor.loginWithPassword(userVar, passwordVar)
+                Meteor.loginWithPassword(userVar, passwordVar);
                 FlowRouter.go('/');
             }
 
