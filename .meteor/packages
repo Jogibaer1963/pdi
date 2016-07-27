@@ -25,8 +25,7 @@ raix:handlebar-helpers
 aldeed:collection2
 aldeed:autoform
 
-accounts-ui
-accounts-password
+
 alanning:roles
 
 zimme:active-route
@@ -39,7 +38,7 @@ gadicohen:phantomjs
 standard-minifier-css
 standard-minifier-js
 
-meteorhacks:npm
+
 meteorhacks:aggregate
 meteortoys:allthings
 
@@ -54,5 +53,5 @@ pfafman:filesaver
 
 lfergon:exportcsv
 rpgeeganage:excel-builder
-
-npm-container
+accounts-ui
+accounts-password
