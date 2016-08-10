@@ -1,6 +1,12 @@
 if(Meteor.isServer){
 
     Meteor.startup( function() {
+
+        Meteor.publish("overView", function () {
+            return MachineReady.find({}, {fields: {machineId: 1, date: 1, pdiStatus: 1,
+            repairStatus: 1, washStatus: 1, shipStatus: 1, locationId: 1}});
+        });
+
         Meteor.publish("MachineReady", function () {
             return MachineReady.find()
         });
