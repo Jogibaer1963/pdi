@@ -6,15 +6,26 @@ if (Meteor.isClient) {
             event.preventDefault();
             var userVar = event.target.loginUser.value;
             var passwordVar = event.target.loginPassword.value;
-            if (userVar == 'sandbox') {
-
-            } else {
-                Meteor.loginWithPassword(userVar, passwordVar);
-                FlowRouter.go('/');
-            }
-
+            Meteor.loginWithPassword(userVar, passwordVar, function(error){
+               if(Meteor.userId()){
+                   console.log('Loading');
+                   FlowRouter.go('/');
+               } else {
+                   Session.set('errorLogIn', error.reason);
+                   }
+            });
         }
     });
+
+
+    Template.login.helpers({
+        errorLogIn: function() {
+            var errorLogIn = Session.get('errorLogIn');
+            return errorLogIn;
+        }
+
+    });
+
 
     Template.MainLayout.events({
         'click .logout': function (event) {
