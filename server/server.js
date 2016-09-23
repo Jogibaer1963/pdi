@@ -96,6 +96,13 @@ if(Meteor.isServer){
             return exportcsv.exportToCSV(collection, heading, delimiter);
         },
 
+        'download_statistics': function () {
+        var collection = MachineReady.find({}, {fields: {machineId: 1, waitPdiTime: 1, pdiDuration: 1, _id: 0 }}).fetch();
+        var heading = true;
+        var delimiter = ";";
+        return exportcsv.exportToCSV(collection, heading, delimiter);
+    },
+
         'removeText': function(removeId) {
             washBayText.remove({_id: removeId});
         },
