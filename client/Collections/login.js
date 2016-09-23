@@ -1,4 +1,4 @@
-if (Meteor.isClient) {
+
 
 
     Template.login.events({
@@ -6,25 +6,21 @@ if (Meteor.isClient) {
             event.preventDefault();
             var userVar = event.target.loginUser.value;
             var passwordVar = event.target.loginPassword.value;
-            Meteor.loginWithPassword(userVar, passwordVar, function(error){
+            Meteor.loginWithPassword(userVar, passwordVar, function(){
                if(Meteor.userId()){
-                   console.log('Loading');
                    FlowRouter.go('/');
                } else {
-                   Session.set('errorLogIn', error.reason);
+                  Bert.alert('User or Password wrong', 'danger', 'growl-top-right');
                    }
             });
+        },
+
+        'click .loginSubmit': function() {
+            Bert.alert('Loading', 'success', 'growl-top-right');
         }
     });
 
 
-    Template.login.helpers({
-        errorLogIn: function() {
-            var errorLogIn = Session.get('errorLogIn');
-            return errorLogIn;
-        }
-
-    });
 
 
     Template.MainLayout.events({
@@ -67,4 +63,4 @@ if (Meteor.isClient) {
         }
     });
 
-}
+
