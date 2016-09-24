@@ -596,16 +596,6 @@
     font-weight: bold;
 }
 
-.login {
-    font-weight: bolder;
-    font-size: 25px;
-    float: left;
-}
-
-.locationId {
-
-}
-
 .mainPartInput {
     width: 150px;
     font-weight: bolder;
@@ -704,11 +694,14 @@
 
 .loginSubmit {
     float: left;
-    font-weight: bolder;
-    font-size: 30px;
-    background-color: greenyellow;
-    padding: 15px;
-    margin: 10px;
+    width: 275px;
+    font-size: 25px;
+    background-color: #999999;
+    margin-left: 144px;
+}
+
+.loginSubmit:hover {
+    background: #EEEEEE;
 }
 
 .loginSubmitOMM {
@@ -928,25 +921,8 @@
     left: 80px;
 }
 
-.userBox {
-    float: left;
-    height: 50px;
-}
 
-.userBox2 {
-    margin-right: 5px;
-}
 
-.userLoginText {
-    float: left;
-    font-weight: bolder;
-    font-size: 25px;
-}
-
-.userPassword {
-    font-weight: bolder;
-    font-size: 25px;
-}
 
 .nonFloat {
     margin: 10px;
@@ -1098,11 +1074,6 @@
     background-color: #dd0006;
 }
 
-.passwordBox {
-    float: left;
-    padding: 0;
-    margin-left: 20px;
-}
 
 .posPdiFinished {
     position: relative;
@@ -1349,6 +1320,23 @@ ul.horizontal-slide li[class*="span"]:first-child {
     padding: 10px;
 }
 
+.userBox {
+    float: left;
+    height: 50px;
+}
+
+.userBox2 {
+    margin-right: 5px;
+}
+
+.userLogin {
+    float: left;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 .whiteBox {
     position: fixed;
     top: 0;
@@ -1459,15 +1447,12 @@ ul.horizontal-slide li[class*="span"]:first-child {
 }
 
 #loginUser, #password {
-    -webkit-box-shadow:
-            inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 10px rgba(0,0,0,0.1);
-    box-shadow:
-            inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 10px rgba(0,0,0,0.1);
+    position: absolute;
+    border: 1px solid black;
+    width: 250px;
     padding: 10px;
-    background: rgba(255,255,255,0.5);
-    margin: 0 0 8px 0;
+    background: #ffffff;
+    margin: 0 0 10px 10px;
 }
 
 #listItem {

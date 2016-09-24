@@ -18,6 +18,7 @@
         'click .loginSubmit': function() {
             Bert.alert('Loading', 'success', 'growl-top-left');
         }
+
     });
 
 
@@ -31,36 +32,6 @@
         }
     });
 
-    Template.shippingLayout.events({
-        'click .logout': function (event) {
-            event.preventDefault();
-            Meteor.logout();
-            FlowRouter.go('/');
-        }
-    });
 
-    Template.pdiLayout.events({
-        'click .logout': function (event) {
-            event.preventDefault();
-            Meteor.logout();
-            FlowRouter.go('/');
-        }
-    });
-
-    Template.repairLayout.events({
-        'click .logout': function (event) {
-            event.preventDefault();
-            Meteor.logout();
-            FlowRouter.go('/');
-        }
-    });
-
-    Template.washLayout.events({
-        'click .logout': function (event) {
-            event.preventDefault();
-            Meteor.logout();
-            FlowRouter.go('/');
-        }
-    });
 
 
