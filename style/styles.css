@@ -1450,7 +1450,8 @@ ul.horizontal-slide li[class*="span"]:first-child {
 }
 
 .shipMe {
-
+  position: absolute;
+    top: 108px;
 }
 
 #id1 {
@@ -1562,4 +1563,11 @@ ul.horizontal-slide li[class*="span"]:first-child {
 
 ul.checkbox {
     list-style: none;
+}
+
+#logo {
+    position: absolute;
+    top: 42px;
+    height: 41px;
+    width: 237px;
 }

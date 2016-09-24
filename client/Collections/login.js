@@ -10,13 +10,13 @@
                if(Meteor.userId()){
                    FlowRouter.go('/');
                } else {
-                  Bert.alert('User or Password wrong', 'danger', 'growl-top-right');
+                  Bert.alert('User or Password wrong', 'danger', 'growl-top-left');
                    }
             });
         },
 
         'click .loginSubmit': function() {
-            Bert.alert('Loading', 'success', 'growl-top-right');
+            Bert.alert('Loading', 'success', 'growl-top-left');
         }
     });
 
