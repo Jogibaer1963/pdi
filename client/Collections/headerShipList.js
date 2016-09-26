@@ -2,7 +2,7 @@ if (Meteor.isClient) {
 
 
     Template.headerShipList.events({
-        'click .headerShipList': function() {
+        'click .headerShip': function() {
             FlowRouter.go('shippingMachines');
         }
 

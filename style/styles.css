@@ -427,6 +427,10 @@
 }
 
 .headerShip {
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #5fff13;
+    width: 150px;
     position: fixed;
     top: 40px;
     z-index: 1;
@@ -640,6 +644,25 @@
     margin-top: 10px;
 }
 
+.shipMeButton {
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #5fff13;
+    width: 150px;
+    position: absolute;
+    left: 400px;
+}
+
+.pdiMeButton {
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #5fff13;
+    width: 150px;
+    padding: 11px;
+    margin: 0 20px;
+}
+
+
 .trailerLot {
     overflow: scroll;
     height: 350px;
@@ -731,6 +754,8 @@
     padding-top: 0;
     padding-bottom: 150px;
     box-sizing: border-box;
+    position: absolute;
+    top: 200px;
 }
 
 .machineLocation {
@@ -739,6 +764,8 @@
     background-color: #ff7815;
     padding: 15px;
     margin: 10px;
+    position: absolute;
+    top: 90px;
 }
 
 .machineUpdateLocation {
@@ -832,6 +859,9 @@
     background-color: #d8ffba;
     padding: 15px;
     margin-top: 10px;
+    position: absolute;
+    left: 300px;
+    top: 90px;
 }
 
 .machineLocationInputWashBay {
@@ -847,8 +877,12 @@
 }
 
 .machineOnTrailer {
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #5fff13;
+    width: 250px;
     position: absolute;
-    top: 120px;
+    top: 115px;
     left: 800px;
 }
 
@@ -892,9 +926,7 @@
     position: fixed;
 }
 
-.machineReadyShip{
 
-}
 
 .machineShipBox {
     overflow: auto;
