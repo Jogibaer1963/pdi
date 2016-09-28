@@ -4,7 +4,7 @@ if(Meteor.isClient) {
 
         showList: function() {
             event.preventDefault();
-            return  MachineReady.find({machineId: {$gt:'C6700000'}}, {sort: {date: -1}});
+            return  MachineReady.find({machineId: {$gt:'C4700000'}}, {sort: {date: -1}});
         },
 
         'selectedClass': function(){
