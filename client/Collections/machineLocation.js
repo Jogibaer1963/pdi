@@ -7,6 +7,7 @@ if (Meteor.isClient) {
         overView: function() {
             return MachineReady.find( {machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0}, {shipStatus: 2}]}, {sort: {date: 1}});
         },
+  //
 
         'selectedClass': function(){
             var openInspect = this._id;

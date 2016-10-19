@@ -103,12 +103,12 @@ if(Meteor.isServer){
         return exportcsv.exportToCSV(collection, heading, delimiter);
     },
 
-        'removeText': function(removeId) {
-            washBayText.remove({_id: removeId});
+        'removeText': function(removeId, userWashBay) {
+            washBayText.update({_id: removeId}, {$set: {active: 0, user: userWashBay}});
         },
 
         'messageToWashBay': function(machineNr, washMessage, machine_id) {
-            washBayText.insert({machineNr: machineNr, washBayMessage: washMessage});
+            washBayText.insert({machineNr: machineNr, washBayMessage: washMessage, active: 1});
             MachineReady.update({_id: machine_id}, {$set: {washStatus: 0}});
         },
 
