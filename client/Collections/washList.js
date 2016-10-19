@@ -114,7 +114,6 @@ if (Meteor.isClient) {
         'click .messageButton': function() {
             event.preventDefault();
             userWashBay = Meteor.userId();
-            console.log(userWashBay);
             var removeId = Session.get('selectedMessage');
             Meteor.call('removeText', removeId, userWashBay);
         }
