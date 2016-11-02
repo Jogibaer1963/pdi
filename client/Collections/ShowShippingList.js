@@ -37,6 +37,7 @@ if (Meteor.isClient) {
             document.getElementById('newKit3').checked= false;
             document.getElementById('newKit4').checked= false;
             document.getElementById('newKit5').checked= false;
+            document.getElementById('newKit6').checked= false;
             event.target.newTireTrack.value="";
             event.target.newComment.value="";
         },
