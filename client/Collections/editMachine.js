@@ -47,6 +47,14 @@ if(Meteor.isClient) {
                 Session.set('kit_5', undefined);
             }
 
+            var e = myString.indexOf('D06_0030', 0);
+            if(e >= 0){
+                var kit_6 = 'D06_0030';
+                Session.set('kit_6', kit_6);
+            } else {
+                Session.set('kit_6', undefined);
+            }
+
             return MachineReady.findOne({_id: selectedMachine});
         },
 
@@ -83,6 +91,13 @@ if(Meteor.isClient) {
             if(kit_5 == 'B05_0130') {
                 return 'checked';
            }
+        },
+
+        'newKit6': function() {
+            var kit_6 = Session.get('kit_6');
+            if(kit_6 == 'D06_0030') {
+                return 'checked';
+            }
         }
 
     });
