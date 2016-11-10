@@ -85,6 +85,13 @@ if (Meteor.isClient) {
             Meteor.call('locationUpdate', selectedPdiMachine, locationId);
             event.target.locationId.value="";
             Session.set('selectedMachineId', '');
+        },
+
+        'submit .washBayMessanger': function(event) {
+            event.preventDefault();
+            var messageId = event.target.messageId.value;
+            Meteor.call('messageToWashBay_2', messageId);
+            event.target.messageId.value="";
         }
     });
 

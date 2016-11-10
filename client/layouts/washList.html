@@ -9,11 +9,18 @@
 </template>
 
 <template name="overViewWashList">
+    <form class="washBayMessanger">
+        <button type="submit" class="washButton messangerWashBay">Message to Wash Bay</button>
+        <label for="messageId" class="mLocationId" ></label>
+        <input type="text" class="messangerTextBox" id="messageId" name="messageId" required>
+    </form>
+
+
     <h2>Wash List of Availiable Machines</h2>
         <form>
-              <button type="submit" class="loginSubmit machineInWashBay {{inActive}}">Wash Start</button>
-              <button type="submit" class="loginSubmit stopWashProcess {{forbiddenButton}}">Wash Stop</button>
-              <button type="submit" class="loginSubmit machineOutWashBay {{forbiddenButton}}">Wash Done</button>
+              <button type="submit" class="washButton machineInWashBay {{inActive}}">Wash Start</button>
+              <button type="submit" class="washButton stopWashProcess {{forbiddenButton}}">Wash Stop</button>
+              <button type="submit" class="washButton machineOutWashBay {{forbiddenButton}}">Wash Done</button>
         </form>
 
     <form class="locationId">
@@ -45,7 +52,10 @@
 </template>
 
 <template name="messageTemplate">
-     <div class="messager">
+    <div>
+        <button type="submit" class="washButton messageButton">Message received</button>
+    </div>
+     <div class="messanger">
           <h3>Message to the Wash Bay</h3>
        <div class="rTable" >
         <div class="rTableRow">
@@ -59,9 +69,6 @@
             </div>
         {{/each}}
        </div>
-         <div>
-             <button type="submit" class="loginSubmit messageButton">Message received</button>
 
-         </div>
      </div>
 </template>

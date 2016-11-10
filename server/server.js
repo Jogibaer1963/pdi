@@ -112,6 +112,10 @@ if(Meteor.isServer){
             MachineReady.update({_id: machine_id}, {$set: {washStatus: 0}});
         },
 
+        'messageToWashBay_2': function(washMessage) {
+            washBayText.insert({washBayMessage: washMessage, active: 1});
+        },
+
         'accountRole': function(userVar, role) {
             var id = Meteor.users.find({username: userVar}, {fields: {_id: 1}}).fetch();
             var idString = JSON.stringify(id);
