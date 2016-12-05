@@ -17,8 +17,8 @@ if(Meteor.isClient) {
             },
         
         'selectedClass': function(){
-            var openInspect = this._id;
-            var selectedPdiMachine = Session.get('selectedPdiMachine');
+            const openInspect = this._id;
+            const selectedPdiMachine = Session.get('selectedPdiMachine');
             if (selectedPdiMachine == openInspect) {
                 return "selected_2"
                   }
@@ -27,30 +27,30 @@ if(Meteor.isClient) {
 
     Template.inspection.events({
         'click .openInspections': function() {
-            var openInspect = this._id;
+            const openInspect = this._id;
             localStorage.setItem('selectedPdi', openInspect);
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
-            var machineId = MachineReady.findOne({_id: openInspect}).machineId;
+            const machineId = MachineReady.findOne({_id: openInspect}).machineId;
             localStorage.setItem('pdiMachine', machineId);
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
-            var user = Meteor.user().username;
+            const user = Meteor.user().username;
             Session.setPersistent('currentLoggedInUser', user);
             },
 
         'click .machinePdi': function() {
-            var selectedPdiMachineId = Session.get('selectedPdiMachine');
-            var selectedPdiMachineNr = Session.get('pdiMachineNumber');
-            var firstRange =  JSON.stringify(selectedPdiMachineNr).slice(1,4);
-            var range = ["All Machines"];
+            const selectedPdiMachineId = Session.get('selectedPdiMachine');
+            const selectedPdiMachineNr = Session.get('pdiMachineNumber');
+            const firstRange =  JSON.stringify(selectedPdiMachineNr).slice(1,4);
+            const range = ["All Machines"];
             range.push(firstRange);
-            var dateStart = Date.now();
+            const dateStart = Date.now();
             Meteor.call('generatePdiList', selectedPdiMachineId, dateStart, selectedPdiMachineNr, range);
             FlowRouter.go('machineInspect');
         },
 
         'click .stopPdiProcess': function() {
             event.preventDefault();
-            var pdiMachineId = Session.get('selectedPdiMachine');
+            const pdiMachineId = Session.get('selectedPdiMachine');
             Meteor.call('cancelPdi', pdiMachineId);
             Session.set('selectedProfiCam', '');
             Session.set('selectedTeraTrackOm', '');
@@ -62,7 +62,7 @@ if(Meteor.isClient) {
         
         'click .machineSkipPdi': function() {
             event.preventDefault();
-            var pdiMachineId = Session.get('selectedPdiMachine');
+            const pdiMachineId = Session.get('selectedPdiMachine');
             Meteor.call('skipPdi', pdiMachineId);
         },
 
@@ -73,11 +73,11 @@ if(Meteor.isClient) {
         
         'submit .locationId': function(event) {
             event.preventDefault();
-            var selectedPdiMachine = Session.get('selectedPdiMachine');
+            const selectedPdiMachine = Session.get('selectedPdiMachine');
             if(typeof selectedPdiMachine === 'undefined') {
                 alert('Mark the Machine first before update the Location');
             }
-            var locationId = event.target.locationId.value;
+            const locationId = event.target.locationId.value;
             Meteor.call('locationUpdate', selectedPdiMachine, locationId);
             event.target.locationId.value="";
             Session.set('selectedPdiMachine', '');
@@ -85,11 +85,11 @@ if(Meteor.isClient) {
         
         'submit .reservedId': function(event) {
             event.preventDefault();
-            var selectedPdiMachine = Session.get('selectedPdiMachine');
+            const selectedPdiMachine = Session.get('selectedPdiMachine');
             if(typeof selectedPdiMachine === 'undefined') {
                 alert('Mark the Machine first before you reserve');
             }
-            var reservedId = event.target.reservedId.value;
+            const reservedId = event.target.reservedId.value;
             Meteor.call('reserveUpdate', selectedPdiMachine, reservedId);
             event.target.reservedId.value="";
             Session.set('selectedPdiMachine', '');
@@ -108,7 +108,7 @@ if(Meteor.isClient) {
     });
 
     Handlebars.registerHelper('inActive', function() {
-        var inActiveStatus = Session.get('inActiveState');
+        const inActiveStatus = Session.get('inActiveState');
         if(inActiveStatus == 0) {
             return 'inActiveButton';
         }

@@ -5,9 +5,9 @@ if(Meteor.isClient) {
 
         'machineNow': function () {
             event.preventDefault();
-            var userLoggedIn = Session.get('currentLoggedInUser');
+            const userLoggedIn = Session.get('currentLoggedInUser');
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
-            var pdiMachine = Session.get('pdiMachineNumber');
+            const pdiMachine = Session.get('pdiMachineNumber');
             return {userLoggedIn: userLoggedIn, machine: pdiMachine};
         }
     });
@@ -75,8 +75,8 @@ if(Meteor.isClient) {
 
         selectedClass: function() {
             event.preventDefault();
-            var omId = this._id;
-            var selectedProfiOmId = Session.get('selectedProfiId');
+            const omId = this._id;
+            const selectedProfiOmId = Session.get('selectedProfiId');
             if(selectedProfiOmId == omId) {
                 return "selected";
             } 
@@ -88,63 +88,63 @@ if(Meteor.isClient) {
         'click .omMain': function() {
             event.preventDefault();
             Session.set('selectedMainOm', '');
-            var omMainPart = this._id;
-            var selectedMainOm = ommMain.findOne({_id: omMainPart}).ommMain;
+            const omMainPart = this._id;
+            const selectedMainOm = ommMain.findOne({_id: omMainPart}).ommMain;
             Session.set('selectedMainOm', selectedMainOm);
         },
 
         'click .omSupp': function() {
             event.preventDefault();
             Session.set('selectedSuppOm', '');
-            var omSupp = this._id;
-            var selectedSuppOm = ommSupp.findOne({_id: omSupp}).ommSupp;
+            const omSupp = this._id;
+            const selectedSuppOm = ommSupp.findOne({_id: omSupp}).ommSupp;
             Session.set('selectedSuppOm', selectedSuppOm);
         },
 
         'click .omUnload': function() {
             event.preventDefault();
             Session.set('selectedUnloadOm', '');
-            var omUnload = this._id;
-            var selectedUnloadOm = ommUnload.findOne({_id: omUnload}).omUnload;
+            const omUnload = this._id;
+            const selectedUnloadOm = ommUnload.findOne({_id: omUnload}).omUnload;
             Session.set('selectedUnloadOm', selectedUnloadOm);
         },
 
         'click .omCemos': function() {
             event.preventDefault();
             Session.set('selectedCemosOm', '');
-            var omCemos = this._id;
-            var selectedCemosOm = ommCebisMo.findOne({_id: omCemos}).ommCebisMobil;
+            const omCemos = this._id;
+            const selectedCemosOm = ommCebisMo.findOne({_id: omCemos}).ommCebisMobil;
             Session.set('selectedCemosOm', selectedCemosOm);
         },
 
         'click .omTera': function() {
             event.preventDefault();
             Session.set('selectedTeraTrackOm', '');
-            var omTera = this._id;
-            var selectedTeraTrackOm = ommTeraTrack.findOne({_id: omTera}).ommTeraTrack;
+            const omTera = this._id;
+            const selectedTeraTrackOm = ommTeraTrack.findOne({_id: omTera}).ommTeraTrack;
             Session.set('selectedTeraTrackOm', selectedTeraTrackOm);
         },
 
         'click .ommProfiCam': function() {
             event.preventDefault();
             Session.set('selectedProfiCam', '');
-            var omProfi = this._id;
+            const omProfi = this._id;
             Session.set('selectedProfiId', omProfi);
-            var selectedProfiCam = ommProfiCam.findOne({_id: omProfi}).ommProfiCam;
+            const selectedProfiCam = ommProfiCam.findOne({_id: omProfi}).ommProfiCam;
             Session.set('selectedProfiCam', selectedProfiCam);
         },
 
         'submit .omBooklets': function (event) {
             event.preventDefault();
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
-            var loggedInUser = Session.get('currentLoggedInUser');
-            var pdiMachineId = Session.get('selectedPdiMachine');
-            var ommMain = event.target.omMain.value;
-            var ommSupp = event.target.omSupp.value;
-            var ommFitting = event.target.omUnload.value;
-            var ommCebis = event.target.omCebis.value;
-            var ommTerra = event.target.omTerra.value;
-            var ommProfiCam = event.target.omProfiCam.value;
+            const loggedInUser = Session.get('currentLoggedInUser');
+            const pdiMachineId = Session.get('selectedPdiMachine');
+            const ommMain = event.target.omMain.value;
+            const ommSupp = event.target.omSupp.value;
+            const ommFitting = event.target.omUnload.value;
+            const ommCebis = event.target.omCebis.value;
+            const ommTerra = event.target.omTerra.value;
+            const ommProfiCam = event.target.omProfiCam.value;
             Meteor.call('pdiMachineInspected', pdiMachineId, loggedInUser, ommMain, ommSupp,
                 ommFitting, ommTerra, ommCebis, ommProfiCam);
             Session.set('selectedProfiCam', '');

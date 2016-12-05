@@ -70,13 +70,25 @@ if(Meteor.isServer){
         Meteor.publish("ommProfiCam", function(){
             return ommProfiCam.find();
         });
+
+        Meteor.publish("reworkMachineList", function(){
+            return reworkMachineList.find();
+        })
     });
 
     Meteor.methods({
 
+        'deactivateRework': function(removeSiItem){
+            reworkMachineList.update({_id: removeSiItem}, {$set: {active: 0}});
+        },
+
+        'reworkMachineList': function(newPosition, errorValue, failureDescription, nameMachineList){
+            reworkMachineList.insert({active: 1, errorPos: newPosition, errorNr: errorValue,
+                errorDescription: failureDescription, nameMachineList: nameMachineList});
+        },
+
         'remove_Fields': function() {
-            var count = repairPrint.find().count();
-            console.log(count);
+            const count = repairPrint.find().count();
             repairPrint.updateMany({}, {$unset: {Repair_Comments: ''}});
 
         },
@@ -90,16 +102,24 @@ if(Meteor.isServer){
         },
 
         'download_2': function (machineNr) {
-            var collection = repairPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id: 0}}).fetch();
-            var heading = true;
-            var delimiter = ";";
+            const collection = repairPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id: 0}}).fetch();
+            const heading = true;
+            const delimiter = ";";
+            return exportcsv.exportToCSV(collection, heading, delimiter);
+        },
+
+        'download_3': function (siId) {
+            const collection = reworkMachineList.find({_id: siId}, {machineList: {machineNr: {$gt: 'C0000000'}}}, {fields: {id: 0}}).fetch();
+            console.log(collection);
+            const heading = false;
+            const delimiter = ";";
             return exportcsv.exportToCSV(collection, heading, delimiter);
         },
 
         'download_statistics': function () {
-        var collection = MachineReady.find({}, {fields: {machineId: 1, dateOfCreation: 1, waitPdiTime: 1, date: 1,  pdiDuration: 1, _id: 0 }}).fetch();
-        var heading = true;
-        var delimiter = ";";
+        const collection = MachineReady.find({}, {fields: {machineId: 1, dateOfCreation: 1, waitPdiTime: 1, date: 1,  pdiDuration: 1, _id: 0 }}).fetch();
+        const heading = true;
+        const delimiter = ";";
         return exportcsv.exportToCSV(collection, heading, delimiter);
     },
 
@@ -116,10 +136,10 @@ if(Meteor.isServer){
             washBayText.insert({washBayMessage: washMessage, active: 1});
         },
 
-        'accountRole': function(userVar, role) {
-            var id = Meteor.users.find({username: userVar}, {fields: {_id: 1}}).fetch();
-            var idString = JSON.stringify(id);
-            var idResult = idString.slice(9, 26);
+        'accountRole': function(userconst, role) {
+            const id = Meteor.users.find({username: userconst}, {fields: {_id: 1}}).fetch();
+            const idString = JSON.stringify(id);
+            const idResult = idString.slice(9, 26);
             Meteor.users.update({_id: idResult}, {$set: {roles: [role]}});
         },
 
@@ -186,13 +206,18 @@ if(Meteor.isServer){
                 pdiCheckPoints.update({_id: selectedPdiMachineId}, {$addToSet: {checkList: (copy)}});
             });
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {status: 0}}});
-            var list = siList.find({machineNr: selectedPdiMachineNr}, {limit:1}).fetch();
+            const list = siList.find({machineNr: selectedPdiMachineNr}, {limit:1}).fetch();
             if(list == '') {
             } else {
                 siList.find({machineNr: selectedPdiMachineNr}).forEach(function(repOrder){
                     InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
                 });
             }
+            reworkMachineList.find({active: 1}).forEach(function(repOrder){
+                InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}})
+            });
+            reworkMachineList.update({active: 1}, {$push: {machineList: {machineNr: selectedPdiMachineNr}}}, {multi: true});
+
         },
 
         'removeRepairItem': function(id, id2) {
@@ -206,17 +231,17 @@ if(Meteor.isServer){
         'addToCheckList': function(selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
-            var errorNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorNr: 1}}).fetch();
-            var stringError = JSON.stringify(errorNr).slice(39,-3);
-            var descriptionNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorDescription: 1}}).fetch();
-            var stringDescription = JSON.stringify(descriptionNr).slice(48,-3);
+            const errorNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorNr: 1}}).fetch();
+            const stringError = JSON.stringify(errorNr).slice(39,-3);
+            const descriptionNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorDescription: 1}}).fetch();
+            const stringDescription = JSON.stringify(descriptionNr).slice(48,-3);
             repairPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
         },
 
         'addToCheckListNew': function(selectedPdiMachineId, repOrder, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
-            var stringError = JSON.stringify(repOrder).slice(42,46);
-            var stringDescription = JSON.stringify(repOrder).slice(68,-2);
+            const stringError = JSON.stringify(repOrder).slice(42,46);
+            const stringDescription = JSON.stringify(repOrder).slice(68,-2);
             repairPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
         },
 
@@ -264,7 +289,7 @@ if(Meteor.isServer){
         'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime) {
             MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop, pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
             pdiCheckPoints.remove({_id: selectedPdiMachine});
-            var repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
+            const repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
             MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
         },
 

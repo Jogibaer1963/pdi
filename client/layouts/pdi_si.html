@@ -5,16 +5,52 @@
         <a class="btn" href="/">Back to Main Overview</a>
         <a class="btn" href="/inspectionStart">Back to Inspections Over View</a>
             <br>
-    <h1>SI's or special Items per Machine</h1>
+    <h1>Single Machines</h1>
     <form class="siItems">
-        <button type="submit" class="reserveId">Submit</button>
         <label for="siItem" class="mLocationId" ></label>
-        <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine" required>
+        <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine">
         <label for="siItem" class="" ></label>
         <input type="text" class="siItem" id="siItem" name="siItemText" placeholder="Description" required>
-        <br>
-        <button type="submit" class="reserveId siItemRemove">Remove marked Machine</button>
+        <button type="submit" class="reserveId">Submit</button>
     </form>
+        <h1>Lot / Bulk Rework</h1>
+    <form class="machineList">
+        <div class="">
+            <label for="newPosition" class="input"></label>
+            <select name="newPosition" id="newPosition" class="inputComment">
+                <option>Top</option>
+                <option>Bottom</option>
+                <option>Front</option>
+                <option>Back</option>
+                <option>Left</option>
+                <option>Right</option>
+                <option>Over All</option>
+                <option>Cab Inside/Outside</option>
+            </select>
+
+
+            {{#dropdown name="newFailureList" classes="dropDown"}}
+                {{> newListOfFailures}}
+            {{/dropdown}}
+            {{#dropdownTrigger  name="newFailureList"}}
+                <button class="dropDownCheck"></button>
+            {{/dropdownTrigger}}
+            <label for="itemPos"></label>
+            <input type="number" class="boxPos" name="errorNr" placeholder="Failure Id" value="{{errorNew}}">
+
+            <label for="siItem" class="" ></label>
+            <input type="text" class="siItem" id="siItem" name="failureDescription" placeholder="Description" required>
+
+            <label for="machineList" class="" ></label>
+            <input type="text" class="siItem" id="machineList" name="nameMachineList" placeholder="Name of Machine List">
+
+            <button type="submit" class="reserveId">Create Machine List</button>
+        </div>
+    </form>
+    <form>
+        <button type="submit" class="reserveId siItemRemove">Deactivate marked Item</button>
+    </form>
+        <button type="button" class="downloadButton" id="buttonDownload">Download</button>
     {{> siItemList}}
     {{else}}
         {{> login}}
@@ -22,8 +58,9 @@
 </template>
 
 <template name="siItemList">
+    <div class="activeSiList">
     <h2>Active List</h2>
-    <div class="rTable">
+      <div class="rTable">
         <div class="rTableRow ">
             <div class="rTableHead"><strong>Machine</strong></div>
             <div class="rTableHead"><strong>SI Description</strong></div>
@@ -34,5 +71,66 @@
                 <div class="rTableCell">{{errorDescription}}</div>
             </div>
         {{/each}}
+      </div>
     </div>
+
+    <div class="activeReworkBox">
+      <h2>Active Rework</h2>
+        <div class="rTable">
+            <div class="rTableRow ">
+                <div class="rTableHead"><strong>Rework List</strong></div>
+            </div>
+          {{#each reworkList}}
+            <div class="rTableRow selectedSiItem {{selectedItem}}">
+                <div class="rTableCell">{{nameMachineList}}</div>
+            </div>
+          {{/each}}
+        </div>
+    </div>
+
+    <div class="activeReworkBox">
+        <h2>Inactive Rework</h2>
+        <div class="rTable">
+            <div class="rTableRow ">
+                <div class="rTableHead"><strong>Rework List</strong></div>
+            </div>
+            {{#each deactivateList}}
+                <div class="rTableRow selectedSiItem {{selectedItem}}">
+                    <div class="rTableCell">{{nameMachineList}}</div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="container2">
+        <div class="printList">
+            {{#each listContent}}
+                <div class="">
+                    Error Nr :
+                    <h3>{{errorNr}}</h3>
+                </div>
+                <div class="">
+                    Error Description :
+                       <h3> {{errorDescription}}</h3>
+                </div>
+                <div class="">
+                    Name of Machine List :
+                       <h3> {{nameMachineList}}</h3>
+                </div>
+                <br>
+                <div class="">
+                    <h3>Machine List:</h3>
+                </div>
+                <ul>
+                    {{#each machineList}}
+                        <div>
+                            {{machineNr}}
+                        </div>
+                    {{/each}}
+                </ul>
+            {{/each}}
+        </div>
+    </div>
+
 </template>
+

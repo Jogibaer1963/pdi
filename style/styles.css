@@ -9,6 +9,18 @@
     padding: 10px;
 }
 
+.container2 {
+    float: left;
+    overflow: scroll;
+    position: relative;
+    left: -400px;
+    top: 300px;
+    height: 400px;
+    width: 300px;
+    border: black 1px solid;
+    padding: 10px;
+}
+
 .showPdiList{
     overflow: scroll;
     width: 260px;
@@ -46,8 +58,16 @@
     top: -100px;
 }
 
+.activeSiList {
+    float: left;
+}
+
+.activeReworkBox {
+    float: left;
+    margin-left: 50px;
+}
+
 .addToCheckList {
-    margin-top: 15px;
     margin-left: 40px;
     padding-bottom: 50px;
 }
@@ -145,6 +165,19 @@
     background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
     background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
     text-decoration: none;
+}
+
+.boxPos {
+    position: absolute;
+    top: 304px;
+    left: 212px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #ffffff;
+    margin-left: 5px;
+
 }
 
 .buttonPosition {
@@ -309,6 +342,17 @@
     margin: 10px;
 }
 
+.downloadButton {
+    position: absolute;
+    top: 260px;
+    left: 1050px;
+    width: 275px;
+    font-size: 25px;
+    background-color: #999999;
+    margin-left: 144px;
+}
+
+
 .newActiveCheck {
     font-weight: bolder;
     font-size: 20px;
@@ -379,6 +423,33 @@
 .dropDownButtonNew {
     position: absolute;
     left: 204px;
+    height: 40px;
+    width: 90px;
+    background: transparent;
+    border: transparent;
+    padding: 5px;
+    margin-left: 5px;
+    z-index: 1;
+}
+
+.dropDownList {
+    position: absolute;
+    left: 222px;
+    top: 308px;
+    height: 32px;
+    width: 80px;
+    background: transparent;
+    border: transparent;
+    padding: 5px;
+    margin-left: 5px;
+    z-index: 1;
+
+}
+
+.dropDownCheck {
+    position: absolute;
+    left: 212px;
+    top: 304px;
     height: 40px;
     width: 90px;
     background: transparent;
@@ -489,7 +560,7 @@
     font-size: 18px;
     font-weight: bold;
     height: 45px;
-    background-color: #8edc2f;
+    background-color: #FFFFFF;
     padding-right: 5px;
 }
 
@@ -631,7 +702,7 @@
 
 .reserveId {
     font-weight: bolder;
-    font-size: 30px;
+    font-size: 18px;
     background-color: #ff7815;
     padding: 15px;
     margin: 10px;
@@ -965,7 +1036,16 @@
 }
 
 
+input[type=checkbox] {
+    -webkit-transform: scale(2);
+    margin: 6px;
 
+}
+
+.newList-label {
+    font-size: 30px;
+
+}
 
 .nonFloat {
     margin: 10px;
@@ -1089,26 +1169,26 @@
 
 .siItem {
     font-weight: bold;
-    font-size: 30px;
-    height: 62px;
-    width: 550px;
-    background-color: #abf6a6;
+    font-size: 18px;
+    height: 40px;
+    width: 400px;
+    background-color: #FFFFFF;
 }
 
 .siItemMachine {
     font-weight: bold;
-    font-size: 30px;
-    height: 62px;
+    font-size: 18px;
+    height: 40px;
     width: 150px;
-    background-color: #abf6a6;
+    background-color: #FFFFFF;
 }
 
 .siItemButton {
     width: 150px;
     font-weight: bolder;
     font-size: 30px;
-    background-color: #d8ffba;
-    height: 50px;
+    background-color: #FFFFFF;
+    height: 40px;
     padding: 15px;
     margin-top: 10px;
 }

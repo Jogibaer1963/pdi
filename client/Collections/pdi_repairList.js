@@ -8,8 +8,8 @@ if(Meteor.isClient) {
         },
 
         'selectedClass': function(){
-            var openInspect = this._id;
-            var selectedPdiMachine = Session.get('selectedPdiMachine');
+            const openInspect = this._id;
+            const selectedPdiMachine = Session.get('selectedPdiMachine');
             if (selectedPdiMachine == openInspect) {
                 return "selected_2"
             }
@@ -21,7 +21,7 @@ if(Meteor.isClient) {
     Template.pdi_repairList.events({
 
         'click .showPdiResult': function() {
-            var pdiMachine = this._id;
+            const pdiMachine = this._id;
             Session.set('selectedPdiMachine', pdiMachine);
         },
 
@@ -30,13 +30,13 @@ if(Meteor.isClient) {
         },
 
         'click #buttonDownload': function () {
-            var machineId = Session.get('selectedPdiMachine');
-            var result = MachineReady.find({_id:machineId}, {fields: {machineId: 1}}).fetch();
-            var machineNr = JSON.stringify(result).slice(15, 23);
-            var nameFile = 'fileDownloaded.csv';
+            const machineId = Session.get('selectedPdiMachine');
+            const result = MachineReady.find({_id:machineId}, {fields: {machineId: 1}}).fetch();
+            const machineNr = JSON.stringify(result).slice(15, 23);
+            const nameFile = 'fileDownloaded.csv';
            Meteor.call('download_2', machineNr, function (err, fileContent) {
                 if (fileContent) {
-                    var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+                    const blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
                     saveAs(blob, nameFile);
                 }
             });
@@ -47,7 +47,7 @@ if(Meteor.isClient) {
     Template.pdiInspectList.helpers({
 
         listContent: function() {
-            var pdiMachine = Session.get('selectedPdiMachine');
+            const pdiMachine = Session.get('selectedPdiMachine');
             return MachineReady.find({_id: pdiMachine}).fetch();
         }
     });

@@ -11,20 +11,20 @@ if (Meteor.isClient) {
     Template.inputMachine.events({
         "submit .inputNewMachine": function(event) {
             event.preventDefault();
-            var createUnixTime = Date.now();
-            var startDate = moment.tz(createUnixTime, "America/Chicago").format().slice(0, 19);
-            var createDate = startDate.slice(0,10);
-            var createTime = startDate.slice(-8);
-            var newMachineInput = event.target.newMachine.value;
-            var newShippingDate = event.target.newDate.value;
-            var newShippingDestination = event.target.newDestination.value;
-            var newShippingTransporter = event.target.newTransporter.value;
-            var newShippingKit= [];
+            const createUnixTime = Date.now();
+            const startDate = moment.tz(createUnixTime, "America/Chicago").format().slice(0, 19);
+            const createDate = startDate.slice(0,10);
+            const createTime = startDate.slice(-8);
+            const newMachineInput = event.target.newMachine.value;
+            const newShippingDate = event.target.newDate.value;
+            const newShippingDestination = event.target.newDestination.value;
+            const newShippingTransporter = event.target.newTransporter.value;
+            const newShippingKit= [];
             $('input[name=newKit]:checked').each(function() {
                 newShippingKit.push($(this).val());
             });
-            var newShippingTireTrack = event.target.newTireTrack.value;
-            var newShippingComment = event.target.newComment.value;
+            const newShippingTireTrack = event.target.newTireTrack.value;
+            const newShippingComment = event.target.newComment.value;
             Meteor.call('addToShipList', newMachineInput, newShippingDate,
                 createUnixTime, createDate, createTime, newShippingDestination,
                 newShippingTransporter, newShippingKit, newShippingTireTrack, newShippingComment );
@@ -49,10 +49,10 @@ if (Meteor.isClient) {
 
         'submit .searchMachines': function() {
             event.preventDefault();
-            var selectedMachine = event.target.inputSearch.value;
-            var idFinder = MachineReady.find({machineId: selectedMachine}, {fields: {_id: 1}}).fetch();
-            var idString = JSON.stringify(idFinder);
-            var idExtract = idString.slice(9, 26);
+            const selectedMachine = event.target.inputSearch.value;
+            const idFinder = MachineReady.find({machineId: selectedMachine}, {fields: {_id: 1}}).fetch();
+            const idString = JSON.stringify(idFinder);
+            const idExtract = idString.slice(9, 26);
             if(typeof idExtract == 'string' ) {
                 Session.set('editSelectedMachine', idExtract);
                 FlowRouter.go('editMachine');
@@ -62,7 +62,7 @@ if (Meteor.isClient) {
 
     Template.inputMachine.helpers({
         editMachine: function() {
-            var selectedMachine = Session.get('selectedMachine');
+            const selectedMachine = Session.get('selectedMachine');
            return MachineReady.findOne({_id: selectedMachine});
         }
 
@@ -76,8 +76,8 @@ if (Meteor.isClient) {
         },
 
         'selectedClass': function() {
-            var shippingMachine = this._id;
-            var selectedMachine = Session.get('selectedMachine');
+            const shippingMachine = this._id;
+            const selectedMachine = Session.get('selectedMachine');
             if (shippingMachine == selectedMachine) {
                return "selected"
            }
@@ -89,18 +89,18 @@ if (Meteor.isClient) {
     Template.shippingList.events({
         'click .newShippingMachine': function() {
             event.preventDefault();
-            var shippingMachine = this._id;
+            const shippingMachine = this._id;
             Session.set('selectedMachine', shippingMachine );
         },
 
         'click .buttonPositionId3': function() {
             event.preventDefault();
-            var selectedMachine = Session.get('selectedMachine');
+            const selectedMachine = Session.get('selectedMachine');
             Meteor.call('removeFromShipList', selectedMachine)
         },
 
         'click .buttonEdit': function() {
-            var selectedMachine = Session.get('selectedMachine');
+            const selectedMachine = Session.get('selectedMachine');
             Session.set('editSelectedMachine', selectedMachine);
             if(typeof selectedMachine == 'string' ) {
             FlowRouter.go('editMachine');

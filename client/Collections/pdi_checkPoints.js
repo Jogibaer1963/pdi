@@ -4,14 +4,14 @@ if (Meteor.isClient) {
 
         'submit .inputNewCheck': function (event) {
             event.preventDefault();
-            var errorPos = event.target.newPosition.value;
-            var errorNr = event.target.errorNr.value;
-            var errorDescription = event.target.errorDescription.value;
-            var range = [];
+            const errorPos = event.target.newPosition.value;
+            const errorNr = event.target.errorNr.value;
+            const errorDescription = event.target.errorDescription.value;
+            const range = [];
             $('input[name=range]:checked').each(function() {
                 range.push($(this).val());
             });
-            var status = 1;
+            const status = 1;
             Meteor.call('inputNewCheckPoint', status, errorPos, errorNr, errorDescription, range);
             event.target.newPosition.value = "";
             event.target.errorNr.value = "";
@@ -25,8 +25,8 @@ if (Meteor.isClient) {
 
         errorNew: function () {
             event.preventDefault();
-            var errorNewId = Session.get('selectedNewErrorId');
-            return errorNewId;
+            return errorNewId = Session.get('selectedNewErrorId');
+           // return errorNewId;
         }
 
     });
@@ -41,8 +41,8 @@ if (Meteor.isClient) {
 
         'selectedClass': function() {
             event.preventDefault();
-            var checkPoint = this._id;
-            var selectedCheckPoint = Session.get('selectedNewFailure');
+            const checkPoint = this._id;
+            const selectedCheckPoint = Session.get('selectedNewFailure');
             if (selectedCheckPoint == checkPoint) {
                 return "selected"
             }
@@ -53,9 +53,9 @@ if (Meteor.isClient) {
 
         'click .showFailureList': function() {
             event.preventDefault();
-            var failureId = this._id;
+            const failureId = this._id;
             Session.set('selectedNewFailure', failureId);
-            var newErrorNr = FailuresList.findOne({_id: failureId}).errorid;
+            const newErrorNr = FailuresList.findOne({_id: failureId}).errorid;
             Session.set('selectedNewErrorId', newErrorNr);
         }
     });
@@ -65,13 +65,13 @@ if (Meteor.isClient) {
 
         "submit .inputNewCheckListItems": function() {
             event.preventDefault();
-            var errorPos = event.target.newPosition.value;
-            var errorNr = event.target.errorNr.value;
-            var errorDescription = event.target.errorDescription.value;
-            var machineRange = event.target.machineRange.value;
-            var machineArray = machineRange.split(",");
-            var status = 1;
-            var checkId = Session.get('selectedCheckPoint');
+            const errorPos = event.target.newPosition.value;
+            const errorNr = event.target.errorNr.value;
+            const errorDescription = event.target.errorDescription.value;
+            const machineRange = event.target.machineRange.value;
+            const machineArray = machineRange.split(",");
+            const status = 1;
+            const checkId = Session.get('selectedCheckPoint');
             Meteor.call('editCheckPoint', checkId, status, errorPos, errorNr, errorDescription, machineArray);
             event.target.newPosition.value = "";
             event.target.errorNr.value = "";
@@ -81,21 +81,21 @@ if (Meteor.isClient) {
 
     /*    'click .reActiveCheck': function() {
             event.preventDefault();
-            var reActivateCheck = Session.get('selectedCheckPoint');
-            var status = 1;
+            const reActivateCheck = Session.get('selectedCheckPoint');
+            const status = 1;
             Meteor.call('reActiveCheck', reActivateCheck, status);
             },   */
 
         'click .deActiveCheck': function() {
             event.preventDefault();
-            var deactivateCheck = Session.get('selectedCheckPoint');
-            var status = 0;
+            const deactivateCheck = Session.get('selectedCheckPoint');
+            const status = 0;
             Meteor.call('deactivateCheckPoint', deactivateCheck, status);
         },
 
         'click .showCheckList': function() {
             event.preventDefault();
-            var checkPoint = this._id;
+            const checkPoint = this._id;
             Session.set('selectedCheckPoint', checkPoint);
             }
 
@@ -112,8 +112,8 @@ if (Meteor.isClient) {
 
         'selectedClass': function () {
             event.preventDefault();
-            var checkPoint = this._id;
-            var selectedCheckPoint = Session.get('selectedCheckPoint');
+            const checkPoint = this._id;
+            const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint == checkPoint) {
                 return "selected"
             }
@@ -121,14 +121,14 @@ if (Meteor.isClient) {
 
         errorId: function () {
             event.preventDefault();
-            var errorSelect = Session.get('selectedErrorId');
+            const errorSelect = Session.get('selectedErrorId');
         //    Session.set('selectedErrorId', '');
             return errorSelect;
         },
 
         editCheckpoint: function () {
             event.preventDefault();
-            var editCheckPoint = Session.get('selectedCheckPoint');
+            const editCheckPoint = Session.get('selectedCheckPoint');
             return checkPoints.findOne({_id: editCheckPoint});
         }
 
@@ -144,8 +144,8 @@ if (Meteor.isClient) {
 
         'selectedClass': function() {
             event.preventDefault();
-            var checkPoint = this._id;
-            var selectedCheckPoint = Session.get('selectedCheckPoint');
+            const checkPoint = this._id;
+            const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint == checkPoint) {
                 return "selected"
             }
@@ -156,7 +156,7 @@ if (Meteor.isClient) {
 
         'click .showCheckList': function() {
             event.preventDefault();
-            var checkPoint = this._id;
+            const checkPoint = this._id;
             Session.set('selectedCheckPoint', checkPoint);
         }
     });
@@ -174,8 +174,8 @@ if (Meteor.isClient) {
 
         'selectedClass': function() {
             event.preventDefault();
-            var checkPoint = this._id;
-            var selectedCheckPoint = Session.get('selectedFailure');
+            const checkPoint = this._id;
+            const selectedCheckPoint = Session.get('selectedFailure');
             if (selectedCheckPoint == checkPoint) {
                 return "selected"
             }
@@ -186,9 +186,9 @@ if (Meteor.isClient) {
 
         'click .showFailureList': function() {
             event.preventDefault();
-            var failureId = this._id;
+            const failureId = this._id;
             Session.set('selectedFailure', failureId);
-            var errorNr = FailuresList.findOne({_id: failureId}).errorid;
+            const errorNr = FailuresList.findOne({_id: failureId}).errorid;
             Session.set('selectedErrorId', errorNr);
         }
     })

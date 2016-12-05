@@ -7,8 +7,8 @@ if (Meteor.isClient) {
         },
 
         'selectedClass': function() {
-            var checkPoint = this._id;
-            var selectedCheckPoint = Session.get('selectedMachine');
+            const checkPoint = this._id;
+            const selectedCheckPoint = Session.get('selectedMachine');
             if (selectedCheckPoint == checkPoint) {
                 return "selected_2"
             }
@@ -18,30 +18,30 @@ if (Meteor.isClient) {
     Template.overViewReadyList.events({
 
         'click .readyList': function() {
-            var readyMachine = this._id;
+            const readyMachine = this._id;
             Session.set('selectedMachine', readyMachine );
         },
 
         'submit .shipMe': function(event) {
             event.preventDefault();
-            var selectedCheckPoint = Session.get('selectedMachine');
+            const selectedCheckPoint = Session.get('selectedMachine');
            Meteor.call('shipMeInProcess', selectedCheckPoint);
 
         },
 
         'click .machineOnTrailer': function() {
             event.preventDefault();
-            var selectedCheckPoint = Session.get('selectedMachine');
+            const selectedCheckPoint = Session.get('selectedMachine');
             Meteor.call('machineIsGone', selectedCheckPoint);
         },
 
         'submit .locationId': function(event) {
             event.preventDefault();
-            var selectedPdiMachine = Session.get('selectedMachine');
+            const selectedPdiMachine = Session.get('selectedMachine');
             if(typeof selectedPdiMachine === 'undefined') {
                 alert('Mark the Machine first before update the Location');
             }
-            var locationId = event.target.locationId.value;
+            const locationId = event.target.locationId.value;
             Meteor.call('locationUpdate', selectedPdiMachine, locationId);
             event.target.locationId.value="";
             Session.set('selectedMachine', '');
@@ -56,8 +56,8 @@ if (Meteor.isClient) {
         },
 
         'selectedClass': function() {
-            var shippingMachine = this._id;
-            var selectedMachine = Session.get('selectedMachine');
+            const shippingMachine = this._id;
+            const selectedMachine = Session.get('selectedMachine');
             if (shippingMachine == selectedMachine) {
                 return "selected"
             }
@@ -67,13 +67,13 @@ if (Meteor.isClient) {
 
     Template.shippingInProcess.events({
         'click .machineReadyShip': function () {
-            var shippingMachine = this._id;
+            const shippingMachine = this._id;
             Session.set('selectedMachine', shippingMachine);
 
         },
 
         'click .machineOnTrailer': function() {
-            var selectedCheckPoint = Session.get('selectedMachine');
+            const selectedCheckPoint = Session.get('selectedMachine');
             Meteor.call('machineIsGone', selectedCheckPoint);
         }
     });
