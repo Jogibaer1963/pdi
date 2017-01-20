@@ -73,10 +73,29 @@ if(Meteor.isServer){
 
         Meteor.publish("reworkMachineList", function(){
             return reworkMachineList.find();
+        });
+
+        Meteor.publish("mcoReview", function () {
+           return mcoReview.find();
         })
     });
 
     Meteor.methods({
+
+        'mcoFind': function(searchId) {
+          mcoReview.find({mcoId: searchId});
+
+        },
+
+        'mcoNew': function(newEcn, ecnEffectivity, machineRecording, mcoNotes) {
+            if(machineRecording == true) {
+                machineRecording = 1
+            } else {
+                machineRecording = 0
+            }
+             mcoReview.insert({mcoId: newEcn, effectiveDate: ecnEffectivity,
+                 machineRecording: machineRecording, statusMachine: 0, statusMco: 0, mcoNotes: mcoNotes});
+        },
 
         'deactivateRework': function(removeSiItem){
             reworkMachineList.update({_id: removeSiItem}, {$set: {active: 0}});

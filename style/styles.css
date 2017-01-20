@@ -334,6 +334,11 @@
     width: 200px;
 }
 
+.dateField {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .deActiveCheck {
     font-weight: bolder;
     font-size: 20px;
@@ -352,6 +357,17 @@
     margin-left: 144px;
 }
 
+.ecnOverView {
+    position: absolute;
+    height: 50px;
+    left: 600px;
+}
+
+.ecnNew {
+    float: left;
+    position: absolute;
+    top: 20%;
+}
 
 .newActiveCheck {
     font-weight: bolder;
@@ -1324,6 +1340,7 @@ input[type=checkbox] {
 .rTableCellOverView {
     font-size: 12px;
     font-weight: bold;
+    text-align: center;
     display: table-cell;
     padding: 10px 5px;
     border: 1px solid #8c8c8c;
