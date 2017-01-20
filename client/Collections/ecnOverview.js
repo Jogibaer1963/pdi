@@ -46,6 +46,6 @@ Template.ecnNew.events({
 Template.allEcnOverView.helpers({
 
       mcoOverView: function() {
-           return mcoReview.find();
+           return mcoReview.find({}, {sort: {effectiveDate: -1}});
       }
 });
