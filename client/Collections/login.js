@@ -28,10 +28,48 @@
         'click .logout': function (event) {
             event.preventDefault();
             Meteor.logout();
-            FlowRouter.go('/');
         }
     });
 
 
+    Template.repairLayout.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
 
+    Template.shippingLayout.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
+
+    Template.pdiLayout.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
+
+    Template.washLayout.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
+
+    Template.outBound.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
+    Template.MainLayout_3.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
 

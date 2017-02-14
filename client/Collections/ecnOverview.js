@@ -12,7 +12,6 @@ Template.ecnOverView.events({
        } else {
            console.log("MCo gefunden" + mcoFound);
        }
-       console.log(mcoFound);
    }
 });
 
