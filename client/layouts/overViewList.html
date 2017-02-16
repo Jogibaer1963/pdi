@@ -16,6 +16,7 @@
         <div class="rTableHeadOverView"><strong>Rep</strong></div>
         <div class="rTableHeadOverView"><strong>Wash</strong></div>
         <div class="rTableHeadOverView"><strong>Load</strong></div>
+        <div class="rTableHeadOverView"><strong>Ship with Kit</strong></div>
         <div class="rTableHeadOverView"><strong>Location</strong></div>
     </div>
     {{#each overView}}
@@ -26,6 +27,7 @@
             <div class="rTableCellOverView {{getStatusColor repairStatus}}" style="background-color:{{getStatusColor repairStatus}}; color:{{getStatusColor repairStatus}}" >{{repairStatus}}</div>
             <div class="rTableCellOverView {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}}; color:{{getStatusColor washStatus}}" >{{washStatus}}</div>
             <div class="rTableCellOverView {{getStatusColor shipStatus}}" style="background-color:{{getStatusColor shipStatus}}; color:{{getStatusColor shipStatus}}" >{{shipStatus}}</div>
+            <div class="rTableCell">{{kit}}</div>
             <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
         </div>
     {{/each}}
