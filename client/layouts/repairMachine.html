@@ -72,6 +72,7 @@
             <div class="rTableHead"><strong>Transporter</strong></div>
             <div class="rTableHead"><strong>Location</strong></div>
             <div class="rTableHead" style="width: 200px"><strong>Shipping Comments</strong></div>
+            <div class="rTableHead"><strong>Ship with Kit</strong></div>
         </div>
         {{#each upcomingList}}
             <div class="rTableRow readyList {{selectedClass}}">
@@ -81,6 +82,7 @@
                 <div class="rTableCell">{{transporter}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
                 <div class="rTableCellComment">{{shippingComment}}</div>
+                <div class="rTableCell">{{kit}}</div>
             </div>
         {{/each}}
     </div>
