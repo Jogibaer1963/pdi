@@ -4,6 +4,8 @@
         {{> repairMachine}}
         <br><br>
         {{> washBayRepairMessage}}
+        <br><br><br>
+        {{> upcomings}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -55,4 +57,34 @@
             <button class="washBayMessage" type="submit">Submit Message to Wash Bay</button>
         </form>
     </div>
+</template>
+
+<template name="upcomings">
+    <div class="upcoming">
+    <h1>Upcoming Shipments</h1>
+    </div>
+
+    <div class="rTableUpcoming">
+        <div class="rTableRow">
+            <div class="rTableHead"><strong>Machine</strong></div>
+            <div class="rTableHead"><strong><span>Shipdate</span></strong></div>
+            <div class="rTableHead"><strong>Destination</strong></div>
+            <div class="rTableHead"><strong>Transporter</strong></div>
+            <div class="rTableHead"><strong>Location</strong></div>
+            <div class="rTableHead" style="width: 200px"><strong>Shipping Comments</strong></div>
+        </div>
+        {{#each upcomingList}}
+            <div class="rTableRow readyList {{selectedClass}}">
+                <div class="rTableCell">{{machineId}}{{newHeadId}}</div>
+                <div class="rTableCell">{{date}}</div>
+                <div class="rTableCell">{{destination}}</div>
+                <div class="rTableCell">{{transporter}}</div>
+                <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
+                <div class="rTableCellComment">{{shippingComment}}</div>
+            </div>
+        {{/each}}
+    </div>
+
+
+
 </template>

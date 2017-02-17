@@ -1266,6 +1266,11 @@ input[type=checkbox] {
     margin-top: 0;
 }
 
+.rTableUpcoming {
+    position: relative;
+    top: 100px;
+}
+
 .rTableMachine {
     float: left;
     width: 660px;
@@ -1458,6 +1463,11 @@ ul.horizontal-slide li[class*="span"] {
 ul.horizontal-slide li[class*="span"]:first-child {
     margin-left: 0;
     padding: 10px;
+}
+
+.upcoming {
+    position: absolute;
+    left: 250px;
 }
 
 .userBox {

@@ -62,4 +62,14 @@ if(Meteor.isClient) {
 
     });
 
+    Template.upcomings.helpers({
+
+        upcomingList: function () {
+            // Order of shipping date
+            return MachineReady.find({machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0},
+                {shipStatus: 2}]}, {sort: {date: 1}});
+        }
+
+    });
+
 }
