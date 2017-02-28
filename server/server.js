@@ -312,9 +312,9 @@ if(Meteor.isServer){
             MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
         },
 
-        'machineRep': function(machineRepaired) {
+        'machineRep': function(machineRepaired, workingHour) {
             InspectedMachines.remove({_id: machineRepaired});
-            MachineReady.update({_id: machineRepaired}, {$set: {repairStatus: 1}});
+            MachineReady.update({_id: machineRepaired}, {$set: {repairStatus: 1, machineHour: workingHour}});
         },
 
 

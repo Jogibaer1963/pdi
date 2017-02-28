@@ -4,59 +4,57 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base@1.0.4             # Packages every Meteor app needs to have
-mobile-experience@1.0.4       # Packages for a great mobile UX
-mongo@1.1.14                   # The database Meteor supports right now
-blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
-session@1.1.7                 # Client-side reactive dictionary for your app
-jquery@1.11.10                  # Helpful client-side library
-tracker@1.1.1                 # Meteor's client-side reactive programming library
-
-es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
-ecmascript@0.6.1              # Enable ECMAScript2015+ syntax in app code
-
-kadira:flow-router
-kadira:blaze-layout
-
-fortawesome:fontawesome
-fastclick@1.0.13
-dburles:collection-helpers
-raix:handlebar-helpers
-aldeed:collection2
-aldeed:autoform
 
 
-alanning:roles
-
-zimme:active-route
-gwendall:auth-client-callbacks
-
-erasaur:meteor-lodash
-mrt:moment-timezone
-
-gadicohen:phantomjs
-standard-minifier-css@1.3.2
-standard-minifier-js@1.2.1
-
-
-meteorhacks:aggregate
-meteortoys:allthings
-
-
-lookback:dropdowns
-u2622:persistent-session
-
-msavin:mongol
-
-harrison:papa-parse
-pfafman:filesaver
-
-lfergon:exportcsv
-rpgeeganage:excel-builder
 
 accounts-ui@1.1.9
-accounts-password@1.3.3
-
-shell-server@0.2.1
-themeteorchef:bert
+accounts-password@1.3.4
+alanning:roles
+blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
+dburles:collection-helpers
+ecmascript@0.6.3              # Enable ECMAScript2015+ syntax in app code
+es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
+erasaur:meteor-lodash
+fastclick@1.0.13
+fortawesome:fontawesome
+gwendall:auth-client-callbacks
+harrison:papa-parse
+jquery@1.11.10
+kadira:flow-router
+kadira:blaze-layout
+lfergon:exportcsv
+lookback:dropdowns
+meteor-base@1.0.4             # Packages every Meteor app needs to have
+meteorhacks:aggregate
+meteortoys:allthings
+mobile-experience@1.0.4       # Packages for a great mobile UX
+mongo@1.1.15                   # The database Meteor supports right now
+mrt:moment-timezone
+msavin:mongol
 momentjs:moment@2.16.0
+pfafman:filesaver
+raix:handlebar-helpers
+rpgeeganage:excel-builder
+session@1.1.7                 # Client-side reactive dictionary for your app
+shell-server@0.2.2             # Helpful client-side library
+standard-minifier-css@1.3.3
+standard-minifier-js@1.2.2
+tracker@1.1.2                 # Meteor's client-side reactive programming library
+themeteorchef:bert
+u2622:persistent-session
+zimme:active-route
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,6 +28,7 @@
             <div class="rTableHeadOverView"><strong>City</strong></div>
             <div class="rTableHeadOverView"><strong>Location</strong></div>
             <div class="rTableHeadOverView"><strong>Tires</strong></div>
+            <div class="rTableHead" style="width: 200px"><strong>Shipping Comments</strong></div>
         </div>
         {{#each overView}}
             <div class="rTableRow truckStatus {{selectedClass2}}">
@@ -42,6 +43,7 @@
                 <div class="rTableCell" style="background-color: #6fd981">{{destination}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{tireTrack}}</div>
+                <div class="rTableCellComment">{{shippingComment}}</div>
             </div>
         {{/each}}
     </div>

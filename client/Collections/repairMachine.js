@@ -11,7 +11,7 @@ if(Meteor.isClient) {
         },
 
         'selectedClass2': function(){
-            var openRepair = this._id;
+            const openRepair = this._id;
             var selectedMachineId = Session.get('selectedMachineId');
             if (selectedMachineId == openRepair) {
                 return "selected_2"
@@ -24,15 +24,16 @@ if(Meteor.isClient) {
     Template.repairMachine.events({
 
         'click .openInspections': function() {
-            var openRepair = this._id;
+            const openRepair = this._id;
             Session.set('selectedMachineId', openRepair);
 
         },
 
-        'click .startRepair': function() {
+        'submit .repairFinnish': function(event) {
             event.preventDefault();
-            var machineRepaired = Session.get('selectedMachineId');
-            Meteor.call('machineRep', machineRepaired);
+            const machineRepaired = Session.get('selectedMachineId');
+            const workingHour = event.target.workingHours.value;
+            Meteor.call('machineRep', machineRepaired, workingHour);
         },
 
         'submit .locationId': function(event) {
@@ -42,7 +43,7 @@ if(Meteor.isClient) {
                 console.log('undefined');
                 alert('Mark the Machine first before update the Location');
             }
-            var locationId = event.target.locationId.value;
+            const locationId = event.target.locationId.value;
             Meteor.call('locationUpdate', selectedPdiMachine, locationId);
             event.target.locationId.value="";
             Session.set('selectedMachineId', '');

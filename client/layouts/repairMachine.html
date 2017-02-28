@@ -13,10 +13,18 @@
 
 
 <template name="repairMachine">
-    <form>
     <h1>Work Load Repair</h1>
-    <button type="submit" class="shipMeButton startRepair">Repair Complete</button>
+    <form class="repairFinnish">
+        <div>
+          <button type="submit" class="shipMeButton startRepair">Repair Complete</button>
+            <div class="machineHours">
+               <h2>Machine Hours After Repair :</h2>
+            </div>
+           <label for="workingHours" class="mLocationId" ></label>
+           <input type="text" class="machineWorkingHours" id="workingHours" name="workingHours"  required>
+        </div>
     </form>
+
     <form class="locationId">
         <div>
             <button type="submit" class="machineLocation">Update Location</button>
