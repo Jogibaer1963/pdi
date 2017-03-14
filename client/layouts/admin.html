@@ -2,6 +2,7 @@
     <body>
     {{#if currentUser}}
         {{> MainLayout}}
+        {{> emailTest}}
 
         <h2>Register new User</h2>
         {{> register}}
@@ -55,8 +56,11 @@
             </div>
         {{/each}}
     </div>
+</template>
 
-
-
-
+<template name="emailTest">
+    <div class="testSection">
+    <h1>------------ Test Section --------------</h1>
+    <button type="button" class="loginSubmit emailButton">Send Test Email</button>
+    </div>
 </template>

@@ -1,6 +1,3 @@
-import {Email} from 'meteor/email';
-
-
 if(Meteor.isServer){
 
     Meteor.startup( function() {
@@ -83,26 +80,7 @@ if(Meteor.isServer){
         })
     });
 
-
     Meteor.methods({
-
-        'sendEmail': function (to, from, subject) {
-
-            this.unblock();
-
-            Email.send({
-                to: to,
-                from: from,
-                subject: subject,
-                html: 'Weekly PDI Report</strong>',
-                attachments: [{
-                    fileName: 'flapjacks.pdf',
-                    filePath: 'https://s3.amazonaws.com/tmc-post-content/flapjacks.pdf',
-                    contentType: 'pdf',
-                }]
-            });
-        },
-
 
         'mcoFind': function(searchId) {
           mcoReview.find({mcoId: searchId});

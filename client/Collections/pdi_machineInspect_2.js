@@ -96,6 +96,7 @@ if(Meteor.isClient) {
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint == checkPoint) {
+                console.log(selectedCheckPoint);
                 return "selected"
             }
         },

@@ -513,6 +513,11 @@
     margin-left: 40px;
 }
 
+.emailButton {
+    position: absolute;
+    top: 90px;
+}
+
 .headerShip {
     font-weight: bolder;
     font-size: 30px;
@@ -754,6 +759,11 @@
     margin: 0 20px;
 }
 
+.testSection {
+    position: absolute;
+    top: 800px;
+    color: #dd0006;
+}
 
 .trailerLot {
     overflow: scroll;
@@ -1291,7 +1301,7 @@ input[type=checkbox] {
 
 .rTableMachine {
     float: left;
-    width: 660px;
+    width: 760px;
     height: 700px;
     margin-right: 20px;
     display: table-cell;

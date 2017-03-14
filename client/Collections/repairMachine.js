@@ -12,7 +12,7 @@ if(Meteor.isClient) {
 
         'selectedClass2': function(){
             const openRepair = this._id;
-            var selectedMachineId = Session.get('selectedMachineId');
+            const selectedMachineId = Session.get('selectedMachineId');
             if (selectedMachineId == openRepair) {
                 return "selected_2"
             }
@@ -38,7 +38,7 @@ if(Meteor.isClient) {
 
         'submit .locationId': function(event) {
             event.preventDefault();
-            var selectedPdiMachine = Session.get('selectedMachineId');
+            const selectedPdiMachine = Session.get('selectedMachineId');
             if(typeof selectedPdiMachine === 'undefined') {
                 console.log('undefined');
                 alert('Mark the Machine first before update the Location');
@@ -53,9 +53,9 @@ if(Meteor.isClient) {
     Template.washBayRepairMessage.events({
         'submit .messageToWashBay': function() {
             event.preventDefault();
-            var washMessage = event.target.message.value;
-            var machine_id = Session.get('selectedMachineId');
-            var machineTestId = MachineReady.findOne({_id: machine_id}).machineId;
+            const washMessage = event.target.message.value;
+            const machine_id = Session.get('selectedMachineId');
+            const machineTestId = MachineReady.findOne({_id: machine_id}).machineId;
             Meteor.call('messageToWashBay', machineTestId, washMessage, machine_id);
             event.target.message.value = '';
         }

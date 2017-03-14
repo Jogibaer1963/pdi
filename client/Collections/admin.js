@@ -47,10 +47,15 @@ if (Meteor.isClient) {
                    idSearch.push(id_Search);
                  }
               console.log(idSearch);
-
            }
+    });
 
-    })
+    Template.emailTest.events({
+        'click .emailButton': function (e) {
+            e.preventDefault();
+            Meteor.call('sendEmail', 'juergen.hauser@claas.com, jogibaer99@gmail.com', 'Claas_Quality@mailgun.com', 'Hello from Meteor', 'Email Test');
+        }
+    });
 
 
 
