@@ -31,6 +31,14 @@ if(Meteor.isClient) {
                 Session.set('kit_3', undefined);
             }
 
+            const g = myString.indexOf('C03_0180', 0);
+            if(g >= 0){
+                const kit_7 = 'C03_0180';
+                Session.set('kit_7', kit_7);
+            } else {
+                Session.set('kit_7', undefined);
+            }
+
             const d = myString.indexOf('B05_0120', 0);
             if(d >= 0){
                 const kit_4 = 'B05_0120';
@@ -75,6 +83,13 @@ if(Meteor.isClient) {
         'newKit3': function() {
             const kit_3 = Session.get('kit_3');
             if(kit_3 == 'C03_0165') {
+                return 'checked';
+            }
+        },
+
+        'newKit7': function() {
+            const kit_7 = Session.get('kit_7');
+            if(kit_7 == 'C03_0180') {
                 return 'checked';
             }
         },
