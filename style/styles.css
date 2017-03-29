@@ -675,13 +675,13 @@
 .kitGroup007 {
     position: relative;
     left: 100px;
-    top: -36px;
+    top: -47px;
 }
 
 .kitGroup003 {
     position: relative;
     left: 200px;
-    top: -74px;
+    top: -96px;
 }
 
 .leftSideGroup1 {
@@ -819,9 +819,9 @@
 
 .loginSubmit {
     float: left;
-    width: 275px;
+    width: 200px;
     font-size: 25px;
-    background-color: #999999;
+    background-color: greenyellow;
     margin-left: 144px;
 }
 

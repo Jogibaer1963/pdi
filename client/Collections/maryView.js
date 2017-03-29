@@ -1,5 +1,3 @@
-if (Meteor.isClient) {
-
 
     Template.overViewListMaryView.helpers({
 
@@ -10,9 +8,9 @@ if (Meteor.isClient) {
        },
 
         'selectedClass2': function(){
-            var selectedTruck = this._id;
-            var selectedMachineId = Session.get('selectedMachineId');
-            if (selectedMachineId == selectedTruck) {
+           const selectedTruck = this._id;
+           const selectedMachineId = Session.get('selectedMachineId');
+            if (selectedMachineId === selectedTruck) {
                 return "selected_2"
             }
         }
@@ -22,21 +20,21 @@ if (Meteor.isClient) {
     Template.overViewListMaryView.events({
 
         'click .truckStatus': function() {
-            var openRepair = this._id;
+           const openRepair = this._id;
             Session.set('selectedMachineId', openRepair);
         },
 
         'click .addTruck': function() {
             event.preventDefault();
-            var truckStatus = 1;
-            var machineId = Session.get('selectedMachineId');
+           const truckStatus = 1;
+           const machineId = Session.get('selectedMachineId');
             Meteor.call('truckOrdered', machineId, truckStatus);
         },
 
         'click .removeTruck': function() {
             event.preventDefault();
-            var truckStatus = 0;
-            var machineId = Session.get('selectedMachineId');
+           const truckStatus = 0;
+           const machineId = Session.get('selectedMachineId');
             Meteor.call('truckRemoved', machineId, truckStatus);
         }
 
@@ -51,6 +49,5 @@ if (Meteor.isClient) {
     });
 
     
-}
 
 

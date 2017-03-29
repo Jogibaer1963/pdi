@@ -9,7 +9,7 @@ if (Meteor.isClient) {
         'selectedClass': function() {
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedMachine');
-            if (selectedCheckPoint == checkPoint) {
+            if (selectedCheckPoint === checkPoint) {
                 return "selected_2"
             }
         }
@@ -22,12 +22,11 @@ if (Meteor.isClient) {
             Session.set('selectedMachine', readyMachine );
         },
 
-        'submit .shipMe': function(event) {
-            event.preventDefault();
-            const selectedCheckPoint = Session.get('selectedMachine');
-           Meteor.call('shipMeInProcess', selectedCheckPoint);
-
-        },
+  //      'submit .shipMe': function(event) {
+  //          event.preventDefault();
+   //         const selectedCheckPoint = Session.get('selectedMachine');
+//           Meteor.call('shipMeInProcess', selectedCheckPoint);
+  //      },
 
         'click .machineOnTrailer': function() {
             event.preventDefault();
