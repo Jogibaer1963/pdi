@@ -83,6 +83,35 @@
     height: 300px;
 }
 
+.addTruck {
+    float: left;
+    width: 180px;
+    font-size: 25px;
+    background-color: greenyellow;
+}
+
+.removeTruck {
+    float: left;
+    width: 180px;
+    font-size: 25px;
+    background-color: #ff2e31;
+}
+
+.addList {
+    margin-left: 100px;
+    width: 180px;
+    font-size: 25px;
+    background-color: greenyellow;
+}
+
+.removeList {
+    margin-left: 100px;
+    width: 180px;
+    font-size: 25px;
+    background-color: #ff2e31;
+}
+
+
 .backButton {
     float: left;
     font-weight: bolder;

@@ -28,7 +28,7 @@ if (Meteor.isClient) {
 //           Meteor.call('shipMeInProcess', selectedCheckPoint);
   //      },
 
-        'click .machineOnTrailer': function() {
+        'click .shipMeButton': function() {
             event.preventDefault();
             const selectedCheckPoint = Session.get('selectedMachine');
             Meteor.call('machineIsGone', selectedCheckPoint);

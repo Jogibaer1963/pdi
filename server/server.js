@@ -192,6 +192,14 @@ if(Meteor.isServer){
             MachineReady.update({_id: machineId}, {$set: {truckStatus: truckStatus}});
         },
 
+        'listRemoved': function(machineId, KitStatus) {
+            MachineReady.update({_id: machineId}, {$set: {KitStatus: KitStatus}});
+        },
+
+        'listPrinted': function(machineId, KitStatus) {
+            MachineReady.update({_id: machineId}, {$set: {KitStatus: KitStatus}});
+        },
+
         'insertHeadTrailer': function(headTransporter, trailerId) {
             headerTrailer.insert({status: '1', headTransporter: headTransporter, newTrailer: trailerId});
         },
