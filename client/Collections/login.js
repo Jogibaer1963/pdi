@@ -73,3 +73,10 @@
         }
     });
 
+    Template.MainLayout_mary.events({
+        'click .logout': function (event) {
+            event.preventDefault();
+            Meteor.logout();
+        }
+    });
+
