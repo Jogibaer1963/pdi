@@ -13,7 +13,7 @@ if(Meteor.isClient) {
         'selectedClass2': function(){
             const openRepair = this._id;
             const selectedMachineId = Session.get('selectedMachineId');
-            if (selectedMachineId == openRepair) {
+            if (selectedMachineId === openRepair) {
                 return "selected_2"
             }
         }
@@ -67,6 +67,39 @@ if(Meteor.isClient) {
 
         upcomingList: function () {
             return MachineReady.find({$and: [{pdiStatus: 0}, {$or: [{shipStatus: 0}, {shipStatus: 2}]}]}, {sort: {date: 1}});
+        },
+
+        'selectedClass': function(){
+            const upcomingMachineId = this._id;
+            const selectedMachineId = Session.get('selectedMachineId');
+            if (selectedMachineId === upcomingMachineId) {
+                return "selected_2"
+            }
+        }
+
+    });
+
+
+    Template.upcomings.events({
+
+        'click .upcomingList': function() {
+            const upcomingMachine = this._id;
+            Session.set('selectedMachineId', upcomingMachine);
+            console.log(upcomingMachine);
+        },
+
+        'click .addList': function() {
+            event.preventDefault();
+            const KitStatus = 1;
+            const machineId = Session.get('selectedMachineId');
+            Meteor.call('listPrinted', machineId, KitStatus);
+        },
+
+        'click .removeList': function() {
+            event.preventDefault();
+            const KitStatus = 0;
+            const machineId = Session.get('selectedMachineId');
+            Meteor.call('listRemoved', machineId, KitStatus);
         }
 
     });

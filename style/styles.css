@@ -99,14 +99,14 @@
 
 .addList {
     margin-left: 100px;
-    width: 180px;
+    width: 200px;
     font-size: 25px;
     background-color: greenyellow;
 }
 
 .removeList {
     margin-left: 100px;
-    width: 180px;
+    width: 200px;
     font-size: 25px;
     background-color: #ff2e31;
 }

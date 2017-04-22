@@ -42,6 +42,7 @@
             <div class="rTableHead"><strong>Rep</strong></div>
             <div class="rTableHead"><strong>Wash</strong></div>
             <div class="rTableHead"><strong>Location</strong></div>
+            <div class="rTableHeadOverView"><strong>Kit List printed</strong></div>
         </div>
         {{#each shippList}}
             <div class="rTableRow openInspections {{selectedClass2}}">
@@ -52,6 +53,7 @@
                 <div class="rTableCell  {{getStatusColor repairStatus}}" style="background-color:{{getStatusColor repairStatus}}; color:{{getStatusColor repairStatus}}" >{{repairStatus}}</div>
                 <div class="rTableCell  {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}}; color:{{getStatusColor washStatus}}" >{{washStatus}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
+                <div class="rTableCellOverView {{getStatus KitStatus}}" style="background-color:{{getStatus KitStatus}}; color:{{getStatus KitStatus}}" >{{KitStatus}}</div>
             </div>
         {{/each}}
     </div>
@@ -71,7 +73,13 @@
     <div class="upcoming">
     <h1>Upcoming Shipments</h1>
     </div>
-
+    <br><br><br><br>
+   <div>
+       <form>
+           <button type="submit" class="removeList">Remove Kit List</button>
+        <button type="submit" class="addList">Kit List Printed</button>
+       </form>
+   </div>
     <div class="rTableUpcoming">
         <div class="rTableRow">
             <div class="rTableHead"><strong>Machine</strong></div>
@@ -81,9 +89,10 @@
             <div class="rTableHead"><strong>Location</strong></div>
             <div class="rTableHead" style="width: 200px"><strong>Shipping Comments</strong></div>
             <div class="rTableHead"><strong>Ship with Kit</strong></div>
+            <div class="rTableHeadOverView"><strong>Kit List printed</strong></div>
         </div>
         {{#each upcomingList}}
-            <div class="rTableRow readyList {{selectedClass}}">
+            <div class="rTableRow readyList upcomingList {{selectedClass}}">
                 <div class="rTableCell">{{machineId}}{{newHeadId}}</div>
                 <div class="rTableCell">{{date}}</div>
                 <div class="rTableCell">{{destination}}</div>
@@ -91,6 +100,7 @@
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
                 <div class="rTableCellComment">{{shippingComment}}</div>
                 <div class="rTableCell">{{kit}}</div>
+                <div class="rTableCellOverView {{getStatus KitStatus}}" style="background-color:{{getStatus KitStatus}}; color:{{getStatus KitStatus}}" >{{KitStatus}}</div>
             </div>
         {{/each}}
     </div>
