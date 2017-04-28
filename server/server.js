@@ -345,7 +345,9 @@ if(Meteor.isServer){
             MachineReady.update({_id: selectedPdiMachine}, {$set: {reservedFor: reservedId}});
         },
 
-
+        'removeFromSiList': function (siItem) {
+           siList.remove({_id: siItem});
+        },
 
         'machineRep': function(machineRepaired, workingHour) {
             InspectedMachines.remove({_id: machineRepaired});

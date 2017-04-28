@@ -753,7 +753,7 @@
 .reserveId {
     font-weight: bolder;
     font-size: 18px;
-    background-color: #ff7815;
+    background-color: #18ff1e;
     padding: 15px;
     margin: 10px;
 }
@@ -768,6 +768,13 @@
     background-color: #d8ffba;
     padding: 15px;
     margin-top: 10px;
+}
+
+.removeSiItem {
+    display: flex;
+    position: absolute;
+    top: 145px;
+    left: 170px;
 }
 
 .shipMeButton {

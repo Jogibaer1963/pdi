@@ -8,10 +8,13 @@
     <h1>Single Machines</h1>
     <form class="siItems">
         <label for="siItem" class="mLocationId" ></label>
-        <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine">
+        <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine" required>
         <label for="siItem" class="" ></label>
         <input type="text" class="siItem" id="siItem" name="siItemText" placeholder="Description" required>
         <button type="submit" class="reserveId">Submit</button>
+    </form>
+    <form class="removeSiItem">
+        <button type="submit" class="removeSiItem removeList">Remove SI Item</button>
     </form>
         <div class="activeSiList">
             <h2>Active List</h2>
@@ -21,14 +24,13 @@
                     <div class="rTableHead"><strong>SI Description</strong></div>
                 </div>
                 {{#each siList}}
-                    <div class="rTableRow selectedSiItem {{selectedItem}}">
+                    <div class="rTableRow selectedSiItem {{selectedLineItem}}">
                         <div class="rTableCell">{{machineNr}}</div>
                         <div class="rTableCell">{{errorDescription}}</div>
                     </div>
                 {{/each}}
             </div>
         </div>
-
     {{else}}
         {{> login}}
     {{/if}}

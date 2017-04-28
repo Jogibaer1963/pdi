@@ -5,6 +5,11 @@ if(Meteor.isClient) {
 
     
     Template.si.events({
+
+        'click .selectedSiItem': function () {
+            const checkPoint = this._id;
+            Session.set('selectedItem', checkPoint);
+        },
         
         'submit .siItems': function() {
             event.preventDefault();
@@ -14,6 +19,14 @@ if(Meteor.isClient) {
             event.target.siMachine.value="";
             event.target.siItemText.value="";
         },
+
+        'submit .removeSiItem': function () {
+            event.preventDefault();
+            const siItem = Session.get('selectedItem');
+            console.log(siItem);
+            Meteor.call('removeFromSiList', siItem);
+
+        }
     });
 
     Template.si.helpers({
@@ -28,10 +41,10 @@ if(Meteor.isClient) {
             return FailuresList.find({}, {sort: {error_describ: 1}});
         },
 
-        'selectedItem': function() {
+        'selectedLineItem': function() {
             event.preventDefault();
             const checkPoint = this._id;
-            const selectedCheckPoint = Session.get('selectedNewFailure');
+            const selectedCheckPoint = Session.get('selectedItem');
             if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }

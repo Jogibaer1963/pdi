@@ -13,7 +13,7 @@ if (Meteor.isClient) {
         'selectedClass': function() {
             const checkPoint = this._id;
             const selectedMachineId = Session.get('selectedMachineId');
-            if (selectedMachineId == checkPoint) {
+            if (selectedMachineId === checkPoint) {
                 return "selected_2"
             }
         },
@@ -32,7 +32,7 @@ if (Meteor.isClient) {
                 const washMeId = JSON.stringify(washId);
                 const res = washMeId.slice(8, 25);
                 const selectedMachine = Session.get('selectedMachineId');
-                    if(selectedMachine != res ) {
+                    if(selectedMachine !== res ) {
                         return 'inActiveButton';
                        } else {}
             } else { return 'inActiveButton'}
@@ -105,7 +105,7 @@ if (Meteor.isClient) {
         'selectedClass': function() {
             const message = this._id;
             const selectedMessage = Session.get('selectedMessage');
-            if (selectedMessage == message) {
+            if (selectedMessage === message) {
                 return "selected_2"
             }
         }
