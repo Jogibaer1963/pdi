@@ -60,6 +60,7 @@
 
 .activeSiList {
     float: left;
+
 }
 
 .activeReworkBox {
@@ -773,8 +774,7 @@
 .removeSiItem {
     display: flex;
     position: absolute;
-    top: 145px;
-    left: 170px;
+    margin-left: 288px;
 }
 
 .shipMeButton {
@@ -1450,6 +1450,11 @@ input[type=checkbox] {
 
 .selected_2 {
     background-color: #7ebaff;
+}
+
+.tableWidth {
+
+    width: 680px;
 }
 
 .shippingSubmit {

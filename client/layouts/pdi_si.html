@@ -17,16 +17,16 @@
         <button type="submit" class="removeSiItem removeList">Remove SI Item</button>
     </form>
         <div class="activeSiList">
-            <h2>Active List</h2>
+            <h2 style="margin-left: 150px">Active List</h2>
             <div class="rTable">
                 <div class="rTableRow ">
                     <div class="rTableHead"><strong>Machine</strong></div>
-                    <div class="rTableHead"><strong>SI Description</strong></div>
+                    <div class="rTableHead tableWidth"><strong>SI Description</strong></div>
                 </div>
                 {{#each siList}}
                     <div class="rTableRow selectedSiItem {{selectedLineItem}}">
                         <div class="rTableCell">{{machineNr}}</div>
-                        <div class="rTableCell">{{errorDescription}}</div>
+                        <div class="rTableCell tableWidth">{{errorDescription}}</div>
                     </div>
                 {{/each}}
             </div>
