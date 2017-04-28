@@ -80,8 +80,13 @@ if(Meteor.isServer){
 
         Meteor.publish("mcoReview", function () {
            return mcoReview.find();
-        })
+        });
+
+        Meteor.publish("siListDone", function () {
+            return siListDone.find();
+        });
     });
+
 
 
     Meteor.methods({
@@ -110,7 +115,7 @@ if(Meteor.isServer){
         },
 
         'mcoNew': function(newEcn, ecnEffectivity, machineRecording, mcoNotes) {
-            if(machineRecording == true) {
+            if(machineRecording === true) {
                 machineRecording = 1
             } else {
                 machineRecording = 0
@@ -139,7 +144,7 @@ if(Meteor.isServer){
         },
 
         'siList': function(machine, siItemText) {
-            siList.insert({machineNr: machine, errorDescription: siItemText});
+            siList.insert({machineNr: machine, errorNr: '-SI-', errorDescription: siItemText});
         },
 
         'download_2': function (machineNr) {
@@ -212,12 +217,6 @@ if(Meteor.isServer){
             headerTrailer.remove({_id: trailerId});
         },
 
-        'cancelPdi': function(pdiMachineId) {
-            InspectedMachines.remove({_id: pdiMachineId});
-            pdiCheckPoints.remove({_id: pdiMachineId});
-            MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 0}});
-        },
-
         'finnishPdi': function(pdiMachineId) {
             pdiCheckPoints.remove({});
             MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 1}});
@@ -256,17 +255,20 @@ if(Meteor.isServer){
             });
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {status: 0}}});
             const list = siList.find({machineNr: selectedPdiMachineNr}, {limit:1}).fetch();
-            if(list == '') {
+            if(list === '') {
             } else {
                 siList.find({machineNr: selectedPdiMachineNr}).forEach(function(repOrder){
                     InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
+                    siListDone.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
                 });
             }
-            reworkMachineList.find({active: 1}).forEach(function(repOrder){
-                InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}})
-            });
-            reworkMachineList.update({active: 1}, {$push: {machineList: {machineNr: selectedPdiMachineNr}}}, {multi: true});
+        },
 
+        'cancelPdi': function(pdiMachineId) {
+            InspectedMachines.remove({_id: pdiMachineId});
+            pdiCheckPoints.remove({_id: pdiMachineId});
+            MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 0}});
+            siListDone.remove({_id: pdiMachineId});
         },
 
         'removeRepairItem': function(id, id2) {
@@ -297,6 +299,14 @@ if(Meteor.isServer){
         'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, ommMain, ommSupp, ommFitting, ommTerra, ommCebis, ommProfiCam) {
             InspectedMachines.update({_id: selectedPdiMachineId}, {$set: {user: loggedInUser, ommMain: ommMain, ommSupp: ommSupp,
                 ommFitting: ommFitting, ommTerra: ommTerra, ommCebis: ommCebis, ommProfiCam: ommProfiCam}})
+        },
+
+        'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine) {
+            MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop, pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
+            pdiCheckPoints.remove({_id: selectedPdiMachine});
+            const repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
+            MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
+            siList.remove({machineNr: pdiMachine});
         },
 
         'removeFailureId': function(selectedFailurePoint) {
@@ -335,12 +345,7 @@ if(Meteor.isServer){
             MachineReady.update({_id: selectedPdiMachine}, {$set: {reservedFor: reservedId}});
         },
 
-        'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime) {
-            MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop, pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
-            pdiCheckPoints.remove({_id: selectedPdiMachine});
-            const repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
-            MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
-        },
+
 
         'machineRep': function(machineRepaired, workingHour) {
             InspectedMachines.remove({_id: machineRepaired});

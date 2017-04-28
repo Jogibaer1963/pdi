@@ -8,11 +8,11 @@
 
 
 accounts-ui@1.1.9
-accounts-password@1.3.4
+accounts-password@1.3.5
 alanning:roles
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
 dburles:collection-helpers
-ecmascript@0.6.3              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.7.2              # Enable ECMAScript2015+ syntax in app code
 es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
 erasaur:meteor-lodash
 fastclick@1.0.13
@@ -38,7 +38,7 @@ rpgeeganage:excel-builder
 session@1.1.7                 # Client-side reactive dictionary for your app
 shell-server@0.2.3             # Helpful client-side library
 standard-minifier-css@1.3.4
-standard-minifier-js@1.2.3
+standard-minifier-js@2.0.0
 tracker@1.1.2                 # Meteor's client-side reactive programming library
 themeteorchef:bert
 u2622:persistent-session
@@ -58,7 +58,7 @@ zimme:active-route
 
 
 
-email@1.1.18
+email@1.2.0
 meteorhacks:ssr
 check@1.2.5
 ejson@1.0.13

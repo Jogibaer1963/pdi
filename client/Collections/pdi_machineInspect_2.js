@@ -6,7 +6,7 @@ if(Meteor.isClient) {
             event.preventDefault();
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedCheckPoint');
-            if (selectedCheckPoint == checkPoint) {
+            if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }
         },
@@ -44,7 +44,7 @@ if(Meteor.isClient) {
         'click .bad': function(event) {
             event.preventDefault();
             const selectedCheckPoint = Session.get('selectedCheckPoint');
-            if(selectedCheckPoint == "" ) {
+            if(selectedCheckPoint === "" ) {
             } else {
                 Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
                 const selectedPdiMachineId = Session.get('selectedPdiMachine');
@@ -72,11 +72,11 @@ if(Meteor.isClient) {
             const failureId = event.target.failureId.value;
             let failureAddDescription = event.target.failureDescription.value;
             const specialAtt = Session.get('specialAtt');
-            if(specialAtt == 1) {
+            if(specialAtt === 1) {
                const addText = '**********';
                failureAddDescription = addText + ' ' + failureAddDescription + ' ' + addText;
             }
-            if(failureId == "") {
+            if(failureId === "") {
             } else {
             const orderId = machineNr + (new Date().getTime());
             const repOrder = {'_id': orderId, 'errorNr': failureId, 'errorDescription': failureAddDescription};
@@ -95,7 +95,7 @@ if(Meteor.isClient) {
             event.preventDefault();
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedCheckPoint');
-            if (selectedCheckPoint == checkPoint) {
+            if (selectedCheckPoint === checkPoint) {
                 console.log(selectedCheckPoint);
                 return "selected"
             }
@@ -115,8 +115,7 @@ if(Meteor.isClient) {
         'click .posPdiFinished': function() {
             event.preventDefault();
             window.confirm("PDI Finished ?");
-            if(confirm("PDI Finished") == true) {
-
+            if(confirm("PDI Finished") === true) {
             } else {
                 return false;
             }
@@ -133,7 +132,9 @@ if(Meteor.isClient) {
             const startAfterCreateTime = startUnixTime.slice(0,13);
             const diffCreateTime = startRealPdiTime - startAfterCreateTime;
             const waitPdiTime = convertMS(diffCreateTime);
-            Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime);
+            Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
+            const pdiMachine = Session.get('pdiMachineNumber');
+            Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine);
             FlowRouter.go('inspectionStart');
         },
 
@@ -158,7 +159,7 @@ if(Meteor.isClient) {
             event.preventDefault();
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedFailure');
-            if (selectedCheckPoint == checkPoint) {
+            if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }
         }
