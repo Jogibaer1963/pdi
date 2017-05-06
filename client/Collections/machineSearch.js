@@ -4,11 +4,10 @@
 if (Meteor.isClient) {
 
 
-
     Template.machineSearch.events({
         "submit .searchMachine": function (event) {
             event.preventDefault();
-            var findMachine = event.target.searchId.value;;
+            const findMachine = event.target.searchId.value;
             Session.set('findMachine', findMachine);
            
         }
@@ -18,7 +17,7 @@ if (Meteor.isClient) {
     Template.machineSearch.helpers({
         machineSearchShow: function() {
             event.preventDefault();
-            var findMachine = Session.get('findMachine');
+            const findMachine = Session.get('findMachine');
             if(findMachine === undefined) {
             } else {
             return MachineReady.find({machineId: findMachine});
@@ -26,5 +25,7 @@ if (Meteor.isClient) {
         }
 
 
-    })
+    });
+
+
 }
