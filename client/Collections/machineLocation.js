@@ -10,9 +10,9 @@ if (Meteor.isClient) {
   //
 
         'selectedClass': function(){
-            var openInspect = this._id;
-            var selectedLocation = Session.get('selectedLocation');
-            if (selectedLocation == openInspect) {
+            const openInspect = this._id;
+            const selectedLocation = Session.get('selectedLocation');
+            if (selectedLocation === openInspect) {
                 return "selected"
             }
         }
@@ -22,14 +22,14 @@ if (Meteor.isClient) {
 
         'click .locationUpdate': function() {
             event.preventDefault();
-            var newLocation = this._id;
+            const newLocation = this._id;
             Session.set('selectedLocation', newLocation);
         },
 
         'submit .locationId': function() {
             event.preventDefault();
-            var machineId = Session.get('selectedLocation');
-            var locationUpdate = event.target.locationId.value;
+            const machineId = Session.get('selectedLocation');
+            const locationUpdate = event.target.locationId.value;
             if(typeof locationUpdate === 'undefined') {
                 alert('Mark the Machine first before update the Location');
             }

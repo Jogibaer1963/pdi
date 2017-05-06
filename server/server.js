@@ -43,7 +43,7 @@ if(Meteor.isServer){
         });
 
         Meteor.publish("repairOrderPrint", function(){
-            return repairPrint.find();
+            return repairOrderPrint.find();
         });
 
         Meteor.publish("siList", function(){
@@ -85,11 +85,24 @@ if(Meteor.isServer){
         Meteor.publish("siListDone", function () {
             return siListDone.find();
         });
+
     });
 
 
 
     Meteor.methods({
+
+        'unsuccessLogin': function (userVar, passwordVar, dateLogin) {
+            unsuccessLogin.insert({userId: userVar, password: passwordVar, dateLogin: dateLogin});
+        },
+
+        'successfullLogin': function (userVar, dateLogin) {
+             successfullLogin.insert({userId: userVar, dateLogin: dateLogin});
+        },
+
+        'successfullLogout': function(logoutId, logoutDate) {
+            successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
+        },
 
         'sendEmail': function (to, from, subject) {
 
@@ -134,8 +147,8 @@ if(Meteor.isServer){
         },
 
         'remove_Fields': function() {
-            const count = repairPrint.find().count();
-            repairPrint.updateMany({}, {$unset: {Repair_Comments: ''}});
+            const count = repairOrderPrint.find().count();
+            repairOrderPrint.updateMany({}, {$unset: {Repair_Comments: ''}});
 
         },
 
@@ -148,7 +161,7 @@ if(Meteor.isServer){
         },
 
         'download_2': function (machineNr) {
-            const collection = repairPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id: 0}}).fetch();
+            const collection = repairOrderPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id: 0}}).fetch();
             const heading = true;
             const delimiter = ";";
             return exportcsv.exportToCSV(collection, heading, delimiter);
@@ -286,14 +299,14 @@ if(Meteor.isServer){
             const stringError = JSON.stringify(errorNr).slice(39,-3);
             const descriptionNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorDescription: 1}}).fetch();
             const stringDescription = JSON.stringify(descriptionNr).slice(48,-3);
-            repairPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
+            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
         },
 
         'addToCheckListNew': function(selectedPdiMachineId, repOrder, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             const stringError = JSON.stringify(repOrder).slice(42,46);
             const stringDescription = JSON.stringify(repOrder).slice(68,-2);
-            repairPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
+            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription, Repair_Comments: " ", Issue_Resolved: " "});
         },
 
         'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, ommMain, ommSupp, ommFitting, ommTerra, ommCebis, ommProfiCam) {

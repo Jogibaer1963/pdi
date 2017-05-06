@@ -714,6 +714,11 @@
     top: -96px;
 }
 
+.keywordList {
+    position: relative;
+    top: 50px;
+}
+
 .leftSideGroup1 {
     font-size: 20px;
     font-weight: bold;
@@ -1476,6 +1481,23 @@ input[type=checkbox] {
     background-color: greenyellow;
     padding: 15px;
 }
+
+.searchWord {
+    position: absolute;
+    left: 300px;
+    top: 90px;
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: greenyellow;
+    padding: 15px;
+}
+
+.searchKey {
+
+
+}
+
+
 
 .searchMachineSubmit {
     position: absolute;
