@@ -48,7 +48,6 @@
             <div class="rTableHead" ><strong>Location</strong></div>
             <div class="rTableHead"><strong>PDI Duration</strong></div>
             <div class="rTableHead"><strong>PDI Status</strong></div>
-            <div class="rTableHead"><strong>Repair Duration</strong></div>
             <div class="rTableHead"><strong>Repair Status</strong></div>
             <div class="rTableHead"><strong>Wash Duration</strong></div>
             <div class="rTableHead"><strong>Wash Status</strong></div>
@@ -60,7 +59,6 @@
                 <div class="rTableCell">{{locationId}}</div>
                 <div class="rTableCell">{{pdiDuration}}</div>
                 <div class="rTableCell {{getStatusColor pdiStatus}}" style="background-color:{{getStatusColor pdiStatus}}; color:{{getStatusColor pdiStatus}}">{{pdiStatus}}</div>
-                <div class="rTableCell">{{repairDuration}}</div>
                 <div class="rTableCell {{getStatusColor repairStatus}}" style="background-color:{{getStatusColor repairStatus}}; color:{{getStatusColor repairStatus}}">{{repairStatus}}</div>
                 <div class="rTableCell">{{washDuration}}</div>
                 <div class="rTableCell {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}}; color:{{getStatusColor washStatus}}">{{washStatus}}</div>
@@ -71,7 +69,6 @@
     <h1>PDI Content</h1>
     <div class="printList">
         {{#each machineSearchShow}}
-
             {{#each repairOrder}}
                 <div class="pdiUser">
                     <div>
@@ -108,3 +105,4 @@
     {{> login}}
     {{/if}}
 </template>
+
