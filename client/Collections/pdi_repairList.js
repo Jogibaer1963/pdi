@@ -10,7 +10,7 @@ if(Meteor.isClient) {
         'selectedClass': function(){
             const openInspect = this._id;
             const selectedPdiMachine = Session.get('selectedPdiMachine');
-            if (selectedPdiMachine == openInspect) {
+            if (selectedPdiMachine === openInspect) {
                 return "selected_2"
             }
         }

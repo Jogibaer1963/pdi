@@ -1,3 +1,9 @@
+.bulkSi {
+    position: absolute;
+    left:700px;
+    top: 10px;
+}
+
 .container {
     overflow: scroll;
     position: relative;
@@ -27,6 +33,12 @@
     height: 500px;
     margin-left: 10px;
     padding-bottom: 50px;
+}
+
+.siUpload {
+    position: absolute;
+    top: 130px;
+    left: 900px;
 }
 
 .pdiUser {
@@ -106,12 +118,19 @@
 }
 
 .removeList {
-    margin-left: 100px;
-    width: 200px;
+    width: 480px;
     font-size: 25px;
     background-color: #ff2e31;
 }
 
+.removeSI {
+    position: absolute;
+    top: 112px;
+    left: 300px;
+    width: 150px;
+    font-size: 25px;
+    background-color: #ff2e31;
+}
 
 .backButton {
     float: left;
@@ -548,6 +567,15 @@
     top: 90px;
 }
 
+.erasePoint {
+    float: left;
+    width: 250px;
+    font-size: 25px;
+    background-color: #ff0e16;
+    margin-left: 50px;
+    margin-top: 100px;
+}
+
 .headerShip {
     font-weight: bolder;
     font-size: 30px;
@@ -665,6 +693,11 @@
     color: transparent;
 }
 
+.inPdiProcess {
+    animation: Siglowing 1500ms infinite;
+    color: transparent;
+}
+
 .inputTransporterId {
     position: relative;
     top: 10px;
@@ -776,10 +809,33 @@
     margin-top: 10px;
 }
 
-.removeSiItem {
-    display: flex;
+.statusChange {
     position: absolute;
-    margin-left: 288px;
+    left: 990px;
+    top: 278px;
+}
+
+.statusButton {
+    font-weight: bolder;
+    font-size: 18px;
+    padding: 15px;
+    width: 160px;
+}
+
+.statusBackground_1 {
+    background-color: #14b017;
+}
+
+.statusBackground_2 {
+    background-color: rgba(255, 244, 19, 0.78);
+}
+
+.statusBackground_3 {
+    background-color: #28d8be;
+}
+
+.statusBackground_0 {
+    background-color: rgba(24, 255, 30, 0);
 }
 
 .shipMeButton {
@@ -994,7 +1050,40 @@
     z-index: 1;
 }
 
+.posSingle {
+    margin-left: 100px;
+}
 
+.posBulk {
+    position: absolute;
+    top: 150px;
+    left: 600px;
+}
+
+.posBulkText {
+    position: absolute;
+    top: 70px;
+    left: 600px;
+}
+
+.posDatei {
+    position: absolute;
+    top: 175px;
+    left: 900px;
+    background-color: #28d920;
+}
+
+.posTable {
+    position: absolute;
+    top: 278px;
+    left: 600px;
+}
+
+.posMachineTable {
+    position: absolute;
+    top: 278px;
+    left: 800px;
+}
 
 .checkListFinding {
     font-weight: bolder;
@@ -1256,7 +1345,7 @@ input[type=checkbox] {
     font-weight: bold;
     font-size: 18px;
     height: 40px;
-    width: 400px;
+    width: 200px;
     background-color: #FFFFFF;
 }
 
@@ -1458,8 +1547,7 @@ input[type=checkbox] {
 }
 
 .tableWidth {
-
-    width: 680px;
+    width: 380px;
 }
 
 .shippingSubmit {
@@ -1811,6 +1899,13 @@ ul.horizontal-slide li[class*="span"]:first-child {
     50% { background-color: #FFB232; box-shadow: 0 0 10px #FFB232; }
     100% { background-color: #FFE800; box-shadow: 0 0 3px #FFE800; }
 }
+
+@keyframes Siglowing {
+    0% { background-color: #481317; box-shadow: 0 0 3px  #AA5939; }
+    50% { background-color: #cb2aff; box-shadow: 0 0 10px #ffd855; }
+    100% { background-color: #1cbdee; box-shadow: 0 0 3px #ec67ff; }
+}
+
 
 ul.checkbox {
     list-style: none;

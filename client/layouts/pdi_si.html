@@ -4,8 +4,11 @@
         <br>
         <a class="btn" href="/">Back to Main Overview</a>
         <a class="btn" href="/inspectionStart">Back to Inspections Over View</a>
+        <a class="btn" href="/upload"> SI List</a>
             <br>
-    <h1>Single Machines</h1>
+   {{> upload}}
+
+    <h1 class="posSingle">Single Machines</h1>
     <form class="siItems">
         <label for="siItem" class="mLocationId" ></label>
         <input type="text" class="siItemMachine" id="siItem" name="siMachine" placeholder="Machine" required>
@@ -16,8 +19,8 @@
     <form class="removeSiItem">
         <button type="submit" class="removeSiItem removeList">Remove SI Item</button>
     </form>
+        <br>
         <div class="activeSiList">
-            <h2 style="margin-left: 150px">Active List</h2>
             <div class="rTable">
                 <div class="rTableRow ">
                     <div class="rTableHead"><strong>Machine</strong></div>
@@ -35,3 +38,65 @@
         {{> login}}
     {{/if}}
 </template>
+
+<template name="upload">
+    {{> changeStat}}
+    <h1 class="posBulkText">Multiple Machines</h1>
+        <form class="siMdList posBulk">
+            <label for="siMdList" class="mLocationId" ></label>
+            <input type="text" id="siMdList" class="siItemMachine" name="siMdList" placeholder="Si Nr" required>
+            <button type="submit" class="reserveId">Submit</button>
+        </form>
+    <h3 class="siUpload">Upload for: {{siNew}}</h3>
+    {{#unless uploading}}
+        <input class="posDatei" type="file" name="uploadCSV">
+    {{else}}
+        <p><i class="fa fa-spin fa-refresh"></i>uploading files</p>
+    {{/unless}}
+    <form class="removeSI">
+        <button type="submit" class="removeSI">Remove SI</button>
+    </form>
+
+
+    <div class="rTable posTable">
+        <div class="rTableRow ">
+            <div class="rTableHead"><strong>SI</strong></div>
+        </div>
+        {{#each siTable}}
+            <div class="rTableRow selectedSiItem {{selectedSingleItem}}">
+                <div class="rTableCell">{{siNumber}}</div>
+            </div>
+        {{/each}}
+    </div>
+    <div>
+        <div class="rTable posMachineTable clearfix">
+            <div class="rTableRow ">
+                <div class="rTableHead"><strong>Machine List</strong></div>
+                <div class="rTableHead"><strong>Status</strong></div>
+            </div>
+                {{#each siContent}}
+                    <div class="rTableRow selectedSi {{selectedSiMachine}}">
+                        <div class="rTableCell">{{machine}}</div>
+                        <div class="rTableCell {{getSiStatusColor siStatus}}" style="background-color:{{getSiStatusColor
+                                siStatus}}; color:{{getSiStatusColor siStatus}}">{{siStatus}}</div>
+                    </div>
+                {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="changeStat">
+    <div>
+        <form class="statusChange">
+            <button type="submit" class="statusButton statusBackground_0">Not Touched</button>
+            <p></p>
+            <button type="submit" class="statusButton statusBackground_1">Solved by Rep</button>
+            <p></p>
+            <button type="submit" class="statusButton statusBackground_2">Work in Progress</button>
+            <p></p>
+            <button type="submit" class="statusButton statusBackground_3">Solved by PDI</button>
+        </form>
+    </div>
+</template>
+
+

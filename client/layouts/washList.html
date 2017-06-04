@@ -42,9 +42,12 @@
             <div class="rTableRow readyWash {{selectedClass}}">
                 <div class="rTableCell">{{machineId}}</div>
                 <div class="rTableCell" style="width: 120px">{{date}}</div>
-                <div class="rTableCell  {{getStatusColor pdiStatus}}" style="background-color:{{getStatusColor pdiStatus}}; color:{{getStatusColor pdiStatus}}" >{{pdiStatus}}</div>
-                <div class="rTableCell" style="background-color:{{getStatusColor repairStatus}}; color:{{getStatusColor repairStatus}}" >{{repairStatus}}</div>
-                <div class="rTableCell  {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}}; color:{{getStatusColor washStatus}}" >{{washStatus}}</div>
+                <div class="rTableCell  {{getStatusColor pdiStatus}}" style="background-color:{{getStatusColor
+                        pdiStatus}}; color:{{getStatusColor pdiStatus}}" >{{pdiStatus}}</div>
+                <div class="rTableCell" style="background-color:{{getStatusColor repairStatus}};
+                        color:{{getStatusColor repairStatus}}" >{{repairStatus}}</div>
+                <div class="rTableCell  {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}};
+                        color:{{getStatusColor washStatus}}" >{{washStatus}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
             </div>
         {{/each}}

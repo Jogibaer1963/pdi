@@ -1,11 +1,7 @@
 /**
  * Created by Jogibaer on 29.06.2016.
  */
-if(Meteor.isClient) {
-
-    
     Template.si.events({
-
         'click .selectedSiItem': function () {
             const checkPoint = this._id;
             Session.set('selectedItem', checkPoint);
@@ -23,7 +19,6 @@ if(Meteor.isClient) {
         'submit .removeSiItem': function () {
             event.preventDefault();
             const siItem = Session.get('selectedItem');
-            console.log(siItem);
             Meteor.call('removeFromSiList', siItem);
 
         }
@@ -48,9 +43,156 @@ if(Meteor.isClient) {
             if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }
+        },
+
+
+
+
+    });
+
+    Template.upload.onCreated(() => {
+        Template.instance().uploading = new ReactiveVar(false);
+    });
+
+    Template.upload.events({
+
+        'submit .siMdList': function () {
+            event.preventDefault();
+            const siMdList = event.target.siMdList.value;
+            Session.set('siList', siMdList);
+            let exist = siTable.findOne({siNumber: siMdList});
+            if (!exist) {
+                Meteor.call('siInsert', siMdList);
+            } else {
+               Bert.alert('!! SI already exists !!', 'danger', 'fixed-top');
+            }
+            event.target.siMdList.value = '';
+        },
+
+        'change [name="uploadCSV"]' (event, template) {
+            const siMdList =  Session.get('siList');
+            Papa.parse(event.target.files[0], {
+                header:true,
+                complete(result, file) {
+                    Meteor.call('parseUpload', result.data, siMdList, (error, response) => {
+                        if(error) {
+                            Bert.alert(error.reason, 'warning');
+                        } else {
+                            template.uploading.set(false);
+                            Bert.alert('Upload complete', 'success', 'growl-top-right');
+                        }
+                    });
+                    Session.set('siList', '');
+                }
+            });
+        },
+
+        'click .removeSI': function () {
+          event.preventDefault();
+          const siRemove = Session.get('selectedItem');
+          Meteor.call('removeSi', siRemove);
+        },
+
+        'click .selectedSiItem': function () {
+            const checkMe = this._id;
+            console.log(checkMe);
+            Session.set('selectedItem', checkMe);
+        },
+
+        'click .selectedSi': function () {
+            const SiPoint = this._id;
+            Session.set('selectedSiLine', SiPoint);
+        },
+    });
+
+Template.upload.helpers({
+
+    uploading() {
+        return Template.instance().uploading.get();
+    },
+
+        siTable: function() {
+            event.preventDefault();
+            return siTable.find();
+        },
+
+        siNew: function() {
+          return Session.get('siList');
+        },
+
+        'selectedSingleItem': function() {
+            event.preventDefault();
+            const SiPoint = this._id;
+            const selectedSiLine = Session.get('selectedItem');
+            if(SiPoint === 'undefined') {
+                // do nothing
+            } else {
+                if (selectedSiLine === SiPoint) {
+                    return "selected"
+                }
+            }
+        },
+
+        'selectedSiMachine': function() {
+            event.preventDefault();
+            const SiMachine = this._id;
+            const selectedSiLine = Session.get('selectedSiLine');
+            if(!SiMachine) {
+                // do nothing
+            } else {
+                if (selectedSiLine === SiMachine) {
+                    return "selected"
+                }
+            }
+        },
+
+        siContent: function() {
+            const siMachineList = Session.get('selectedItem');
+            const siIdLoad = siTable.findOne({_id: siMachineList}, {fields: {siNumber: 1}});
+            if(!!siIdLoad) {
+              const siId = siIdLoad.siNumber;
+                return siMd.findOne({_id: siId}).machineList;
+                } else {
+              //  Bert.alert('No Machine List available or uploaded', 'danger', 'growl-top-right');
+            }
         }
+});
 
+Template.changeStat.events({
 
-    })
+         'click .statusBackground_0': function (e) {
+             e.preventDefault();
+             let setStatus = 0;
+             let selectedMachineId = Session.get('selectedSiLine');
+             let selectedSI =  Session.get('selectedItem');
+             let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
+             Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
+         },
 
-}
+         'click .statusBackground_1': function (e) {
+             e.preventDefault();
+             let setStatus = 1;
+             let selectedMachineId = Session.get('selectedSiLine');
+             let selectedSI =  Session.get('selectedItem');
+             let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
+             Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
+         },
+
+         'click .statusBackground_2': function (e) {
+             e.preventDefault();
+             let setStatus = 2;
+             let selectedMachineId = Session.get('selectedSiLine');
+             let selectedSI =  Session.get('selectedItem');
+             let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
+             Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
+         },
+
+         'click .statusBackground_3': function (e) {
+             e.preventDefault();
+             let setStatus = 3;
+             let selectedMachineId = Session.get('selectedSiLine');
+             let selectedSI =  Session.get('selectedItem');
+             let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
+             Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
+         }
+});

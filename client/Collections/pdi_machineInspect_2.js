@@ -32,6 +32,8 @@ if(Meteor.isClient) {
             Session.set('selectedCheckPoint', openInspect);
             const repOrder = checkPoints.findOne({_id: openInspect});
             Session.set('repairOrder', repOrder);
+        //    Meteor.call('callMe', openInspect);
+
         },
 
         'click .good': function(event) {
@@ -49,6 +51,7 @@ if(Meteor.isClient) {
                 Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
                 const selectedPdiMachineId = Session.get('selectedPdiMachine');
                 const repOrder = Session.get('repairOrder');
+                console.log(repOrder);
                 const machineNr = Session.get('pdiMachineNumber');
                 Meteor.call('addToCheckList', selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr);
                 Session.set('selectedCheckPoint', '');
@@ -96,7 +99,6 @@ if(Meteor.isClient) {
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint === checkPoint) {
-                console.log(selectedCheckPoint);
                 return "selected"
             }
         },
@@ -112,6 +114,14 @@ if(Meteor.isClient) {
 
 
     Template.addPdiItems.events({
+        'click .erasePoint': function () {
+            event.preventDefault();
+            const machineNr = Session.get('pdiMachineNumber');
+            const selectedCheckPoint = Session.get('selectedCheckPoint');
+            Meteor.call('findMe', machineNr, selectedCheckPoint);
+        },
+
+
         'click .posPdiFinished': function() {
             event.preventDefault();
             window.confirm("PDI Finished ?");

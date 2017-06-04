@@ -38,6 +38,7 @@ if(Meteor.isClient) {
             },
 
         'click .machinePdi': function() {
+            event.preventDefault();
             const selectedPdiMachineId = Session.get('selectedPdiMachine');
             const selectedPdiMachineNr = Session.get('pdiMachineNumber');
             const firstRange =  JSON.stringify(selectedPdiMachineNr).slice(1,4);
