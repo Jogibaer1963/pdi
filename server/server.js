@@ -183,12 +183,6 @@ if(Meteor.isServer){
                 errorDescription: failureDescription, nameMachineList: nameMachineList});
         },
 
-        'remove_Fields': function() {
-            const count = repairOrderPrint.find().count();
-            repairOrderPrint.updateMany({}, {$unset: {Repair_Comments: ''}});
-
-        },
-
         'removeSiMachine': function(removeSiItem) {
             siList.remove({_id: removeSiItem});
         },

@@ -41,6 +41,7 @@
 
 <template name="upload">
     {{> changeStat}}
+    {{> uploadList}}
     <h1 class="posBulkText">Multiple Machines</h1>
         <form class="siMdList posBulk">
             <label for="siMdList" class="mLocationId" ></label>
@@ -56,8 +57,9 @@
     <form class="removeSI">
         <button type="submit" class="removeSI">Remove SI</button>
     </form>
+</template>
 
-
+<template name="uploadList">
     <div class="rTable posTable">
         <div class="rTableRow ">
             <div class="rTableHead"><strong>SI</strong></div>
@@ -95,6 +97,8 @@
             <button type="submit" class="statusButton statusBackground_2">Work in Progress</button>
             <p></p>
             <button type="submit" class="statusButton statusBackground_3">Solved by PDI</button>
+            <p></p>
+            <button type="submit" class="statusButton statusBackground_4">Move to SI Field List</button>
         </form>
     </div>
 </template>

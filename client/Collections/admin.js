@@ -27,13 +27,13 @@ if (Meteor.isClient) {
         }
     });
 
-    Template.dataBase.events({
-        'click .start': function(e) {
-            e.preventDefault();
-            console.log('test');
-           Meteor.call('remove_Fields');
-        }
-    });
+  //  Template.dataBase.events({
+  //      'click .start': function(e) {
+  //          e.preventDefault();
+  //          console.log('test');
+  //         Meteor.call('remove_Fields');
+  //      }
+  //  });
 
     Template.dataBase.helpers({
            shipList: function() {

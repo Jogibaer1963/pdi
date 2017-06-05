@@ -1,7 +1,7 @@
 .bulkSi {
-    position: absolute;
-    left:700px;
-    top: 10px;
+    position: relative;
+    left:600px;
+    top: -500px;
 }
 
 .container {
@@ -809,6 +809,12 @@
     margin-top: 10px;
 }
 
+.repSiHead {
+    position: absolute;
+    top: 170px;
+    left: 600px;
+}
+
 .statusChange {
     position: absolute;
     left: 990px;
@@ -831,7 +837,11 @@
 }
 
 .statusBackground_3 {
-    background-color: #28d8be;
+      background-color: #28d8be;
+}
+
+.statusBackground_4 {
+    background-color: #d8820b;
 }
 
 .statusBackground_0 {
@@ -1077,12 +1087,14 @@
     position: absolute;
     top: 278px;
     left: 600px;
+    width: 130px;
 }
 
 .posMachineTable {
     position: absolute;
     top: 278px;
-    left: 800px;
+    left: 760px;
+    height: 400px;
 }
 
 .checkListFinding {

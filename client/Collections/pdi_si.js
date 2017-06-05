@@ -43,10 +43,7 @@
             if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }
-        },
-
-
-
+        }
 
     });
 
@@ -91,18 +88,9 @@
           event.preventDefault();
           const siRemove = Session.get('selectedItem');
           Meteor.call('removeSi', siRemove);
-        },
+        }
 
-        'click .selectedSiItem': function () {
-            const checkMe = this._id;
-            console.log(checkMe);
-            Session.set('selectedItem', checkMe);
-        },
 
-        'click .selectedSi': function () {
-            const SiPoint = this._id;
-            Session.set('selectedSiLine', SiPoint);
-        },
     });
 
 Template.upload.helpers({
@@ -111,51 +99,73 @@ Template.upload.helpers({
         return Template.instance().uploading.get();
     },
 
-        siTable: function() {
-            event.preventDefault();
-            return siTable.find();
-        },
 
         siNew: function() {
           return Session.get('siList');
-        },
+        }
 
-        'selectedSingleItem': function() {
-            event.preventDefault();
-            const SiPoint = this._id;
-            const selectedSiLine = Session.get('selectedItem');
-            if(SiPoint === 'undefined') {
-                // do nothing
-            } else {
-                if (selectedSiLine === SiPoint) {
-                    return "selected"
-                }
-            }
-        },
 
-        'selectedSiMachine': function() {
-            event.preventDefault();
-            const SiMachine = this._id;
-            const selectedSiLine = Session.get('selectedSiLine');
-            if(!SiMachine) {
-                // do nothing
-            } else {
-                if (selectedSiLine === SiMachine) {
-                    return "selected"
-                }
-            }
-        },
+});
 
-        siContent: function() {
-            const siMachineList = Session.get('selectedItem');
-            const siIdLoad = siTable.findOne({_id: siMachineList}, {fields: {siNumber: 1}});
-            if(!!siIdLoad) {
-              const siId = siIdLoad.siNumber;
-                return siMd.findOne({_id: siId}).machineList;
-                } else {
-              //  Bert.alert('No Machine List available or uploaded', 'danger', 'growl-top-right');
+Template.uploadList.events({
+
+    'click .selectedSiItem': function () {
+        const checkMe = this._id;
+        Session.set('selectedItem', checkMe);
+    },
+
+    'click .selectedSi': function () {
+        const SiPoint = this._id;
+        Session.set('selectedSiLine', SiPoint);
+    }
+
+
+});
+
+Template.uploadList.helpers({
+
+    siTable: function() {
+        event.preventDefault();
+        return siTable.find();
+    },
+
+    siContent: function() {
+        const siMachineList = Session.get('selectedItem');
+        const siIdLoad = siTable.findOne({_id: siMachineList}, {fields: {siNumber: 1}});
+        if(!!siIdLoad) {
+            const siId = siIdLoad.siNumber;
+            return siMd.findOne({_id: siId}).machineList;
+        } else {
+            //  Bert.alert('No Machine List available or uploaded', 'danger', 'growl-top-right');
+        }
+    },
+
+    'selectedSingleItem': function() {
+        event.preventDefault();
+        const SiPoint = this._id;
+        const selectedSiLine = Session.get('selectedItem');
+        if(SiPoint === 'undefined') {
+            // do nothing
+        } else {
+            if (selectedSiLine === SiPoint) {
+            return "selected"
             }
         }
+    },
+
+       'selectedSiMachine': function() {
+            event.preventDefault();
+           const SiMachine = this._id;
+           const selectedSiLine = Session.get('selectedSiLine');
+           if(!SiMachine) {
+                // do nothing
+              } else {
+                 if (selectedSiLine === SiMachine) {
+                     return "selected"
+                 }
+              }
+       }
+
 });
 
 Template.changeStat.events({
@@ -194,5 +204,14 @@ Template.changeStat.events({
              let selectedSI =  Session.get('selectedItem');
              let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
              Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
+         },
+
+         'click .statusBackground_4': function (e) {
+            e.preventDefault();
+            let setStatus = 4;
+            let selectedMachineId = Session.get('selectedSiLine');
+            let selectedSI =  Session.get('selectedItem');
+            let SiNumber = siTable.findOne({_id: selectedSI}).siNumber;
+            Meteor.call('changeStatus', SiNumber, selectedMachineId, setStatus);
          }
 });
