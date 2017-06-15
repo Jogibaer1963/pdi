@@ -49,6 +49,8 @@
             <div class="rTableHead"><strong>Wash</strong></div>
             <div class="rTableHead"><strong>Location</strong></div>
             <div class="rTableHeadOverView"><strong>Kit List printed</strong></div>
+            <div class="rTableHeadOverView"><strong>Parts on Order</strong></div>
+
         </div>
         {{#each shippList}}
             <div class="rTableRow openInspections {{selectedClass2}}">
@@ -60,6 +62,8 @@
                 <div class="rTableCell  {{getStatusColor washStatus}}" style="background-color:{{getStatusColor washStatus}}; color:{{getStatusColor washStatus}}" >{{washStatus}}</div>
                 <div class="rTableCell" style="background-color: #6fd981">{{locationId}}</div>
                 <div class="rTableCellOverView {{getStatus KitStatus}}" style="background-color:{{getStatus KitStatus}}; color:{{getStatus KitStatus}}" >{{KitStatus}}</div>
+                <div class="rTableCellOverView {{getOrderStatusColor orderStatus}}" style="background-color:{{getOrderStatusColor
+                        orderStatus}}; color:{{getOrderStatusColor orderStatus}}" >{{orderStatus}}</div>
             </div>
         {{/each}}
     </div>

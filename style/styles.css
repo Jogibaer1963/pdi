@@ -1,7 +1,7 @@
 .bulkSi {
     position: relative;
     left:600px;
-    top: -500px;
+    top: -800px;
 }
 
 .container {
@@ -1051,6 +1051,17 @@
     left: 520px;
 }
 
+.orderPart {
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: #ff0514;
+    padding: 15px;
+    margin: 10px;
+    position: absolute;
+    top: 1020px;
+    left: 520px;
+}
+
 .pdiOverviewLayout {
     position: fixed;
 }
@@ -1165,7 +1176,7 @@
     position: absolute;
     top: 1px;
     left: 100px;
-    width: 110px;
+    width: 120px;
 }
 
 .rangeBox3 {
@@ -1182,7 +1193,12 @@
     width: 110px;
 }
 
-
+.rangeBox5 {
+    position: absolute;
+    top: 40px;
+    left: 100px;
+    width: 120px;
+}
 
 .mainFix {
     position: fixed;

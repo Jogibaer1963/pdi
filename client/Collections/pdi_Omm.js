@@ -4,14 +4,13 @@ if(Meteor.isClient) {
 
         'click .mainOm': function() {
             event.preventDefault();
-            var om = ommMain.find({}).fetch();
+            let om = ommMain.find({}).fetch();
             Session.set('om', om);
         },
 
         'click .suppOm': function() {
             event.preventDefault();
-            var omSupp = ommSupp.find({}).fetch();
-            console.log(omSupp);
+            let omSupp = ommSupp.find({}).fetch();
             Session.set('omSupp', omSupp);
         }
 
@@ -36,9 +35,8 @@ if(Meteor.isClient) {
 
         'submit .mainOm': function(event) {
             event.preventDefault();
-            var omPartNr = event.target.mainOmmPartNr.value;
-            console.log('test');
-            console.log(omPartNr);
+           const omPartNr = event.target.mainOmmPartNr.value;
+
         }
     })
 }

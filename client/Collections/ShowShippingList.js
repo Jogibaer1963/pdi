@@ -54,7 +54,7 @@ if (Meteor.isClient) {
             const idFinder = MachineReady.find({machineId: selectedMachine}, {fields: {_id: 1}}).fetch();
             const idString = JSON.stringify(idFinder);
             const idExtract = idString.slice(9, 26);
-            if(typeof idExtract == 'string' ) {
+            if(typeof idExtract === 'string' ) {
                 Session.set('editSelectedMachine', idExtract);
                 FlowRouter.go('editMachine');
             }

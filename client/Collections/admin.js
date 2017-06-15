@@ -9,14 +9,14 @@ if (Meteor.isClient) {
     Template.register.events({
         'submit form': function (event) {
             event.preventDefault();
-            var userVar = event.target.registerUser.value;
-            var passwordVar = event.target.registerPassword.value;
-            var role = event.target.registerRole.value;
+            const userconst = event.target.registerUser.value;
+            const passwordconst = event.target.registerPassword.value;
+            const role = event.target.registerRole.value;
             Accounts.createUser({
-                username: userVar,
-                password: passwordVar
+                username: userconst,
+                password: passwordconst
             });
-            Meteor.call('accountRole', userVar, role);
+            Meteor.call('accountRole', userconst, role);
         }
     });
 
@@ -27,33 +27,21 @@ if (Meteor.isClient) {
         }
     });
 
-  //  Template.dataBase.events({
-  //      'click .start': function(e) {
-  //          e.preventDefault();
-  //          console.log('test');
-  //         Meteor.call('remove_Fields');
-  //      }
-  //  });
-
     Template.dataBase.helpers({
            shipList: function() {
-                var remove = repairPrint.find({}).count();
-               console.log(remove);
-                var  idSearch = [];
+                const remove = repairPrint.find({}).count();
+                const  idSearch = [];
                 for(i = 0; i > remove; i ++) {
-                    console.log(i);
-                   var id_Search = repairPrint.find({}, {fields: {_id: 1}}).fetch();
-                    console.log('da ' +  id_Search);
+                   const id_Search = repairPrint.find({}, {fields: {_id: 1}}).fetch();
                    idSearch.push(id_Search);
                  }
-              console.log(idSearch);
            }
     });
 
     Template.emailTest.events({
         'click .emailButton': function (e) {
             e.preventDefault();
-            Meteor.call('sendEmail', 'juergen.hauser@claas.com, jogibaer99@gmail.com', 'Claas_Quality@mailgun.com', 'Hello from Meteor', 'Email Test');
+            Meteor.call('sendEmail', 'juergen.hauser@claas.com, jogibaer99@gmail.com', 'Claas_Quality@mailgun.com', 'Parts Order request');
         }
     });
 

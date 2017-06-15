@@ -141,24 +141,6 @@ if(Meteor.isServer){
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
         },
 
-        'sendEmail': function (to, from, subject) {
-
-            this.unblock();
-
-            Email.send({
-                to: to,
-                from: from,
-                subject: subject,
-                html: 'Weekly PDI Report</strong>',
-                attachments: [{
-                    fileName: 'flapjacks.pdf',
-                    filePath: 'https://s3.amazonaws.com/tmc-post-content/flapjacks.pdf',
-                    contentType: 'pdf',
-                }]
-            });
-        },
-
-
         'mcoFind': function(searchId) {
           mcoReview.find({mcoId: searchId});
 
@@ -265,9 +247,9 @@ if(Meteor.isServer){
             MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 1}});
         },
 
-        'inputNewCheckPoint': function(status, errorPos, errorNr, errorDescription, range) {
+        'inputNewCheckPoint': function(status, errorPos, errorNr, errorDescription, range, orderStatus) {
             checkPoints.insert({status: status, errorPos: errorPos, errorNr: errorNr,
-                errorDescription: errorDescription, machineRange: range});
+                errorDescription: errorDescription, machineRange: range, onOrder: orderStatus});
         },
 
         'editCheckPoint': function(checkId, status, errorPos, errorNr, errorDescription, machineRange) {
@@ -322,12 +304,9 @@ if(Meteor.isServer){
                         InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
                         siMd.update({_id: siName, "machineList._id": machineId},
                          {$set:{"machineList.$.siStatus": 3}});
-
-
                     }
                 }
             }
-
         },
 
         'cancelPdi': function(pdiMachineId) {
@@ -345,13 +324,6 @@ if(Meteor.isServer){
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
         },
 
-        'callMe': function(openInspect) {
-            const repOrder = checkPoints.findOne({_id: openInspect}, {errorNr: 0, errorDescription: 0});
-            repairOrderPrint.insert({repOrder});
-
-        },
-
-
         'addToCheckList': function(selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
@@ -367,28 +339,55 @@ if(Meteor.isServer){
 
         'findMe': function (machineNr, selectedPdiMachine) {
             InspectedMachines.update({machineId: machineNr}, {$pull: {repOrder: {_id:selectedPdiMachine}}});
-          //  repairOrderPrint.remove({})
         },
 
         'addToCheckListNew': function(selectedPdiMachineId, repOrder, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             const stringError = JSON.stringify(repOrder).slice(42,46);
             const stringDescription = JSON.stringify(repOrder).slice(68,-2);
-            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription,
-                Repair_Comments: " ", Issue_Resolved: " "});
+            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError,
+                Error_Description: stringDescription});
+        },
+
+        'orderParts': function (machineNr, loggedInUser, failureAddDescription) {
+            const orderStatus = 1;
+            orderParts.insert({machineNr: machineNr, user: loggedInUser, description: failureAddDescription,
+                orderStatus: orderStatus});
+
         },
 
         'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, ommMain, ommSupp, ommFitting, ommTerra, ommCebis, ommProfiCam) {
-            InspectedMachines.update({_id: selectedPdiMachineId}, {$set: {user: loggedInUser, ommMain: ommMain, ommSupp: ommSupp,
+            InspectedMachines.update({_id: selectedPdiMachineId}, {$set: {user: loggedInUser, ommMain: ommMain,
+                ommSupp: ommSupp,
                 ommFitting: ommFitting, ommTerra: ommTerra, ommCebis: ommCebis, ommProfiCam: ommProfiCam}})
         },
 
         'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine) {
-            MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop, pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
+            MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop,
+                pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
             pdiCheckPoints.remove({_id: selectedPdiMachine});
             const repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
             MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
             siList.remove({machineNr: pdiMachine});
+        },
+
+        'sendEmail': function (to, from, subject) {
+            const orderFind = orderParts.find({orderStatus: 1}, {fields: {_id: 0}});
+            SSR.compileTemplate('htmlEmail', Assets.getText('html-email.html'));
+            Template.htmlEmail.helpers({
+                orderNr: function () {
+                    setTimeout(function(){}, 1000);
+                return orderFind;
+                }
+            });
+            this.unblock();
+            Email.send({
+                to: to,
+                from: from,
+                subject: subject,
+                html: SSR.render('htmlEmail',  {machineNr: ''})
+            });
+            orderParts.update({orderStatus: 1}, {$set: {orderStatus: 2}}, {multi:true});
         },
 
         'removeFailureId': function(selectedFailurePoint) {
@@ -461,7 +460,7 @@ if(Meteor.isServer){
         },
 
         'addToShipList': function(newMachineInput, newShippingDate, createUnixTime, createDate, createTime,
-                                  newShippingDestination, newShippingTransporter, newShippingKit, newShippingTireTrack, newShippingComment ) {
+            newShippingDestination, newShippingTransporter, newShippingKit, newShippingTireTrack, newShippingComment ) {
 
             MachineReady.insert({
                 machineId: newMachineInput,
@@ -529,9 +528,9 @@ if(Meteor.isServer){
 
 
     });
+ }
 
 
 
 
-}
 

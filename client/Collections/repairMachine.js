@@ -40,7 +40,6 @@ if(Meteor.isClient) {
             event.preventDefault();
             const selectedPdiMachine = Session.get('selectedMachineId');
             if(typeof selectedPdiMachine === 'undefined') {
-                console.log('undefined');
                 alert('Mark the Machine first before update the Location');
             }
             const locationId = event.target.locationId.value;
@@ -85,7 +84,6 @@ if(Meteor.isClient) {
         'click .upcomingList': function() {
             const upcomingMachine = this._id;
             Session.set('selectedMachineId', upcomingMachine);
-            console.log(upcomingMachine);
         },
 
         'click .addList': function() {

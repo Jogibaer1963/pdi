@@ -6,11 +6,8 @@ Template.ecnOverView.events({
        event.preventDefault();
        const searchId = event.target.searchId.value;
        const mcoFound = mcoReview.find({mcoId: searchId}).fetch();
-       if (mcoFound == "") {
-           console.log("neuanlage");
-
+       if (mcoFound === "") {
        } else {
-           console.log("MCo gefunden" + mcoFound);
        }
    }
 });
@@ -22,7 +19,6 @@ Template.ecnNew.events({
         event.preventDefault();
         const newEcn = event.target.newEcn.value;
         const ecnEffectivity = event.target.ecnEffectivity.value;
-        console.log(ecnEffectivity);
         const machineRecording = event.target.machineRecording.checked;
         const mcoNotes = event.target.mcoNotes.value;
         Meteor.call('mcoNew', newEcn, ecnEffectivity, machineRecording, mcoNotes);

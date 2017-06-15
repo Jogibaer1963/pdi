@@ -20,6 +20,11 @@ if(Meteor.isClient) {
         failureId: function() {
             event.preventDefault();
                  return Session.get('selectedErrorId');
+        },
+
+        failureAddDescription: function() {
+            failureText = Session.get('failureAddDescription');
+            return failureText;
         }
 
     });
@@ -32,8 +37,6 @@ if(Meteor.isClient) {
             Session.set('selectedCheckPoint', openInspect);
             const repOrder = checkPoints.findOne({_id: openInspect});
             Session.set('repairOrder', repOrder);
-        //    Meteor.call('callMe', openInspect);
-
         },
 
         'click .good': function(event) {
@@ -51,7 +54,6 @@ if(Meteor.isClient) {
                 Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
                 const selectedPdiMachineId = Session.get('selectedPdiMachine');
                 const repOrder = Session.get('repairOrder');
-                console.log(repOrder);
                 const machineNr = Session.get('pdiMachineNumber');
                 Meteor.call('addToCheckList', selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr);
                 Session.set('selectedCheckPoint', '');
@@ -63,11 +65,16 @@ if(Meteor.isClient) {
             event.preventDefault();
             const specialAtt = 1;
             Session.set('specialAtt', specialAtt);
-         },
+        },
+
+        'click .orderPart, addCheckPointsToList': function() {
+            event.preventDefault();
+            const orderStat = 1;
+            Session.set('orderStat', orderStat);
+        },
 
         'submit .addCheckPointsToList': function(event) {
             event.preventDefault();
-            const errorCodeMissing = "Error Code Missing";
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
             const machineNr = Session.get('pdiMachineNumber');
@@ -75,14 +82,22 @@ if(Meteor.isClient) {
             const failureId = event.target.failureId.value;
             let failureAddDescription = event.target.failureDescription.value;
             const specialAtt = Session.get('specialAtt');
+            const orderParts = Session.get('orderStat');
             if(specialAtt === 1) {
                const addText = '**********';
                failureAddDescription = addText + ' ' + failureAddDescription + ' ' + addText;
             }
+           if(orderParts === 1) {
+               const loggedInUser = Session.get('currentLoggedInUser');
+               const addOrder = '   ***** Parts on Order *****';
+               failureAddDescription = failureAddDescription + ' ' + addOrder;
+               Meteor.call('orderParts', machineNr, loggedInUser, failureAddDescription);
+            }
             if(failureId === "") {
             } else {
             const orderId = machineNr + (new Date().getTime());
-            const repOrder = {'_id': orderId, 'errorNr': failureId, 'errorDescription': failureAddDescription};
+            const repOrder = {'_id': orderId, 'errorNr': failureId, 'errorDescription': failureAddDescription,
+                'orderStatus': orderParts};
             Meteor.call('addToCheckListNew', selectedPdiMachineId, repOrder, machineNr);
             event.target.failureId.value = '';
             event.target.failureDescription.value = '';
@@ -95,7 +110,6 @@ if(Meteor.isClient) {
     Template.addPdiItems.helpers({
 
         'selectedClass': function() {
-            event.preventDefault();
             const checkPoint = this._id;
             const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint === checkPoint) {
@@ -104,12 +118,10 @@ if(Meteor.isClient) {
         },
 
         foundNewFailure: function() {
-            event.preventDefault();
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
             const selectedPdiMachineId = Session.get('selectedPdiMachine');
             return  InspectedMachines.findOne({_id: selectedPdiMachineId});
-        }
-
+        },
     });
 
 
@@ -144,9 +156,14 @@ if(Meteor.isClient) {
             const waitPdiTime = convertMS(diffCreateTime);
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
             const pdiMachine = Session.get('pdiMachineNumber');
-            Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine);
+            Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime,
+                pdiMachine);
+            Meteor.call('sendEmail', ['jogibaer99@gmail.com'],
+                'Claas_Quality@mailgun.com', 'Parts Order request ** Attention Test Mail **');
             FlowRouter.go('inspectionStart');
+
         },
+
 
         'click .showFinalCheck': function() {
             event.preventDefault();

@@ -1,6 +1,4 @@
-/**
- * Created by Jogibaer on 29.06.2016.
- */
+
     Template.si.events({
         'click .selectedSiItem': function () {
             const checkPoint = this._id;
