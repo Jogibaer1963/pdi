@@ -143,7 +143,6 @@ if(Meteor.isServer){
 
         'mcoFind': function(searchId) {
           mcoReview.find({mcoId: searchId});
-
         },
 
         'mcoNew': function(newEcn, ecnEffectivity, machineRecording, mcoNotes) {
@@ -192,7 +191,7 @@ if(Meteor.isServer){
         const heading = true;
         const delimiter = ";";
         return exportcsv.exportToCSV(collection, heading, delimiter);
-    },
+        },
 
         'removeText': function(removeId, userWashBay) {
             washBayText.update({_id: removeId}, {$set: {active: 0, user: userWashBay}});
@@ -434,9 +433,6 @@ if(Meteor.isServer){
             InspectedMachines.remove({_id: machineRepaired});
             MachineReady.update({_id: machineRepaired}, {$set: {repairStatus: 1, machineHour: workingHour}});
         },
-
-
-
 
         'updateWashList': function(selectedCheckPoint, dateStart) {
             MachineReady.update({_id:selectedCheckPoint}, {$set: {washStatus: 2, startWashDate: dateStart}});
