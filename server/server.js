@@ -371,22 +371,26 @@ if(Meteor.isServer){
         },
 
         'sendEmail': function (to, from, subject) {
-            const orderFind = orderParts.find({orderStatus: 1}, {fields: {_id: 0}});
-            SSR.compileTemplate('htmlEmail', Assets.getText('html-email.html'));
-            Template.htmlEmail.helpers({
-                orderNr: function () {
-                    setTimeout(function(){}, 1000);
-                return orderFind;
-                }
-            });
-            this.unblock();
-            Email.send({
-                to: to,
-                from: from,
-                subject: subject,
-                html: SSR.render('htmlEmail',  {machineNr: ''})
-            });
-            orderParts.update({orderStatus: 1}, {$set: {orderStatus: 2}}, {multi:true});
+            const orderFind = orderParts.find({orderStatus: 1}, {fields: {_id: 0}}).fetch();
+            if (orderFind.length === 0  ) {
+            } else {
+                SSR.compileTemplate('htmlEmail', Assets.getText('html-email.html'));
+                Template.htmlEmail.helpers({
+                    orderNr: function () {
+                        setTimeout(function () {
+                        }, 1000);
+                        return orderFind;
+                    }
+                });
+                this.unblock();
+                Email.send({
+                    to: to,
+                    from: from,
+                    subject: subject,
+                    html: SSR.render('htmlEmail', {machineNr: ''})
+                });
+                orderParts.update({orderStatus: 1}, {$set: {orderStatus: 2}}, {multi: true});
+            }
         },
 
         'removeFailureId': function(selectedFailurePoint) {

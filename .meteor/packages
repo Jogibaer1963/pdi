@@ -26,11 +26,11 @@ lfergon:exportcsv
 lookback:dropdowns
 meteor-base@1.1.0             # Packages every Meteor app needs to have
 meteorhacks:aggregate
-meteortoys:allthings
+
 mobile-experience@1.0.4       # Packages for a great mobile UX
 mongo@1.1.18                   # The database Meteor supports right now
 mrt:moment-timezone
-msavin:mongol
+
 momentjs:moment@2.16.0
 pfafman:filesaver
 raix:handlebar-helpers

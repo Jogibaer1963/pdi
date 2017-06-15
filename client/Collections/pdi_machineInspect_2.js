@@ -158,8 +158,7 @@ if(Meteor.isClient) {
             const pdiMachine = Session.get('pdiMachineNumber');
             Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime,
                 pdiMachine);
-            Meteor.call('sendEmail', ['jogibaer99@gmail.com', 'robert.schutte@claas.com',
-                    'juergen.hauser@claas.com'], 'Claas_Quality@mailgun.com', 'Parts Order request');
+            Meteor.call('sendEmail', ['jogibaer99@gmail.com', 'juergen.hauser@claas.com'], 'Claas_Quality@mailgun.com', 'Parts Order request');
             FlowRouter.go('inspectionStart');
         },
 
