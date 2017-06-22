@@ -89,8 +89,8 @@ if(Meteor.isClient) {
             }
            if(orderParts === 1) {
                const loggedInUser = Session.get('currentLoggedInUser');
-               const addOrder = '   ***** Parts on Order *****';
-               failureAddDescription = failureAddDescription + ' ' + addOrder;
+               const addOrder = '***** Parts on Order *****   ';
+               failureAddDescription = addOrder + ' ' + failureAddDescription;
                Meteor.call('orderParts', machineNr, loggedInUser, failureAddDescription);
             }
             if(failureId === "") {
@@ -102,6 +102,7 @@ if(Meteor.isClient) {
             event.target.failureId.value = '';
             event.target.failureDescription.value = '';
                 Session.set('specialAtt', '');
+                Session.set('orderStat', '');
             }
         }
     });
@@ -138,7 +139,7 @@ if(Meteor.isClient) {
             event.preventDefault();
             window.confirm("PDI Finished ?");
             if(confirm("PDI Finished") === true) {
-            } else {
+              } else {
                 return false;
             }
             const dateStop = Date.now();
@@ -156,9 +157,30 @@ if(Meteor.isClient) {
             const waitPdiTime = convertMS(diffCreateTime);
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
             const pdiMachine = Session.get('pdiMachineNumber');
+            const orderFind = InspectedMachines.find({machineId: pdiMachine, "repOrder.orderStatus": 1},
+                {_id: 0, repOrder: {$elemMatch: {orderStatus: 1}}}).fetch();
+                stringOrder = JSON.stringify(orderFind);
+            const stringCount = stringOrder.match(/Parts on Order/gi).length ;
+                    if ( stringCount !== null && stringCount.length <1 ) {
+            } else {
+                        const machineId = Session.get('pdiMachineNumber');
+                        const userLoggedIn = Session.get('currentLoggedInUser');
+                        // ermitteln der Bestellung
+                        const emailArray_2 = [];
+                        for (i = 0; i < stringCount; i++) {
+                            const posOrder = stringOrder.indexOf("***** Parts on Order *****");  //Zahl zur ersten order
+                            const slicedOrder = stringOrder.slice(posOrder + 30);
+                            const stringEnd = slicedOrder.indexOf('"');
+                            const stringOfOne = slicedOrder.substring(0, stringEnd);
+                            emailArray_2.push(stringOfOne);
+                            stringOrder = stringOrder.substring(stringEnd + posOrder);
+                        }
+            Meteor.call('machineUser', machineId, userLoggedIn, emailArray_2);
+            Meteor.call('sendEmail', ['juergen.hauser@claas.com', 'robert.schutte@claas.com'],
+                  'Claas_Quality@mailgun.com', 'Parts Order request', userLoggedIn);
+            }
             Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime,
                 pdiMachine);
-            Meteor.call('sendEmail', ['jogibaer99@gmail.com', 'juergen.hauser@claas.com'], 'Claas_Quality@mailgun.com', 'Parts Order request');
             FlowRouter.go('inspectionStart');
         },
 
@@ -230,4 +252,6 @@ function convertMS(ms) {
     h = h % 24;
     return(   d + ' d '  + h + ' h ' + m + ' m '  + s +' s');
 }
+
+
 

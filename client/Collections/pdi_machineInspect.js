@@ -77,7 +77,7 @@ if(Meteor.isClient) {
             event.preventDefault();
             const omId = this._id;
             const selectedProfiOmId = Session.get('selectedProfiId');
-            if(selectedProfiOmId == omId) {
+            if(selectedProfiOmId === omId) {
                 return "selected";
             } 
         }

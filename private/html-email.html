@@ -16,14 +16,21 @@
                 <tr>
                     <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Machine Number</th>
                     <th style="text-align: left; padding: 10px; border-bottom: 1px solid #eee; border-right: 1px solid #eee;">Pdi Tech</th>
-                    <th style="text-align: left; padding: 10px; border-right: 1px solid #eee;">Defective Part</th>
                 </tr>
     {{# each orderNr}}
                 <tr>
                     <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">{{machineNr}}</td>
                     <td style="text-align: left; padding: 10px; border-bottom: 1px solid #eee;">{{user}}</td>
+                </tr>
+    <p></p>
+                <tr>
+                   <th style="text-align: left; padding: 10px; border-right: 1px solid #eee;">Defective Part(s)</th>
+                </tr>
+             {{# each repOrder}}
+                 <tr>
                     <td style="text-align: left; padding: 10px;">{{description}}</td>
                 </tr>
+             {{/each}}
     {{/each}}
             </table>
         </td>

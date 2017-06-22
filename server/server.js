@@ -370,27 +370,42 @@ if(Meteor.isServer){
             siList.remove({machineNr: pdiMachine});
         },
 
-        'sendEmail': function (to, from, subject) {
-            const orderFind = orderParts.find({orderStatus: 1}, {fields: {_id: 0}}).fetch();
-            if (orderFind.length === 0  ) {
-            } else {
-                SSR.compileTemplate('htmlEmail', Assets.getText('html-email.html'));
-                Template.htmlEmail.helpers({
-                    orderNr: function () {
-                        setTimeout(function () {
-                        }, 1000);
-                        return orderFind;
-                    }
-                });
-                this.unblock();
-                Email.send({
-                    to: to,
-                    from: from,
-                    subject: subject,
-                    html: SSR.render('htmlEmail', {machineNr: ''})
-                });
-                orderParts.update({orderStatus: 1}, {$set: {orderStatus: 2}}, {multi: true});
+
+        'machineUser': function (machineId, userLoggedIn, arrayOrder) {
+            orderParts.insert({_id: userLoggedIn, machineNr: machineId, user: userLoggedIn});
+            setTimeout(function () {
+            }, 1000);
+
+            for (i = 0; i < arrayOrder.length; i++) {
+                let repOrder = {};
+                repOrder._id = Random.id();
+                repOrder.description = arrayOrder[i];
+                orderParts.upsert({_id: userLoggedIn}, {$addToSet: {repOrder}});
             }
+        },
+
+        'sendEmail': function (to, from, subject, loggedUser) {
+            setTimeout(function () { }, 1000);
+            const orderFind = orderParts.find({_id: loggedUser}).fetch();
+                if (orderFind.length === 0  ) {
+                    } else {
+                        SSR.compileTemplate('htmlEmail', Assets.getText('html-email.html'));
+                        Template.htmlEmail.helpers({
+                        orderNr: function () {
+                            setTimeout(function () {
+                            }, 1000);
+                        return orderFind;
+                        }
+                        });
+                    this.unblock();
+                        Email.send({
+                            to: to,
+                            from: from,
+                            subject: subject,
+                            html: SSR.render('htmlEmail', {machineNr: ''})
+                        });
+                    }
+            orderParts.remove({_id: loggedUser});
         },
 
         'removeFailureId': function(selectedFailurePoint) {
