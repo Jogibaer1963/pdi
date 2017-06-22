@@ -159,10 +159,13 @@ if(Meteor.isClient) {
             const pdiMachine = Session.get('pdiMachineNumber');
             const orderFind = InspectedMachines.find({machineId: pdiMachine, "repOrder.orderStatus": 1},
                 {_id: 0, repOrder: {$elemMatch: {orderStatus: 1}}}).fetch();
+            if (orderFind.length === 0) {
+                }  else {
+                console.log('bin drin');
                 stringOrder = JSON.stringify(orderFind);
-            const stringCount = stringOrder.match(/Parts on Order/gi).length ;
+                const stringCount = stringOrder.match(/Parts on Order/gi).length ;
                     if ( stringCount !== null && stringCount.length <1 ) {
-            } else {
+                    } else {
                         const machineId = Session.get('pdiMachineNumber');
                         const userLoggedIn = Session.get('currentLoggedInUser');
                         // ermitteln der Bestellung
@@ -178,6 +181,7 @@ if(Meteor.isClient) {
             Meteor.call('machineUser', machineId, userLoggedIn, emailArray_2);
             Meteor.call('sendEmail', ['juergen.hauser@claas.com', 'robert.schutte@claas.com'],
                   'Claas_Quality@mailgun.com', 'Parts Order request', userLoggedIn);
+                     }
             }
             Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime,
                 pdiMachine);

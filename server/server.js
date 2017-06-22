@@ -352,7 +352,6 @@ if(Meteor.isServer){
             const orderStatus = 1;
             orderParts.insert({machineNr: machineNr, user: loggedInUser, description: failureAddDescription,
                 orderStatus: orderStatus});
-
         },
 
         'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, ommMain, ommSupp, ommFitting, ommTerra, ommCebis, ommProfiCam) {
@@ -540,8 +539,6 @@ if(Meteor.isServer){
                     shippingComment: newShippingComment}
                 });
         }
-
-
     });
  }
 
