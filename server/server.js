@@ -92,6 +92,10 @@ if(Meteor.isServer){
 
         Meteor.publish("siTable", function() {
             return siTable.find();
+        });
+
+        Meteor.publish("fuelAverage", function() {
+            return fuelAverage.find();
         })
     });
 
@@ -354,10 +358,12 @@ if(Meteor.isServer){
                 orderStatus: orderStatus});
         },
 
-        'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, ommMain, ommSupp, ommFitting, ommTerra, ommCebis, ommProfiCam) {
+        'pdiMachineInspected': function(selectedPdiMachineId, loggedInUser, fuelMe, ommMain, ommSupp, ommFitting,
+                                        ommTerra, ommCebis, ommProfiCam) {
+            MachineReady.update({_id: selectedPdiMachineId}, {$set: {fuelStart: fuelMe}});
             InspectedMachines.update({_id: selectedPdiMachineId}, {$set: {user: loggedInUser, ommMain: ommMain,
-                ommSupp: ommSupp,
-                ommFitting: ommFitting, ommTerra: ommTerra, ommCebis: ommCebis, ommProfiCam: ommProfiCam}})
+                ommSupp: ommSupp, Fitting: ommFitting, ommTerra: ommTerra, ommCebis: ommCebis, ommProfiCam: ommProfiCam}});
+
         },
 
         'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine) {
@@ -369,6 +375,10 @@ if(Meteor.isServer){
             siList.remove({machineNr: pdiMachine});
         },
 
+        'fuelAfterPdi': function (selectedPdiMachine, fuelAfter, consumption) {
+          MachineReady.update({_id: selectedPdiMachine}, {$set: {fuelAfter: fuelAfter, consumption: consumption}});
+          fuelAverage.update({}, {$push: {consumption: consumption}});
+        },
 
         'machineUser': function (machineId, userLoggedIn, arrayOrder) {
             orderParts.insert({_id: userLoggedIn, machineNr: machineId, user: userLoggedIn});

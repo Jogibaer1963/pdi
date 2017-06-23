@@ -18,6 +18,9 @@
 
 <template name="ommBook">
     <form class="omBooklets">
+        <label for="fuelMe" class="fuel">Fuel consumption with PDI start</label>
+        <input type="text" class="omInput" id="fuelMe" name="fuelMe" placeholder="Gallon" required>
+    <br><br><br>
         {{#dropdownTrigger  name="ommMain"}}
             <button class="loginSubmit omInputButton">OM Main</button>
         {{/dropdownTrigger}}

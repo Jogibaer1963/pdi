@@ -185,7 +185,7 @@ if(Meteor.isClient) {
             }
             Meteor.call('machineInspected', selectedPdiMachine, dateStop, pdiDuration, waitPdiTime,
                 pdiMachine);
-            FlowRouter.go('inspectionStart');
+            FlowRouter.go('fuelAfter');
         },
 
         'click .showFinalCheck': function() {

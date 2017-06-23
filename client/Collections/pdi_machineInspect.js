@@ -139,13 +139,15 @@ if(Meteor.isClient) {
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
             const loggedInUser = Session.get('currentLoggedInUser');
             const pdiMachineId = Session.get('selectedPdiMachine');
+            const fuelMe = event.target.fuelMe.value;
+            Session.set('fuelBeforePdi', fuelMe);
             const ommMain = event.target.omMain.value;
             const ommSupp = event.target.omSupp.value;
             const ommFitting = event.target.omUnload.value;
             const ommCebis = event.target.omCebis.value;
             const ommTerra = event.target.omTerra.value;
             const ommProfiCam = event.target.omProfiCam.value;
-            Meteor.call('pdiMachineInspected', pdiMachineId, loggedInUser, ommMain, ommSupp,
+            Meteor.call('pdiMachineInspected', pdiMachineId, loggedInUser, fuelMe, ommMain, ommSupp,
                 ommFitting, ommTerra, ommCebis, ommProfiCam);
             Session.set('selectedProfiCam', '');
             Session.set('selectedTeraTrackOm', '');
@@ -153,6 +155,7 @@ if(Meteor.isClient) {
             Session.set('selectedUnloadOm', '');
             Session.set('selectedSuppOm', '');
             Session.set('selectedMainOm', '');
+            event.target.fuelMe.value = '';
             event.target.omMain.value = '';
             event.target.omSupp.value = '';
             event.target.omUnload.value = '';

@@ -3,9 +3,19 @@ if(Meteor.isClient) {
 
 
     Template.openPdi.helpers({
+
         countPdi: function() {
             return MachineReady.find({$or:[{pdiStatus: 0},{pdiStatus: 2}]}, {sort: {date: 1}}) .count();
+        },
+
+        countConsumption: function () {
+            const average = fuelAverage.findOne({});
+            const sum = average.consumption.reduce(function (acc,val) {
+                return acc + val
+            }, 0);
+            return number = (sum / average.consumption.length).toFixed(2);
         }
+
     });
 
 
@@ -110,7 +120,7 @@ if(Meteor.isClient) {
 
     Handlebars.registerHelper('inActive', function() {
         const inActiveStatus = Session.get('inActiveState');
-        if(inActiveStatus == 0) {
+        if(inActiveStatus === 0) {
             return 'inActiveButton';
         }
     });

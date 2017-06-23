@@ -1,7 +1,7 @@
 .bulkSi {
-    position: relative;
+    position: absolute;
     left:600px;
-    top: -700px;
+    top: 10px;
 }
 
 .container {
@@ -359,6 +359,13 @@
     left: -600px;
 }
 
+.countConsumption {
+    flex: auto;
+    position: relative;
+    top: -50px;
+    left: 190px;
+}
+
 .pdiList {
     height: 500px;
     width: 600px;
@@ -416,6 +423,11 @@
     float: left;
     position: absolute;
     top: 200px;
+}
+
+.fuel {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .newActiveCheck {
