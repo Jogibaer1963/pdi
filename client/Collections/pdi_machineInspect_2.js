@@ -145,16 +145,11 @@ if(Meteor.isClient) {
             const dateStop = Date.now();
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
             const selectedPdiMachine = Session.get('selectedPdiMachine');
-            const startTime = MachineReady.findOne({_id: selectedPdiMachine}, {fields: {startPdiDate: 1, _id: 0}});
-            const startPdiTime = JSON.stringify(startTime).slice(-14);
-            const startRealPdiTime = startPdiTime.slice(0,13);
-            const diffTime = dateStop - startRealPdiTime;
-            const pdiDuration = convertMS(diffTime);
+            const startTime = MachineReady.findOne({_id: selectedPdiMachine}, {fields: {startPdiDate: 1,
+                _id: 0}});
+            const pdiDuration = convertMS(dateStop - startTime.startPdiDate);
             const unixTime = MachineReady.findOne({_id: selectedPdiMachine}, {fields: {unixTime: 1, _id: 0}});
-            const startUnixTime = JSON.stringify(unixTime).slice(-14);
-            const startAfterCreateTime = startUnixTime.slice(0,13);
-            const diffCreateTime = startRealPdiTime - startAfterCreateTime;
-            const waitPdiTime = convertMS(diffCreateTime);
+            const waitPdiTime = convertMS(startTime.startPdiDate - unixTime.unixTime);
             Session.set('pdiMachineNumber', localStorage.getItem('pdiMachine'));
             const pdiMachine = Session.get('pdiMachineNumber');
             const orderFind = InspectedMachines.find({machineId: pdiMachine, "repOrder.orderStatus": 1},

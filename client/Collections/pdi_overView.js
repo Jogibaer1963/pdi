@@ -10,10 +10,13 @@ if(Meteor.isClient) {
 
         countConsumption: function () {
             const average = fuelAverage.findOne({});
-            const sum = average.consumption.reduce(function (acc,val) {
-                return acc + val
-            }, 0);
-            return number = (sum / average.consumption.length).toFixed(2);
+            if(average === undefined) {
+            } else {
+                const sum = average.consumption.reduce(function (acc, val) {
+                    return acc + val
+                }, 0);
+                return number = (sum / average.consumption.length).toFixed(2);
+                }
         }
 
     });
