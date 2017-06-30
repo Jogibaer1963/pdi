@@ -156,7 +156,6 @@ if(Meteor.isClient) {
                 {_id: 0, repOrder: {$elemMatch: {orderStatus: 1}}}).fetch();
             if (orderFind.length === 0) {
                 }  else {
-                console.log('bin drin');
                 stringOrder = JSON.stringify(orderFind);
                 const stringCount = stringOrder.match(/Parts on Order/gi).length ;
                     if ( stringCount !== null && stringCount.length <1 ) {

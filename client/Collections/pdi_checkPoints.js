@@ -12,7 +12,6 @@ if (Meteor.isClient) {
                 range.push($(this).val());
             });
             const orderStatus = $('input[name=orderPart]:checked').val();
-            console.log(orderStatus);
             const status = 1;
             Meteor.call('inputNewCheckPoint', status, errorPos, errorNr, errorDescription, range, orderStatus);
             event.target.newPosition.value = "";

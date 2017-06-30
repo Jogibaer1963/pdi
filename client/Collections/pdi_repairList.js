@@ -33,7 +33,6 @@ if(Meteor.isClient) {
             const machineId = Session.get('selectedPdiMachine');
             const result = MachineReady.find({_id:machineId}, {fields: {machineId: 1}}).fetch();
             const machineNr = JSON.stringify(result).slice(15, 23);
-            console.log(machineNr);
             const nameFile = 'fileDownloaded.csv';
            Meteor.call('download_2', machineNr, function (err, fileContent) {
                 if (fileContent) {
