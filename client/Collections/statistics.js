@@ -10,10 +10,10 @@ if(Meteor.isClient) {
     Template.statistics.events({
         'click #buttonDownload': function () {
 
-            var nameFile = 'fileDownloaded.csv';
+            let nameFile = 'fileDownloaded.csv';
             Meteor.call('download_statistics', function (err, fileContent) {
                 if (fileContent) {
-                    var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+                    let blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
                     saveAs(blob, nameFile);
                 }
             });

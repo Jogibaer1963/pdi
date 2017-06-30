@@ -21,6 +21,8 @@
                 <div class="rTableHead"><strong>Time after Created /<br>Rep Duration</strong></div>
                 <div class="rTableHead"><strong>Time after Created /<br>Wash Duration</strong></div>
                 <div class="rTableHead"><strong>Time after Created /<br>Ship Duration</strong></div>
+                <div class="rTableHead"><strong>PDI Fuel</strong></div>
+                <div class="rTableHead"><strong>Machine Hours</strong></div>
             </div>
             {{#each overView}}
                 <div class="rTableRow timeStatistics">
@@ -31,6 +33,8 @@
                     <div class="rTableCell">{{waitRepairTime}}<br>{{repairDuration}}</div>
                     <div class="rTableCell">{{waitWashTime}}<br>{{washDuration}}</div>
                     <div class="rTableCell">{{waitShipTime}}<br>{{shipDuration}}</div>
+                    <div class="rTableCell">{{consumption}}</div>
+                    <div class="rTableCell">{{machineHour}}</div>
                 </div>
             {{/each}}
         </div>
