@@ -292,11 +292,16 @@ if(Meteor.isServer){
                     siListDone.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
                     });
                 }
+            let machineSi = [];
             let siTableRead = siTable.find().fetch();
             for (k = 0; k < siTableRead.length; k++) {
                 let siName = siTableRead[k].siNumber;
-                let machineSi = siMd.findOne({_id: siName}, {machineList: {$in: {machine:
-                selectedPdiMachineNr}}}).machineList;
+                let resultSi = siMd.findOne({_id: siName}, {machineList: {$in: {machine: selectedPdiMachineNr}}}).machineList;
+                    for (i = 0; i < resultSi.length; i++) {
+                          if (resultSi[i].siStatus < 1) {
+                                 machineSi.push(resultSi[i]);
+                          }
+                    }
                 for (i = 0; i < machineSi.length; i++) {
                     if (machineSi[i].machine === selectedPdiMachineNr) {
                         let machineId = machineSi[i]._id;

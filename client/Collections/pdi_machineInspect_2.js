@@ -173,7 +173,7 @@ if(Meteor.isClient) {
                             stringOrder = stringOrder.substring(stringEnd + posOrder);
                         }
             Meteor.call('machineUser', machineId, userLoggedIn, emailArray_2);
-            Meteor.call('sendEmail', ['juergen.hauser@claas.com'],
+            Meteor.call('sendEmail', ['juergen.hauser@claas.com', 'robert.schutte@claas.com'],
                   'Claas_Quality@mailgun.com', 'Parts Order request', userLoggedIn);
                      }
             }
