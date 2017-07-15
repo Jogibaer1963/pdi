@@ -134,11 +134,13 @@ if(Meteor.isServer){
         },
 
         'unsuccessLogin': function (userVar, passwordVar, dateLogin) {
-            unsuccessLogin.insert({userId: userVar, password: passwordVar, dateLogin: dateLogin});
+            clientIp = this.connection.clientAddress;
+            unsuccessLogin.insert({userId: userVar, password: passwordVar, dateLogin: dateLogin, clientIp: clientIp});
         },
 
         'successfullLogin': function (userVar, dateLogin) {
-             successfullLogin.insert({userId: userVar, dateLogin: dateLogin});
+            clientIp = this.connection.clientAddress;
+             successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
         },
 
         'successfullLogout': function(logoutId, logoutDate) {

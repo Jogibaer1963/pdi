@@ -65,3 +65,5 @@ ejson@1.0.13
 reactive-var@1.0.11
 dynamic-import
 random
+mdg:meteor-apm-agent
+meteorhacks:zones
