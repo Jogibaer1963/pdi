@@ -16,6 +16,29 @@
         }
     });
 
+    Template.searchMaryView.events({
+
+       'submit .machine': function (event) {
+           event.preventDefault();
+           let machine = event.target.machine.value;
+           event.target.machine.value='';
+           Session.set('machineFound', machine);
+       }
+    });
+
+    Template.searchMaryView.helpers({
+
+        maryViewMachine: function() {
+            let machine = Session.get('machineFound');
+            console.log(machine);
+            if (machine === undefined) {
+            } else {
+                return MachineReady.find({machineId: machine});
+            }
+        }
+
+    });
+
 
     Template.overViewListMaryView.events({
 

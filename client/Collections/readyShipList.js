@@ -22,12 +22,6 @@ if (Meteor.isClient) {
             Session.set('selectedMachine', readyMachine );
         },
 
-  //      'submit .shipMe': function(event) {
-  //          event.preventDefault();
-   //         const selectedCheckPoint = Session.get('selectedMachine');
-//           Meteor.call('shipMeInProcess', selectedCheckPoint);
-  //      },
-
         'click .shipMeButton': function() {
             event.preventDefault();
             const selectedCheckPoint = Session.get('selectedMachine');

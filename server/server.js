@@ -351,6 +351,7 @@ if(Meteor.isServer){
             InspectedMachines.update({machineId: machineNr}, {$pull: {repOrder: {_id:selectedPdiMachine}}});
         },
 
+
         'addToCheckListNew': function(selectedPdiMachineId, repOrder, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             const stringError = JSON.stringify(repOrder).slice(42,46);

@@ -118,7 +118,8 @@
 }
 
 .removeList {
-    width: 480px;
+    margin-left: 100px;
+    width: 200px;
     font-size: 25px;
     background-color: #ff2e31;
 }
@@ -666,6 +667,29 @@
     padding-right: 5px;
 }
 
+.inputSearchMary {
+    position: absolute;
+    top: 10px;
+    left: 730px;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+    background-color: #2fdc1e;
+    padding-right: 5px;
+}
+
+.inputSearchMachine {
+    position: absolute;
+    top: 10px;
+    left: 600px;
+    font-size: 18px;
+    font-weight: bold;
+    height: 45px;
+    background-color: #fefdff;
+    padding-right: 5px;
+    width: 100px;
+}
+
 .inputCheck {
     position: absolute;
     left: 210px;
@@ -825,6 +849,12 @@
     position: absolute;
     top: 170px;
     left: 600px;
+}
+
+.searchMaryView {
+    position: absolute;
+    left: 600px;
+    top: 100px;
 }
 
 .statusChange {
@@ -1495,6 +1525,7 @@ input[type=checkbox] {
 
 .rTableRow {
     display: table-row;
+
 }
 
 .rTableHead {
