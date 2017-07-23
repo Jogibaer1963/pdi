@@ -103,6 +103,19 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+        'adminUserLoggedIn': function (err, usersReturn) {
+          usersReturn = Meteor.users.find().fetch();
+          return usersReturn;
+        },
+
+        'newUser' : function (userConst, passwordConst, role) {
+            Accounts.createUser({username: userConst, password: passwordConst});
+            setTimeout(function () {
+            }, 1000);
+           userId = Meteor.users.findOne({username:userConst})._id;
+           Meteor.users.upsert({_id: userId}, {$set: {loginStatus: 0, roles: [role]}});
+        },
+
         'removeSi': function (siRemove) {
             const siNumberLoad = siTable.findOne({_id: siRemove});
             if(!!siNumberLoad) {
@@ -210,13 +223,6 @@ if(Meteor.isServer){
 
         'messageToWashBay_2': function(washMessage) {
             washBayText.insert({washBayMessage: washMessage, active: 1});
-        },
-
-        'accountRole': function(userconst, role) {
-            const id = Meteor.users.find({username: userconst}, {fields: {_id: 1}}).fetch();
-            const idString = JSON.stringify(id);
-            const idResult = idString.slice(9, 26);
-            Meteor.users.update({_id: idResult}, {$set: {roles: [role]}});
         },
 
         'truckRemoved': function(machineId, truckStatus) {

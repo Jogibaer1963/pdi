@@ -1,0 +1,27 @@
+<template name="adminViewUser">
+    {{#if currentUser}}
+       {{> AdminLayout}}
+        <div class="rTableMachine clearfix tablePos">
+            <div class="rTableRow">
+                <div class="rTableHeadOverView"><strong>id</strong></div>
+                <div class="rTableHeadOverView"><strong>user</strong></div>
+                <div class="rTableHeadOverView"><strong>Role</strong></div>
+                <div class="rTableHeadOverView"><strong>Date Created</strong></div>
+                <div class="rTableHeadOverView"><strong>Logged in</strong></div>
+            </div>
+             {{#each userResult}}
+                <div class="rTableRow locationUpdate {{selectedClass}}">
+                    <div class="rTableCellOverView">{{_id}}</div>
+                    <div class="rTableCellOverView">{{username}}</div>
+                    <div class="rTableCellOverView">{{roles}}</div>
+                    <div class="rTableCellOverView">{{createdAt}}</div>
+                    <div class="rTableCellOverView {{getStatusLogin loginStatus}}"
+                         style="background-color:{{getStatusLogin loginStatus}}; color:{{getStatusLogin
+                                 loginStatus}}" >{{services.resume.loginTokens}}</div>
+                </div>
+             {{/each}}
+        </div>
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>

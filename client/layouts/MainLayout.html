@@ -2,9 +2,8 @@
 <body>
 {{#if currentUser}}
   {{#if isInRole 'admin'}}
-    {{> MainLayout}}
-    {{> overViewList}}
-    {{> headerList}}
+      {{> MainLayout}}
+      {{> overViewList}}
     {{/if}}
   {{#if isInRole 'shipping'}}
       {{> shippingLayout}}
@@ -27,13 +26,23 @@
   {{/if}}
  {{else}}
     {{> login}}
-    <br><br>
- <!-- {{> register}} -->
-    <br><br>
-
 {{/if}}
 </body>
 </template>
+
+<template name="AdminLayout">
+    <div class="">
+        <nav>
+            <a class="btn btnRed" href="/adminNewUser">New User</a>
+            <a class="btn btnRed" href="/adminViewUser">View User</a>
+            <a class="btn btnRed" href="/newFiskalYear">Change Fiscal Year</a>
+            <a class="btn btnRed" href="/manipulateDatabase">Manipulate Database</a>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
+            <a class="logout btn" href="/logout" >Logout</a>
+        </nav>
+    </div>
+</template>
+
 
 <template name="MainLayout">
   <div class="">
@@ -46,7 +55,7 @@
         <a class="btn " href="/ecnOverView">ECN Tracking</a>
         <br><br>
         <a class="btn" href="/statistics">Statistics</a>
-        <a class="btn" href="/admin">Admin</a>
+        <a class="btn btnRed" href="/admin">Admin</a>
         <a class="btn" href="/machineSearch">Search by Machine</a>
         <a class="btn" href="/wordSearch">Search by Key Word</a>
         <a class="btn" href="/machineLocation">Locations</a>
@@ -105,7 +114,6 @@
             <a class="btn" href="/machineSearch">Search by Machine</a>
             <a class="btn" href="/wordSearch">Search by Key Word</a>
             <a class="btn" href="/machineLocation">Locations</a>
-            <a class="btn" href="/charts">Charts</a>
             <a class="logout btn" href="/logout" >Logout</a>
         </nav>
     </div>

@@ -1,3 +1,4 @@
+
 .bulkSi {
     position: absolute;
     left:600px;
@@ -207,6 +208,10 @@
     margin-left: 3em;
 }
 
+.btnRed {
+    background: #e80525;
+}
+
 .btn:hover {
     background: #3cb0fd;
     background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -378,10 +383,9 @@
     float: none;
 }
 
-.counterTime {
-    margin-left: 150px;
-    float: left;
-    font-size: 40px;
+.adminRegister {
+    margin-left: 50px;
+    font-size: 20px;
     font-weight: bolder;
     background-color: #0ddc1b;
     padding: 20px;
@@ -627,6 +631,10 @@
 .imageLogin {
     position: absolute;
     top: 100px;
+}
+
+.hide {
+    display: none;
 }
 
 .inActiveButton {
@@ -1335,67 +1343,6 @@ input[type=checkbox] {
 
 .overViewLogin {
     width: 100%;
-}
-
-.onoffswitch {
-    position: relative;
-    left: 340px;
-    top: -70px;
-    margin-left: 30px;
-    width: 112px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-.onoffswitch-checkbox {
-    display: none;
-}
-
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #999999; border-radius: 20px;
-}
-
-.onoffswitch-inner {
-    display: block; width: 200%; margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-}
-
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 25px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    box-sizing: border-box;
-}
-
-.onoffswitch-inner:before {
-    content: "ON";
-    padding-left: 11px;
-    background-color: #23EB15; color: #0A0909;
-}
-
-.onoffswitch-inner:after {
-    content: "OFF";
-    padding-right: 11px;
-    background-color: #ED3709; color: #0A0303;
-    text-align: right;
-}
-
-.onoffswitch-switch {
-    display: block; width: 27px; margin: 1px;
-    background: #FFFFFF;
-    position: absolute; top: 0; bottom: 0;
-    right: 78px;
-    border: 2px solid #999999; border-radius: 20px;
-    transition: all 0.3s ease-in 0s;
-}
-
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0;
 }
 
 .positionFixed {

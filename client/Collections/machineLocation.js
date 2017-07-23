@@ -5,9 +5,11 @@ if (Meteor.isClient) {
 
     Template.machineLocation.helpers({
         overView: function() {
-            return MachineReady.find( {machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0}, {shipStatus: 2}]}, {sort: {date: 1}});
-        },
-  //
+            const machineLoc = MachineReady.find( {machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0},
+                {shipStatus: 2}]}, {sort: {date: 1}}).fetch();
+            console.log(machineLoc);
+            return machineLoc;
+            },
 
         'selectedClass': function(){
             const openInspect = this._id;

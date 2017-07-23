@@ -1,66 +1,9 @@
 <template name="admin">
-    <body>
     {{#if currentUser}}
-        {{> MainLayout}}
-        {{> emailTest}}
-
-        <h2>Register new User</h2>
-        {{> register}}
-
+        {{> AdminLayout}}
     {{else}}
         {{> login}}
     {{/if}}
-    </body>
 </template>
 
-<template name="register">
-    <form>
-        <input type="text" name="registerUser" placeholder="user name">
-        <input type="password" name="registerPassword" placeholder="password">
-        <input type="text" name="registerRole" placeholder="Role">
-        <input type="submit" value="Register">
-        <p>Roles are</p>
-        <p>admin = Admin or SuperUser</p>
-        <p>shipping = mostly CTD like Kary, Amanda....</p>
-        <p>pdi = Quality Guys</p>
-        <p>repair = JoAnn's Group for Repair Machines</p>
-        <p>washbay = Thomas Nelson's group like Shawn or Lee or a temp washing the Machine</p>
-        <p>prepareShipment = Thomas Nelson's Group like Lee or Shawn, moving the Machine to the Trailer</p>
-        <p>ecn = Assembly Line Engineering Changes and MCO's</p>
-    </form>
-    <h2 style="color: #ff3c41">User "{{firstName}}" is logged in NOW.</h2>
-    <h2>Is this not your Username please log out and Log in with your Username ! !!</h2>
-    <br><br><br><br>
-    <h2>Attention: After pushing "Register" there is no further action. If no Error Message</h2>
-    <h2>occurs the new User was created Successful and logged in immediately as a Test. </h2>
-    <h2>In other Words you must Log out now and Login with your Username.</h2>
-   <h2>This will be fixed as soon as possible.</h2>
-</template>
 
-<template name="dataBase">
-    <button type="button" class="loginSubmit start">Start</button>
-
-    <div class="rTable">
-        <div class="rTableRow ">
-            <div class="rTableHead"><strong>id</strong></div>
-            <div class="rTableHead"><strong>Machine</strong></div>
-            <div class="rTableHead"><strong>Error Id</strong></div>
-            <div class="rTableHead"><strong>Description</strong></div>
-        </div>
-        {{#each shipList}}
-            <div class="rTableRow openInspections {{selectedClass}}">
-                <div class="rTableCell">{{_id}}</div>
-                <div class="rTableCell">{{Machine_Nr}}</div>
-                <div class="rTableCell">{{Error_Nr}}</div>
-                <div class="rTableCell">{{Error_Description}}</div>
-            </div>
-        {{/each}}
-    </div>
-</template>
-
-<template name="emailTest">
-    <div class="testSection">
-    <h1>------------ Test Section --------------</h1>
-    <button type="button" class="loginSubmit emailButton">Send Test Email</button>
-    </div>
-</template>
