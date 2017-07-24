@@ -98,9 +98,6 @@ if(Meteor.isServer){
             return fuelAverage.find();
         });
 
-        Meteor.publish("users", function() {
-            return Meteor.users.find();
-        })
     });
 
 
