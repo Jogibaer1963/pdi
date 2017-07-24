@@ -103,6 +103,12 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+        'userManualLogout': function (logOutUser) {
+            for (i = 0; i < logOutUser.length; i++) {
+                Meteor.users.update({_id: logOutUser[i]}, {$set: {'services.resume.loginTokens': [], loginStatus: 0}});
+            }
+        },
+
         'adminUserLoggedIn': function (err, usersReturn) {
           usersReturn = Meteor.users.find().fetch();
           return usersReturn;
@@ -154,10 +160,12 @@ if(Meteor.isServer){
         'successfullLogin': function (userVar, dateLogin) {
             clientIp = this.connection.clientAddress;
              successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
+             Meteor.users.upsert({username: userVar}, {$set: {loginStatus: 1}});
         },
 
         'successfullLogout': function(logoutId, logoutDate) {
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
+            Meteor.users.upsert({username: logoutId}, {$set: {loginStatus: 0}});
         },
 
         'mcoFind': function(searchId) {

@@ -14,3 +14,16 @@ Template.adminViewUser.helpers({
     }
 
 });
+
+
+Template.adminViewUser.events({
+
+   "click .adminUserLog": function () {
+       event.preventDefault();
+        const logOutUser = [];
+        $('input[name=logOut]:checked').each(function () {
+            logOutUser.push($(this).val());
+        });
+        Meteor.call('userManualLogout', logOutUser);
+   }
+});

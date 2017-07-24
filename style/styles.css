@@ -163,6 +163,11 @@
     text-decoration: none;
 }
 
+.btnPos {
+    position: absolute;
+    top: 120px;
+    left: 596px;
+}
 
 .btn2 {
     background: #d9d934;
@@ -1491,6 +1496,11 @@ input[type=checkbox] {
     display: table-cell;
     padding: 10px 5px;
     border: 1px solid #8c8c8c;
+}
+
+.rTableStyle {
+   vertical-align: middle;
+    text-align: center;
 }
 
 .rTableTrailer {
