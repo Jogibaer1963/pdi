@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 Template.adminViewUser.helpers({
 
     userResult: function () {
@@ -27,3 +33,4 @@ Template.adminViewUser.events({
         Meteor.call('userManualLogout', logOutUser);
    }
 });
+
