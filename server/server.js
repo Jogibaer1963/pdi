@@ -98,29 +98,44 @@ if(Meteor.isServer){
             return fuelAverage.find();
         });
 
+        Meteor.publish("usersProfil", function() {
+            return usersProfil.find();
+        });
+
     });
 
 
 
     Meteor.methods({
 
-        'userManualLogout': function (logOutUser) {
+       'userManualLogout': function (logOutUser) {
             for (i = 0; i < logOutUser.length; i++) {
-                Meteor.users.update({_id: logOutUser[i]}, {$set: {'services.resume.loginTokens': [], loginStatus: 0}});
+                const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
+                Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
+                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
+          }
+        },
+
+        'userManualDelete': function (deleteUser) {
+            for (i = 0; i < deleteUser.length; i++) {
+                const userName = usersProfil.findOne({_id: deleteUser[i]}).username;
+                Meteor.users.remove({username: userName});
+                usersProfil.remove({username: userName});
             }
         },
 
         'adminUserLoggedIn': function (err, usersReturn) {
-          usersReturn = Meteor.users.find().fetch();
-          return usersReturn;
+          usersReturn = Meteor.usersProfil.find().fetch();
+         return usersReturn;
         },
 
-        'newUser' : function (userConst, passwordConst, role) {
+        'newUser' : function (userConst, passwordConst, role,  createdAt, loggedUser) {
             Accounts.createUser({username: userConst, password: passwordConst});
             setTimeout(function () {
             }, 1000);
-           userId = Meteor.users.findOne({username:userConst})._id;
-           Meteor.users.upsert({_id: userId}, {$set: {loginStatus: 0, roles: [role]}});
+          Meteor.users.upsert({username:userConst}, {$addToSet: {roles: role}});
+          usersProfil.insert({username: userConst, role: role, createdAt: createdAt,
+              createdBy: loggedUser, loginStatus: 0});
         },
 
         'removeSi': function (siRemove) {
@@ -159,14 +174,14 @@ if(Meteor.isServer){
         },
 
         'successfullLogin': function (userVar, dateLogin) {
-            clientIp = this.connection.clientAddress;
+             clientIp = this.connection.clientAddress;
              successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
-             Meteor.users.upsert({username: userVar}, {$set: {loginStatus: 1}});
+             usersProfil.update({username: userVar}, {$set: {loginStatus: 1}});
         },
 
         'successfullLogout': function(logoutId, logoutDate) {
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
-            Meteor.users.upsert({username: logoutId}, {$set: {loginStatus: 0}});
+            usersProfil.update({username: logoutId}, {$set: {loginStatus: 0}});
         },
 
         'mcoFind': function(searchId) {

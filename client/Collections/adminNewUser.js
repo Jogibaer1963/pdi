@@ -19,17 +19,20 @@ Template.adminNewUser.events({
         } else if (role === 'Repair Team') {
             roleConst = 'repair'
         } else if (role === 'Wash Bay') {
-            roleConst = 'washBay'
+            roleConst = 'outBound'
         } else if (role === 'Loading') {
             roleConst = 'outBound'
         }
         event.target.registerUser.value = '';
         event.target.registerPassword.value = '';
-        Meteor.call('newUser', userConst, passwordConst, roleConst, function(err) {
+        const createdAt =  new Date().toISOString();
+        const loggedUser = Meteor.user();
+        Meteor.call('newUser', userConst, passwordConst, roleConst, createdAt, loggedUser, function(err) {
             if (err === undefined) {
-                Session.set('message', 'Attention: User successfull created');
+                const messageSend = 'Attention: User ' + userConst + ' successfull created';
+                Session.set('message', messageSend);
             } else {
-                let message = 'Attention: ' + err.message;
+                let message = 'Attention: ' + userConst + ' ' + err.message;
                 Session.set('message', message);
             }
         });

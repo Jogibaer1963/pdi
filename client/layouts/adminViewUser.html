@@ -1,14 +1,14 @@
 <template name="adminViewUser">
     {{#if currentUser}}
        {{> AdminLayout}}
-        <br><br>
-    <h2>For updates Page has to be refreshed manually !!</h2>
+        <br><br><br>
         <div class="rTableMachine clearfix tablePos rTableStyle">
             <div class="rTableRow">
                 <div class="rTableHeadOverView"><strong>id</strong></div>
                 <div class="rTableHeadOverView"><strong>user</strong></div>
                 <div class="rTableHeadOverView"><strong>Role</strong></div>
                 <div class="rTableHeadOverView"><strong>Date Created</strong></div>
+                <div class="rTableHeadOverView"><strong>Created by</strong></div>
                 <div class="rTableHeadOverView"><strong>Logged in</strong></div>
                 <div class="rTableHeadOverView"><strong>Log out</strong></div>
                 <div class="rTableHeadOverView"><strong>Erase User</strong></div>
@@ -17,8 +17,9 @@
                 <div class="rTableRow {{selectedClass}}">
                     <div class="rTableCellOverView">{{_id}}</div>
                     <div class="rTableCellOverView">{{username}}</div>
-                    <div class="rTableCellOverView">{{roles}}</div>
+                    <div class="rTableCellOverView">{{role}}</div>
                     <div class="rTableCellOverView">{{createdAt}}</div>
+                    <div class="rTableCellOverView">{{createdBy.username}}</div>
                     <div class="rTableCellOverView {{getStatusLogin loginStatus}}"
                          style="background-color:{{getStatusLogin loginStatus}}; color:{{getStatusLogin
                                  loginStatus}}" >{{services.resume.loginTokens}}</div>
@@ -29,7 +30,7 @@
                     </div>
                     <div class="rTableCellOverView">
                         <label>
-                            <input class="rTableStyle" type="checkbox" value="{{_id}}">
+                            <input class="rTableStyle" type="checkbox" name="deleteMe" value="{{_id}}">
                         </label>
                     </div>
                 </div>
