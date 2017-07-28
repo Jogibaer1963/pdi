@@ -111,9 +111,9 @@ if(Meteor.isServer){
        'userManualLogout': function (logOutUser) {
             for (i = 0; i < logOutUser.length; i++) {
                 const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
-                Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
-                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
-          }
+               Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
+               usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
+            }
         },
 
         'userManualDelete': function (deleteUser) {
@@ -176,7 +176,7 @@ if(Meteor.isServer){
         'successfullLogin': function (userVar, dateLogin) {
              clientIp = this.connection.clientAddress;
              successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
-             usersProfil.update({username: userVar}, {$set: {loginStatus: 1}});
+             usersProfil.update({username: userVar}, {$set: {loginStatus: 1, lastLogin: dateLogin, clientIp: clientIp}});
         },
 
         'successfullLogout': function(logoutId, logoutDate) {
