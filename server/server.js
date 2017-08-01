@@ -42,8 +42,8 @@ if(Meteor.isServer){
             return washBayText.find();
         });
 
-        Meteor.publish("repairOrderPrint", function(){
-            return repairOrderPrint.find();
+       Meteor.publish("repairOrderPrint", function(){
+          return repairOrderPrint.find();
         });
 
         Meteor.publish("siList", function(){
@@ -216,7 +216,8 @@ if(Meteor.isServer){
         },
 
         'download_2': function (machineNr) {
-            const collection = repairOrderPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id: 0}}).fetch();
+            const collection = repairOrderPrint.find({Machine_Nr: machineNr}, {fields: {Machine_Nr: 0, _id:
+             0}}).fetch();
             const heading = true;
             const delimiter = ";";
             return exportcsv.exportToCSV(collection, heading, delimiter);
@@ -245,8 +246,8 @@ if(Meteor.isServer){
             MachineReady.update({_id: machine_id}, {$set: {washStatus: 0}});
         },
 
-        'messageToWashBay_2': function(washMessage) {
-            washBayText.insert({washBayMessage: washMessage, active: 1});
+        'messageToWashBay_2': function(washMessage, machineId) {
+            washBayText.insert({machineNr: machineId, washBayMessage: washMessage, active: 1});
         },
 
         'truckRemoved': function(machineId, truckStatus) {
@@ -306,7 +307,6 @@ if(Meteor.isServer){
         },
 
         'generatePdiList': function(selectedPdiMachineId, dateStart, selectedPdiMachineNr, range) {
-            let si = siTable.find().count();
             siArrayList = [];
             pdiCheckPoints.insert({_id: selectedPdiMachineId});
             InspectedMachines.remove({_id: selectedPdiMachineId});
@@ -368,11 +368,12 @@ if(Meteor.isServer){
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
             pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
             const errorNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorNr: 1}}).fetch();
-            const stringError = JSON.stringify(errorNr).slice(39,-3);
+           const stringError = JSON.stringify(errorNr).slice(39,-3);
             const descriptionNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorDescription: 1}}).fetch();
             const stringDescription = JSON.stringify(descriptionNr).slice(48,-3);
-            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description: stringDescription,
-                Repair_Comments: " ", Issue_Resolved: " "});
+            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError, Error_Description:
+             stringDescription,
+               Repair_Comments: " ", Issue_Resolved: " "});
 
         },
 
@@ -387,7 +388,7 @@ if(Meteor.isServer){
             const stringError = JSON.stringify(repOrder).slice(42,46);
             const stringDescription = JSON.stringify(repOrder).slice(68,-2);
             repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError,
-                Error_Description: stringDescription});
+              Error_Description: stringDescription});
         },
 
         'orderParts': function (machineNr, loggedInUser, failureAddDescription) {

@@ -11,8 +11,11 @@
 <template name="overViewWashList">
     <form class="washBayMessanger">
         <button type="submit" class="washButton messangerWashBay">Message to Wash Bay</button>
+        <label for="machineId" class="mLocationId" ></label>
+        <input type="text" class="messengerMachineBox" id="machineId" name="machineId" placeholder="Machine Nr"
+               required>
         <label for="messageId" class="mLocationId" ></label>
-        <input type="text" class="messangerTextBox" id="messageId" name="messageId" required>
+        <input type="text" class="messengerTextBox" id="messageId" name="messageId" placeholder="Text" required>
     </form>
 
 

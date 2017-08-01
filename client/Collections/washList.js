@@ -90,8 +90,10 @@ if (Meteor.isClient) {
         'submit .washBayMessanger': function(event) {
             event.preventDefault();
             const messageId = event.target.messageId.value;
-            Meteor.call('messageToWashBay_2', messageId);
+            const machineId = event.target.machineId.value;
+            Meteor.call('messageToWashBay_2', messageId, machineId);
             event.target.messageId.value="";
+            event.target.machineId.value="";
         }
     });
 
