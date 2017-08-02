@@ -108,6 +108,33 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+        'fuelConsumption': function () {
+            let elementMachine = [];
+            let elementFuelStart = [];
+            let elementFuelAfter = [];
+            let elementConsumption = [];
+          let data = MachineReady.find({}, {fields: {machineId: 1, fuelStart: 1, fuelAfter: 1,
+                _id: 0}}).fetch();
+            data.forEach(function (element) {
+                if (element.fuelStart) {
+                    elementMachine.push(element.machineId);
+                    let a = parseFloat(element.fuelStart);
+                    let b = parseFloat(element.fuelAfter);
+                    let consumption = b - a;
+                    consumption = consumption.toFixed(1);
+                    let consumptionData = parseFloat(consumption);
+                    elementFuelStart.push(a);
+                    elementFuelAfter.push(b);
+                    elementConsumption.push(consumptionData);
+                }
+            });
+          return {elementMachine: elementMachine,
+                  elementFuelStart: elementFuelStart,
+                  elementFuelAfter: elementFuelAfter,
+                  elementConsumption: elementConsumption
+          };
+        },
+
        'userManualLogout': function (logOutUser) {
             for (i = 0; i < logOutUser.length; i++) {
                 const userName = usersProfil.findOne({_id: logOutUser[i]}).username;

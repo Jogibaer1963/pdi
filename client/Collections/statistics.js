@@ -26,46 +26,67 @@
     Template.fuelChart.topGenresChart = function() {
 
 
-        let fuelConsumption = fuelAverage.findOne();
-        consumptionData = fuelConsumption.consumption;
-        console.log(consumptionData);
+           Meteor.call('fuelConsumption', function (err, response) {
+               if (err) {
+                   console.log(err);
+               }
+               Session.set('elementMachine', response.elementMachine);
+               Session.set('elementFuelStart', response.elementFuelStart);
+               Session.set('elementFuelAfter', response.elementFuelAfter);
+               Session.set('elementConsumption', response.elementConsumption);
+           });
+        let elementMachine = Session.get('elementMachine');
+        let elementFuelStart = Session.get('elementFuelStart');
+        let elementFuelAfter = Session.get('elementFuelAfter');
+        let elementConsumption = Session.get('elementConsumption');
         return {
             chart: {
-                plotBackgroundColor: '#6978ff',
-                linearGradient: [0, 0, 500, 500],
-                stops: [
-                    [0, 'rgb(255, 255, 255)'],
-                    [1, 'rgb(200, 200, 255)']
-                ],
+                height: 500,
+                plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: true
+                plotShadow: false,
+                type: 'line',
+                zoomType: 'x',
+                panning: true,
+                panKey: 'shift'
             },
             title: {
-                text: "Fuel consumption per PDI"
+                text:  "Fuel consumption per PDI"
             },
             tooltip: {
-                pointFormat: '<b>{point.percentage:.1f}</b>'
+                pointFormat: '{series.name}:<b>{point.y}</b><br/>',
+                valueSuffix: ' Gallon',
+                shared: true
             },
             plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        },
-                        connectorColor: 'silver'
-                    }
+                series: {
+                    color: '#FF0000'
                 }
             },
+            xAxis: {
+              categories: elementMachine,
+              labels: {
+                  rotation: 30
+              }
+            },
             series: [{
-                type: 'line',
-                name: 'fuel consumption',
-                data: consumptionData
-            }]
+                name: 'Fuel start',
+                data: elementFuelStart
+            },
+                {
+                    name: 'Fuel end',
+                    data: elementFuelAfter,
+                    color: '#08F'
+                },
+                {
+                    name: 'Consumption',
+                    data: elementConsumption,
+                    color: '#1aff11'
+                }
+
+            ]
         };
-    };
+
+       };
 
 
