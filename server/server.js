@@ -14,8 +14,8 @@ if(Meteor.isServer){
             return MachineReady.find()
         });
 
-        Meteor.publish("machineReadyToGo", function(){
-            return MachineReady.find();
+        Meteor.publish("machineReadyToGo_2016", function () {
+            return MachineReady_2016.find()
         });
 
         Meteor.publish("failures", function(){
@@ -31,7 +31,7 @@ if(Meteor.isServer){
         });
 
         Meteor.publish("pdiCheckList", function(){
-            return pdiCheckPoints.find();
+            return pdiCheckList.find();
         });
 
         Meteor.publish("headerTrailer", function(){
@@ -107,6 +107,18 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
+
+        'analyzeRepair': function (startUnix, endUnix) {
+            console.log(startUnix, endUnix);
+            if (startUnix) {
+                console.log('in Loop');
+            let machineList = MachineReady.find({startPdiDate: {$gt: startUnix}}).count();
+                console.log(machineList);
+            } else {
+               console.log('nicht im Loop');
+            }
+        },
+
 
         'fuelConsumption': function () {
             let elementMachine = [];
@@ -306,18 +318,19 @@ if(Meteor.isServer){
         },
 
         'finnishPdi': function(pdiMachineId) {
-            pdiCheckPoints.remove({});
+            pdiCheckList.remove({});
             MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 1}});
         },
 
-        'inputNewCheckPoint': function(status, errorPos, errorNr, errorDescription, range, orderStatus) {
-            checkPoints.insert({status: status, errorPos: errorPos, errorNr: errorNr,
-                errorDescription: errorDescription, machineRange: range, onOrder: orderStatus});
+        'inputNewCheckPoint': function(status, errorPos, errorDescription, range, machineRangeStart, machineRangeEnd) {
+            checkPoints.insert({status: status, errorPos: errorPos,
+                errorDescription: errorDescription, machineType: range, machineRangeStart: machineRangeStart,
+                          machineRangeEnd: machineRangeEnd});
         },
 
-        'editCheckPoint': function(checkId, status, errorPos, errorNr, errorDescription, machineRange) {
-            checkPoints.update({_id: checkId}, {$set: {status: status, errorPos: errorPos, errorNr: errorNr,
-                errorDescription: errorDescription, machineRange: machineRange}});
+        'editCheckPoint': function(checkId, status, errorPos, errorDescription, machineType) {
+            checkPoints.update({_id: checkId}, {$set: {status: status, errorPos: errorPos,
+                errorDescription: errorDescription, machineType: machineType}});
         },
 
         'deactivateCheckPoint': function(deactivateCheck, status) {
@@ -328,21 +341,21 @@ if(Meteor.isServer){
             checkPoints.update({_id: reActiveCheck}, {$set: {status: status}})
         },
 
-        'editCheckpoint': function(checkPointId, status, errorPos, errorNr, errorDescription, machineRange) {
-            checkPoints.update({_id: checkPointId}, {$set: {status: status, errorPos: errorPos, errorNr: errorNr,
-                errorDescription: errorDescription, machineRange: machineRange}});
+        'editCheckpoint': function(checkPointId, status, errorPos, errorDescription, machineType) {
+            checkPoints.update({_id: checkPointId}, {$set: {status: status, errorPos: errorPos,
+                errorDescription: errorDescription, machineType: machineType}});
         },
 
         'generatePdiList': function(selectedPdiMachineId, dateStart, selectedPdiMachineNr, range) {
             siArrayList = [];
-            pdiCheckPoints.insert({_id: selectedPdiMachineId});
+            pdiCheckList.insert({_id: selectedPdiMachineId});
             InspectedMachines.remove({_id: selectedPdiMachineId});
             MachineReady.update({_id: selectedPdiMachineId}, {$set: {pdiStatus: 2, startPdiDate: dateStart}});
             InspectedMachines.insert({_id: selectedPdiMachineId, machineId: selectedPdiMachineNr});
-            checkPoints.find({status: 1, machineRange: {$in: range}}, {sort: {errorPos: 1}}).forEach(function(copy){
-                pdiCheckPoints.update({_id: selectedPdiMachineId}, {$addToSet: {checkList: (copy)}});
+            checkPoints.find({status: 1, machineType: {$in: range}}, {sort: {errorPos: 1}}).forEach(function(copy){
+                pdiCheckList.update({_id: selectedPdiMachineId}, {$addToSet: {checkList: (copy)}});
             });
-            pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {status: 0}}});
+            pdiCheckList.update({_id: selectedPdiMachineId}, {$pull: {checkList: {status: 0}}});
             const list = siList.find({machineNr: selectedPdiMachineNr}, {limit:1}).fetch();
             if(list === '') {
             } else {
@@ -378,7 +391,7 @@ if(Meteor.isServer){
 
         'cancelPdi': function(pdiMachineId) {
             InspectedMachines.remove({_id: pdiMachineId});
-            pdiCheckPoints.remove({_id: pdiMachineId});
+            pdiCheckList.remove({_id: pdiMachineId});
             MachineReady.update({_id: pdiMachineId}, {$set: {pdiStatus: 0}});
             siListDone.remove({_id: pdiMachineId});
         },
@@ -388,12 +401,20 @@ if(Meteor.isServer){
         },
 
         'removeCheckPoint': function(selectedPdiMachineId, selectedCheckPoint) {
-            pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
+            pdiCheckList.update({_id: selectedPdiMachineId},
+                {$pull: {checkList: {_id: selectedCheckPoint}}});
+        },
+
+        'bigFinger': function (selectedPdiMachineId, selectedCheckPoint) {
+            let bigFingerBase = checkPoints.findOne({_id: selectedCheckPoint});
+            pdiCheckList.upsert({_id: selectedPdiMachineId}, {$push: {checkList: {_id: bigFingerBase._id,
+                errorPos: bigFingerBase.errorPos, errorDescription: bigFingerBase.errorDescription,
+                machineType: bigFingerBase.machineType}}});
         },
 
         'addToCheckList': function(selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
-            pdiCheckPoints.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
+            pdiCheckList.update({_id: selectedPdiMachineId}, {$pull: {checkList: {_id: selectedCheckPoint}}});
             const errorNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorNr: 1}}).fetch();
            const stringError = JSON.stringify(errorNr).slice(39,-3);
             const descriptionNr = checkPoints.find({_id:selectedCheckPoint}, {fields: {errorDescription: 1}}).fetch();
@@ -412,10 +433,8 @@ if(Meteor.isServer){
 
         'addToCheckListNew': function(selectedPdiMachineId, repOrder, machineNr) {
             InspectedMachines.upsert({_id: selectedPdiMachineId}, {$addToSet: {repOrder}});
-            const stringError = JSON.stringify(repOrder).slice(42,46);
             const stringDescription = JSON.stringify(repOrder).slice(68,-2);
-            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Nr: stringError,
-              Error_Description: stringDescription});
+            repairOrderPrint.insert({Machine_Nr: machineNr, Error_Description: stringDescription});
         },
 
         'orderParts': function (machineNr, loggedInUser, failureAddDescription) {
@@ -435,7 +454,7 @@ if(Meteor.isServer){
         'machineInspected': function(selectedPdiMachine, dateStop, pdiDuration, waitPdiTime, pdiMachine) {
             MachineReady.update({_id:selectedPdiMachine}, {$set: {pdiStatus: 1, stopPdiDate: dateStop,
                 pdiDuration: pdiDuration, waitPdiTime: waitPdiTime}});
-            pdiCheckPoints.remove({_id: selectedPdiMachine});
+            pdiCheckList.remove({_id: selectedPdiMachine});
             const repairOrder = InspectedMachines.findOne({_id: selectedPdiMachine});
             MachineReady.upsert({_id: selectedPdiMachine}, {$addToSet: {repairOrder: repairOrder}});
             siList.remove({machineNr: pdiMachine});

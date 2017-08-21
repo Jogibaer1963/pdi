@@ -1,6 +1,17 @@
 if(Meteor.isClient) {
 
 
+    Template.removeSi.events({
+
+        'click .removeSi': function (e) {
+            e.preventDefault();
+            const siItem = Session.get('selectedItem');
+            console.log(siItem);
+            Meteor.call('removeSi', siItem);
+        }
+    });
+
+
     Template.repairMachine.helpers({
         shippList: function () {
             // Order of shipping date
@@ -17,8 +28,6 @@ if(Meteor.isClient) {
                 return "selected_2"
             }
         }
-
-
     });
 
     Template.repairMachine.events({
@@ -58,8 +67,6 @@ if(Meteor.isClient) {
             Meteor.call('messageToWashBay', machineTestId, washMessage, machine_id);
             event.target.message.value = '';
         }
-
-
     });
 
     Template.upcomings.helpers({
@@ -75,7 +82,6 @@ if(Meteor.isClient) {
                 return "selected_2"
             }
         }
-
     });
 
 
@@ -99,7 +105,5 @@ if(Meteor.isClient) {
             const machineId = Session.get('selectedMachineId');
             Meteor.call('listRemoved', machineId, KitStatus);
         }
-
     });
-
 }

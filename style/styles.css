@@ -330,7 +330,7 @@
 .checkListBox {
     float: left;
     overflow: auto;
-    width: 600px;
+    width: 750px;
     height: 500px;
     margin-left: 10px;
 }
@@ -454,7 +454,9 @@
     font-size: 20px;
     background-color: #14b017;
     padding: 15px;
-    margin: 10px;
+    position: relative;
+    top: -100px;
+    left: 20px;
 }
 
 .newCheckPoint {
@@ -706,7 +708,7 @@
 
 .inputCheck {
     position: absolute;
-    left: 210px;
+    left: 220px;
     top: 127px;
 }
 
@@ -860,9 +862,17 @@
 }
 
 .repSiHead {
-    position: absolute;
+    position: relative;
     top: 170px;
     left: 600px;
+}
+
+.removeRepList {
+    position: relative;
+    top: 155px;
+    left: 600px;
+    font-size: 25px;
+    background-color: #ff2e31;
 }
 
 .searchMaryView {
@@ -1013,6 +1023,17 @@
     padding: 15px;
 }
 
+.machineRange {
+    position: relative;
+    top: -70px;
+    left: 730px;
+}
+
+.machineRangeEnd {
+    position: relative;
+    margin-top: 20px;
+}
+
 .machineReadyBox {
     width: 500px;
     margin: 0;
@@ -1091,31 +1112,16 @@
     background-color: #ff7815;
     padding: 15px;
     margin: 10px;
-    position: absolute;
-    top: 870px;
-    left: 220px;
+    width: 320px;
 }
 
-.machineNewAtt {
+.checkListButton {
     font-weight: bolder;
     font-size: 30px;
     background-color: #ff0514;
     padding: 15px;
     margin: 10px;
-    position: absolute;
-    top: 870px;
-    left: 520px;
-}
-
-.orderPart {
-    font-weight: bolder;
-    font-size: 30px;
-    background-color: #ff0514;
-    padding: 15px;
-    margin: 10px;
-    position: absolute;
-    top: 1020px;
-    left: 520px;
+    width: 320px;
 }
 
 .pdiOverviewLayout {
@@ -1217,7 +1223,7 @@
 
 .rangeInput {
     position: absolute;
-    left: 730px;
+    left: 650px;
     top: 110px;
 }
 
@@ -1796,9 +1802,8 @@ ul.horizontal-slide li[class*="span"]:first-child {
 
 #pdiDescription {
     position: relative;
-    left: 40px;
     height: 60px;
-    width: 500px;
+    width: 690px;
     font-size: 30px;
     font-weight: bold;
 }
@@ -1907,7 +1912,7 @@ ul.horizontal-slide li[class*="span"]:first-child {
     text-align: center;
 }
 
-#machineRange {
+#machineType {
     height: 40px;
     font-size: 15px;
     font-weight: bold;

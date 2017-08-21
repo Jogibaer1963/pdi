@@ -4,6 +4,7 @@
   {{#if isInRole 'admin'}}
       {{> MainLayout}}
       {{> overViewList}}
+      {{> headerList}}
     {{/if}}
   {{#if isInRole 'shipping'}}
       {{> shippingLayout}}
@@ -18,6 +19,7 @@
   {{#if isInRole 'repair'}}
       {{> repairLayout}}
       {{> overViewList}}
+      {{> headerList}}
   {{/if}}
   {{#if isInRole 'outBound'}}
       {{> washLayout}}
@@ -79,6 +81,7 @@
 <template name="pdiLayout">
     <div class="">
         <nav>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
             <a class="btn" href="/inspectionStart">Inspection</a>
             <a class="btn" href="/machineSearch">Search by Machine</a>
             <a class="btn" href="/wordSearch">Search by Key Word</a>
@@ -93,6 +96,7 @@
 <template name="repairLayout">
     <div class="">
         <nav>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
             <a class="btn" href="/repairView">Repair</a>
             <a class="btn" href="/machineSearch">Search by Machine</a>
             <a class="btn" href="/wordSearch">Search by Key Word</a>
@@ -107,6 +111,7 @@
 <template name="washLayout">
     <div class="">
         <nav>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
             <a class="btn " href="/shippingMachines">Shipping</a>
             <a class="btn" href="/washList">Wash Bay</a>
             <a class="btn" href="/readyShipList">Final Status</a>
@@ -121,6 +126,7 @@
 <template name="outBound">
     <div class="">
         <nav>
+            <a class="btn " href="/overViewLoggedIn">Over View</a>
             <a class="btn " href="/shippingMachines">Shipping</a>
             <a class="btn" href="/readyShipList">Ready to Ship</a>
             <a class="btn" href="/machineSearch">Search by Machine</a>

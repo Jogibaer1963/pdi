@@ -27,7 +27,7 @@
                 <div class="rTableRow showCheckList {{selectedClass}}">
                     <div class="rTableCell">{{errorPos}}</div>
                     <div class="rTableCell">{{errorDescription}}</div>
-                    <div class="rTableCell" style="font-size: 15px">{{machineRange}}</div>
+                    <div class="rTableCell" style="font-size: 15px">{{machineType}}</div>
                 </div>
             {{/each}}
             {{/each}}
@@ -39,19 +39,12 @@
     </div>
     <div class="pdiAddCheck">
         <form class="addCheckPointsToList">
-            <input type="number" id="errorId" name="failureId" placeholder="Failure Id" maxlength="4" value="{{failureId}}" required>
             <input type="text" id="pdiDescription" name="failureDescription" placeholder="Description">
             <button class="machineNewIssue" type="submit">Add Failure</button>
-            <button class="machineNewAtt" type="button">Attention</button>
-            <button class="orderPart" type="button">Replace</button>
-            <br><br><br><br><br><br>
-            <h3>"Attention" is for extended Repair Time or Parts needs to be Ordered.</h3>
-            <h3>It appears in the Print Out with ********** TEXT **********</h3>
-            <h3>If so, first Push the Attention Button before Add Failure</h3>
-
-            {{#dropdownTrigger  name="failureList"}}
-                <button class="btn dropDownButton">Look Up Failure</button>
-            {{/dropdownTrigger}}
+            <button class="checkListButton  machineNewAtt" type="button">Attention for Repair</button>
+            <br><br>
+            <button class="checkListButton orderPart" type="button">Order Replacement</button>
+            <button class="checkListButton bigFinger" type="button">Big Finger Button</button>
         </form>
     </div>
 </template>
@@ -73,7 +66,6 @@
         {{# with foundNewFailure}}
             {{#each repOrder}}
                 <div class="rTableRow showFinalCheck {{selectedClass}}">
-                    <div class="rTableCell">{{errorNr}}</div>
                     <div class="rTableCell pdiRepair">{{errorDescription}}</div>
                 </div>
             {{/each}}

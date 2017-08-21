@@ -1,30 +1,5 @@
 
-
-
-    Template.statisticView.helpers({
-        overView: function() {
-           return MachineReady.find({}, {sort: {date: -1}});
-        }
-    });
-
-
-    Template.statistics.events({
-        'click #buttonDownload': function () {
-
-            let nameFile = 'fileDownloaded.csv';
-            Meteor.call('download_statistics', function (err, fileContent) {
-                if (fileContent) {
-                    let blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
-                    saveAs(blob, nameFile);
-                }
-            });
-        }
-
-    });
-
-
     Template.fuelChart.topGenresChart = function() {
-
 
            Meteor.call('fuelConsumption', function (err, response) {
                if (err) {
@@ -39,6 +14,7 @@
         let elementFuelStart = Session.get('elementFuelStart');
         let elementFuelAfter = Session.get('elementFuelAfter');
         let elementConsumption = Session.get('elementConsumption');
+
         return {
             chart: {
                 height: 500,
@@ -87,6 +63,40 @@
             ]
         };
 
-       };
+    };
 
 
+    Template.analyzeRepair.events({
+
+       'submit .datePicker': function (e) {
+           e.preventDefault();
+           let startDate = event.target.dateStart.value;
+           let endDate = event.target.dateEnd.value;
+           Meteor.call('analyzeRepair', function (err,  ) {
+
+           });
+            Session.set('startUnix', moment(startDate).unix());
+            Session.set('endUnix', moment(endDate).unix());
+            let startTest = Session.get('startUnix');
+            let endTest = Session.get('endUnix')
+       }
+    });
+
+
+
+    Template.analyzeRepair.helpers({
+
+        machineRepair: function () {
+           let startUnix = Session.get('startUnix');
+           let endUnix = Session.get('endUnix');
+           if (startUnix) {
+               console.log('Huhuuu');
+           Session.set('startUnix', '');
+           Session.set('endUnix', '');
+           Meteor.call('analyzeRepair', startUnix, endUnix);
+           console.log(startUnix, endUnix);
+           }
+        }
+
+
+    });

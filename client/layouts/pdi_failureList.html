@@ -12,15 +12,11 @@
 
 <template name="input_new_failure">
     <form class="inputNewFailure">
-        <label for="itemPos"></label>
-        <input type="number" maxlength="4" id="itemPos" name="failureId" placeholder="Error ID" required>
         <label for="errorDescription"></label>
         <input class="inputField" type="text" id="errorDescription" name="error_describe" placeholder="Failure Description" required>
         <button class="btn btn-lg btn-success " type="submit" >Submit New Failure</button>
     </form>
 </template>
-
-
 
 <template name="show_failure_List">
     <div class="">
@@ -30,21 +26,15 @@
         <div class="checkListBox">
             <div class="rTable">
                 <div class="rTableRow ">
-                    <div class="rTableHead"><strong>Failure Id</strong></div>
                     <div class="rTableHead"><strong>Failure Description</strong></div>
                 </div>
                 {{#each failureList}}
                     <div class="rTableRow showFailureList {{selectedClass}}">
-                        <div class="rTableCell" style="font-size: 18px;">{{errorid}}</div>
                         <div class="rTableCell">{{error_describ}}</div>
                     </div>
                 {{/each}}
             </div>
         </div>
     </div>
-
-
-
-
 </template>
 

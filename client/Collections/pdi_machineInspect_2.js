@@ -1,5 +1,7 @@
 if(Meteor.isClient) {
 
+    Meteor.subscribe("pdiCheckList");
+
     Template.pdiCheckList.helpers({
 
         'selectedClass': function() {
@@ -14,7 +16,7 @@ if(Meteor.isClient) {
         'checkMe': function() {
             event.preventDefault();
             const machineId = Session.get('selectedPdiMachine');
-            return pdiCheckPoints.find({_id: machineId}, {sort: {'errorPos': 1}});
+            return pdiCheckList.find({_id: machineId}, {sort: {'errorPos': 1}});
         },
 
         failureId: function() {
@@ -43,8 +45,18 @@ if(Meteor.isClient) {
             event.preventDefault();
             const selectedCheckPoint = Session.get('selectedCheckPoint');
             const selectedPdiMachineId = Session.get('selectedPdiMachine');
-            Meteor.call('removeCheckPoint', selectedPdiMachineId, selectedCheckPoint)
+
+           Meteor.call('removeCheckPoint', selectedPdiMachineId, selectedCheckPoint)
         },
+
+        'click .bigFinger': function () {
+            event.preventDefault();
+            const selectedCheckPoint = Session.get('selectedCheckPoint');
+            const selectedPdiMachineId = Session.get('selectedPdiMachine');
+            Meteor.call('bigFinger', selectedPdiMachineId, selectedCheckPoint);
+        },
+
+
 
         'click .bad': function(event) {
             event.preventDefault();
@@ -55,11 +67,14 @@ if(Meteor.isClient) {
                 const selectedPdiMachineId = Session.get('selectedPdiMachine');
                 const repOrder = Session.get('repairOrder');
                 const machineNr = Session.get('pdiMachineNumber');
-                Meteor.call('addToCheckList', selectedPdiMachineId, repOrder, selectedCheckPoint, machineNr);
+                Meteor.call('addToCheckList', selectedPdiMachineId, repOrder, selectedCheckPoint,
+                    machineNr);
                 Session.set('selectedCheckPoint', '');
                 Session.set('repairOrder', '');
             }
         },
+
+
 
         'click .machineNewAtt': function() {
             event.preventDefault();
@@ -79,7 +94,6 @@ if(Meteor.isClient) {
             Session.set('selectedPdiMachine', localStorage.getItem('selectedPdi'));
             const machineNr = Session.get('pdiMachineNumber');
             const selectedPdiMachineId = Session.get('selectedPdiMachine');
-            const failureId = event.target.failureId.value;
             let failureAddDescription = event.target.failureDescription.value;
             const specialAtt = Session.get('specialAtt');
             const orderParts = Session.get('orderStat');
@@ -88,22 +102,25 @@ if(Meteor.isClient) {
                failureAddDescription = addText + ' ' + failureAddDescription + ' ' + addText;
             }
            if(orderParts === 1) {
+                console.log(specialAtt);
                const loggedInUser = Session.get('currentLoggedInUser');
                const addOrder = '***** Parts on Order *****   ';
                failureAddDescription = addOrder + ' ' + failureAddDescription;
                Meteor.call('orderParts', machineNr, loggedInUser, failureAddDescription);
             }
-            if(failureId === "") {
+            if(failureAddDescription === "") {
+                console.log(failureAddDescription);
             } else {
             const orderId = machineNr + (new Date().getTime());
-            const repOrder = {'_id': orderId, 'errorNr': failureId, 'errorDescription': failureAddDescription,
+            const repOrder = {'_id': orderId, 'errorDescription': failureAddDescription,
                 'orderStatus': orderParts};
             Meteor.call('addToCheckListNew', selectedPdiMachineId, repOrder, machineNr);
-            event.target.failureId.value = '';
             event.target.failureDescription.value = '';
                 Session.set('specialAtt', '');
                 Session.set('orderStat', '');
             }
+            Session.set('specialAtt', '');
+            Session.set('orderStat', '');
         }
     });
 
@@ -173,7 +190,7 @@ if(Meteor.isClient) {
                             stringOrder = stringOrder.substring(stringEnd + posOrder);
                         }
             Meteor.call('machineUser', machineId, userLoggedIn, emailArray_2);
-            Meteor.call('sendEmail', ['juergen.hauser@claas.com', 'robert.schutte@claas.com'],
+            Meteor.call('sendEmail', ['juergen.hauser@claas.com'],
                   'Claas_Quality@mailgun.com', 'Parts Order request', userLoggedIn);
                      }
             }

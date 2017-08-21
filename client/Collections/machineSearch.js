@@ -3,6 +3,7 @@
  */
 if (Meteor.isClient) {
 
+    Meteor.subscribe("machineReadyToGo_2016");
 
     Template.machineSearch.events({
         "submit .searchMachine": function (event) {
@@ -20,7 +21,11 @@ if (Meteor.isClient) {
             const findMachine = Session.get('findMachine');
             if(findMachine === undefined) {
             } else {
-            return MachineReady.find({machineId: findMachine});
+            let result = MachineReady.find({machineId: findMachine}).fetch();
+            if (result.length === 0) {
+                return MachineReady_2016.find({machineId: findMachine}).fetch();
+                }
+              return result;
             }
         }
 

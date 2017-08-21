@@ -5,33 +5,26 @@ if (Meteor.isClient) {
         'submit .inputNewCheck': function (event) {
             event.preventDefault();
             const errorPos = event.target.newPosition.value;
-            const errorNr = event.target.errorNr.value;
             const errorDescription = event.target.errorDescription.value;
-            const range = [];
-            $('input[name=range]:checked').each(function() {
+            const machineRangeStart = event.target.machineRangeStart.value;
+            const machineRangeEnd = event.target.machineRangeEnd.value;
+            const resultStart = machineRangeStart.split(" ");
+            const resultEnd = machineRangeEnd.split(" ");
+            console.log(resultEnd);
+           const range = [];
+           $('input[name=range]:checked').each(function() {
                 range.push($(this).val());
             });
-            const orderStatus = $('input[name=orderPart]:checked').val();
             const status = 1;
-            Meteor.call('inputNewCheckPoint', status, errorPos, errorNr, errorDescription, range, orderStatus);
+           Meteor.call('inputNewCheckPoint', status, errorPos, errorDescription,
+                           range, resultStart, resultEnd);
             event.target.newPosition.value = "";
-            event.target.errorNr.value = "";
             event.target.errorDescription.value = "";
             event.target.C77.checked = false;
             event.target.C78.checked = false;
             event.target.C79.checked = false;
-            event.target.allMachines.checked = false;
-            event.target.orderPart.checked = false;
-        }
-
-    });
-
-    Template.inputNewCheckPoint.helpers({
-
-        errorNew: function () {
-            event.preventDefault();
-            return errorNewId = Session.get('selectedNewErrorId');
-           // return errorNewId;
+            event.target.machineRangeStart.value = "";
+            event.target.machineRangeEnd.value = "";
         }
 
     });
@@ -70,25 +63,17 @@ if (Meteor.isClient) {
         "submit .inputNewCheckListItems": function() {
             event.preventDefault();
             const errorPos = event.target.newPosition.value;
-            const errorNr = event.target.errorNr.value;
             const errorDescription = event.target.errorDescription.value;
-            const machineRange = event.target.machineRange.value;
-            const machineArray = machineRange.split(",");
+            const machineType = event.target.machineType.value;
+            const machineArray = machineType.split(",");
             const status = 1;
             const checkId = Session.get('selectedCheckPoint');
-            Meteor.call('editCheckPoint', checkId, status, errorPos, errorNr, errorDescription, machineArray);
+            Meteor.call('editCheckPoint', checkId, status, errorPos, errorDescription, machineArray);
             event.target.newPosition.value = "";
-            event.target.errorNr.value = "";
             event.target.errorDescription.value = "";
-            event.target.machineRange.value = "";
+            event.target.machineType.value = "";
             },
 
-    /*    'click .reActiveCheck': function() {
-            event.preventDefault();
-            const reActivateCheck = Session.get('selectedCheckPoint');
-            const status = 1;
-            Meteor.call('reActiveCheck', reActivateCheck, status);
-            },   */
 
         'click .deActiveCheck': function() {
             event.preventDefault();
@@ -122,11 +107,6 @@ if (Meteor.isClient) {
             }
         },
 
-        errorId: function () {
-            const errorSelect = Session.get('selectedErrorId');
-        //    Session.set('selectedErrorId', '');
-            return errorSelect;
-        },
 
         editCheckpoint: function () {
             const editCheckPoint = Session.get('selectedCheckPoint');

@@ -4,6 +4,7 @@
         {{> repairMachine}}
     <div class="bulkSi">
         <h1 class="repSiHead">SI-List</h1>
+        {{> removeSi}}
         {{> uploadList}}
         {{> changeStat}}
     </div>
@@ -17,6 +18,11 @@
     {{/if}}
 </template>
 
+<template name="removeSi">
+    <form class="removeSiItem">
+        <button class="removeSi removeRepList">Remove SI Item</button>
+    </form>
+</template>
 
 <template name="repairMachine">
     <h1>Work Load Repair</h1>

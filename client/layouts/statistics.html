@@ -1,40 +1,34 @@
 <template name="statistics">
     <body>
     {{#if currentUser}}
-
-    {{>fuelChart}}
+        {{>fuelChart}}
+        {{>analyzeRepair}}
     {{else}}
         {{> login}}
     {{/if}}
     </body>
 </template>
 
-<template name="statisticView">
-        <h2>Time Consumption Over View</h2>
-        <div class="rTable">
-            <div class="rTableRow">
-                <div class="rTableHead"><strong>Machine</strong></div>
-                <div class="rTableHead"><strong><span>Ship Date</span></strong></div>
-                <div class="rTableHead"><strong>Created at</strong></div>
-                <div class="rTableHead"><strong>Time after Created /<br>PDI Duration</strong></div>
-                <div class="rTableHead"><strong>Time after Created /<br>Wash Duration</strong></div>
-                <div class="rTableHead"><strong>PDI Fuel</strong></div>
-                <div class="rTableHead"><strong>Machine Hours</strong></div>
-            </div>
-            {{#each overView}}
-                <div class="rTableRow timeStatistics">
-                    <div class="rTableCell">{{machineId}}{{newHeadId}}</div>
-                    <div class="rTableCell">{{date}}</div>
-                    <div class="rTableCell">{{dateOfCreation}}<br>{{timeOfCreation}}</div>
-                    <div class="rTableCell">{{waitPdiTime}}<br>{{pdiDuration}}</div>
-                    <div class="rTableCell">{{waitWashTime}}<br>{{washDuration}}</div>
-                    <div class="rTableCell">{{consumption}}</div>
-                    <div class="rTableCell">{{machineHour}}</div>
-                </div>
-            {{/each}}
-        </div>
-</template>
-
 <template name="fuelChart">
     {{> highchartsHelper chartId="test" chartWidth="100%" charHeight="100%" chartObject=topGenresChart}}
 </template>
+
+
+
+<template name="analyzeRepair">
+    <form class="datePicker">
+        <label for="dateStart"></label>
+        <input type="date" id="dateStart" name="dateStart">
+        <label for="dateEnd"></label>
+        <input type="date" id="dateEnd" name="dateEnd">
+        <button type="submit">Submit</button>
+    </form>
+    {{#each machineRepair}}
+        <div class="rTableRow">
+            <div class="rTableCell">{{pdiDate}}</div>
+        </div>
+    {{/each}}
+
+
+</template>
+
