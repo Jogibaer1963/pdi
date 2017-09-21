@@ -79,7 +79,7 @@ if (Meteor.isClient) {
         'selectedClass': function() {
             const shippingMachine = this._id;
             const selectedMachine = Session.get('selectedMachine');
-            if (shippingMachine == selectedMachine) {
+            if (shippingMachine === selectedMachine) {
                return "selected"
            }
        }
@@ -103,7 +103,7 @@ if (Meteor.isClient) {
         'click .buttonEdit': function() {
             const selectedMachine = Session.get('selectedMachine');
             Session.set('editSelectedMachine', selectedMachine);
-            if(typeof selectedMachine == 'string' ) {
+            if(typeof selectedMachine === 'string' ) {
             FlowRouter.go('editMachine');
             }
         }

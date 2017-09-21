@@ -7,6 +7,7 @@ if(Meteor.isClient) {
             const kitString = JSON.stringify(kitSaved);
             const kitExtract = kitString.slice(8, -28);
             const myString = kitExtract.replace(/"/g, "");
+
             const a = myString.indexOf('C03_0019', 0);
             if(a >= 0){
                 const kit_1 = 'C03_0019';
@@ -68,49 +69,49 @@ if(Meteor.isClient) {
 
          'newKit1': function() {
                  const kit_1 = Session.get('kit_1');
-                 if(kit_1 == 'C03_0019') {
+                 if(kit_1 === 'C03_0019') {
                      return 'checked';
                  }
          },
 
         'newKit2': function() {
             const kit_2 = Session.get('kit_2');
-            if(kit_2 == 'C03_0065') {
+            if(kit_2 === 'C03_0065') {
                 return 'checked';
             }
         },
 
         'newKit3': function() {
             const kit_3 = Session.get('kit_3');
-            if(kit_3 == 'C03_0165') {
+            if(kit_3 === 'C03_0165') {
                 return 'checked';
             }
         },
 
         'newKit7': function() {
             const kit_7 = Session.get('kit_7');
-            if(kit_7 == 'C03_0180') {
+            if(kit_7 === 'C03_0180') {
                 return 'checked';
             }
         },
 
         'newKit4': function() {
             const kit_4 = Session.get('kit_4');
-            if(kit_4 == 'B05_0120') {
+            if(kit_4 === 'B05_0120') {
                 return 'checked';
             }
         },
 
         'newKit5': function() {
             const kit_5 = Session.get('kit_5');
-            if(kit_5 == 'B05_0130') {
+            if(kit_5 === 'B05_0130') {
                 return 'checked';
            }
         },
 
         'newKit6': function() {
             const kit_6 = Session.get('kit_6');
-            if(kit_6 == 'D06_0030') {
+            if(kit_6 === 'D06_0030') {
                 return 'checked';
             }
         }

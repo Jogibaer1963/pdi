@@ -352,10 +352,13 @@ if(Meteor.isServer){
             InspectedMachines.remove({_id: selectedPdiMachineId});
             MachineReady.update({_id: selectedPdiMachineId}, {$set: {pdiStatus: 2, startPdiDate: dateStart}});
             InspectedMachines.insert({_id: selectedPdiMachineId, machineId: selectedPdiMachineNr});
+
             checkPoints.find({status: 1, machineType: {$in: range}}, {sort: {errorPos: 1}}).forEach(function(copy){
                 pdiCheckList.update({_id: selectedPdiMachineId}, {$addToSet: {checkList: (copy)}});
             });
+
             pdiCheckList.update({_id: selectedPdiMachineId}, {$pull: {checkList: {status: 0}}});
+
             const list = siList.find({machineNr: selectedPdiMachineNr}, {limit:1}).fetch();
             if(list === '') {
             } else {

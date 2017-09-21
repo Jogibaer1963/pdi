@@ -10,7 +10,6 @@ if (Meteor.isClient) {
             const machineRangeEnd = event.target.machineRangeEnd.value;
             const resultStart = machineRangeStart.split(" ");
             const resultEnd = machineRangeEnd.split(" ");
-            console.log(resultEnd);
            const range = [];
            $('input[name=range]:checked').each(function() {
                 range.push($(this).val());
@@ -25,36 +24,50 @@ if (Meteor.isClient) {
             event.target.C79.checked = false;
             event.target.machineRangeStart.value = "";
             event.target.machineRangeEnd.value = "";
+        },
+
+        'click .showCheckList': function() {
+            event.preventDefault();
+            const checkPoint = this._id;
+            console.log(checkPoint);
+            Session.set('selectedCheckPoint', checkPoint);
+        },
+
+        'click .deActiveCheck': function() {
+            event.preventDefault();
+            const deactivateCheck = Session.get('selectedCheckPoint');
+            console.log('deactivate', deactivateCheck);
+            const status = 0;
+            Meteor.call('deactivateCheckPoint', deactivateCheck, status);
         }
 
     });
 
 
-    Template.newListOfFailures.helpers({
+    Template.inputNewCheckPoint.helpers({
 
-        newFailureList: function () {
-            Session.set('selectedNewFailure', "");
-            return FailuresList.find({}, {sort: {error_describ: 1}});
+        checkList: function () {
+            event.preventDefault();
+            Session.set('selectedCheckPoint', '');
+            return checkPoints.find({status: 1}, {sort: {errorPos: 1}});
+        },
+
+        inActiveCheckPoints: function() {
+            event.preventDefault();
+            return checkPoints.find({status: 0}, {sort: {errorPos: 1}});
         },
 
         'selectedClass': function() {
             const checkPoint = this._id;
-            const selectedCheckPoint = Session.get('selectedNewFailure');
+            const selectedCheckPoint = Session.get('selectedCheckPoint');
             if (selectedCheckPoint === checkPoint) {
                 return "selected"
             }
         }
-    });
 
-    Template.newListOfFailures.events({
 
-        'click .showFailureList': function() {
-            event.preventDefault();
-            const failureId = this._id;
-            Session.set('selectedNewFailure', failureId);
-            const newErrorNr = FailuresList.findOne({_id: failureId}).errorid;
-            Session.set('selectedNewErrorId', newErrorNr);
-        }
+
+
     });
 
 
@@ -97,6 +110,7 @@ if (Meteor.isClient) {
             event.preventDefault();
             Session.set('selectedCheckPoint', '');
             return checkPoints.find({status: 1}, {sort: {errorPos: 1}});
+
         },
 
         'selectedClass': function () {
@@ -141,35 +155,5 @@ if (Meteor.isClient) {
         }
     });
 
-
-
-
-
-    Template.chooseListOfFailures.helpers({
-
-        failureList: function () {
-            Session.set('selectedFailure', "");
-            return FailuresList.find({}, {sort: {error_describ: 1}});
-        },
-
-        'selectedClass': function() {
-            const checkPoint = this._id;
-            const selectedCheckPoint = Session.get('selectedFailure');
-            if (selectedCheckPoint === checkPoint) {
-                return "selected"
-            }
-        }
-    });
-
-    Template.chooseListOfFailures.events({
-
-        'click .showFailureList': function() {
-            event.preventDefault();
-            const failureId = this._id;
-            Session.set('selectedFailure', failureId);
-            const errorNr = FailuresList.findOne({_id: failureId}).errorid;
-            Session.set('selectedErrorId', errorNr);
-        }
-    })
 
 }

@@ -327,14 +327,6 @@
     padding-left: 40px;
 }
 
-.checkListBox {
-    float: left;
-    overflow: auto;
-    width: 750px;
-    height: 500px;
-    margin-left: 10px;
-}
-
 .checkPointBox {
     overflow: scroll;
     width: 700px;
@@ -344,14 +336,6 @@
     padding-bottom: 50px;
     font-weight: bold;
     font-size: 20px;
-}
-
-.checkListBox2 {
-    float: left;
-    overflow: auto;
-    width: 600px;
-    height: 500px;
-    margin-left: 40px;
 }
 
 .checkListInActive {
@@ -406,14 +390,6 @@
     font-weight: bold;
 }
 
-.deActiveCheck {
-    font-weight: bolder;
-    font-size: 20px;
-    background-color: #ffad40;
-    padding: 15px;
-    margin: 10px;
-}
-
 .downloadButton {
     position: absolute;
     top: 260px;
@@ -450,6 +426,7 @@
 }
 
 .newCheck {
+    float: left;
     font-weight: bolder;
     font-size: 20px;
     background-color: #14b017;
@@ -457,6 +434,11 @@
     position: relative;
     top: -100px;
     left: 20px;
+    margin-left: 30px;
+}
+
+.colorCheckButtonDeactivate {
+   background-color: red;
 }
 
 .newCheckPoint {
@@ -657,11 +639,16 @@
     margin: 5px;
 }
 
+.fixedBox {
+    position: fixed;
+}
+
 .inputBox {
     width: 1100px;
     height: 180px;
     background-color: #f87105;
     margin-bottom: 20px;
+
 }
 
 .inputComment {
@@ -670,6 +657,10 @@
     height: 45px;
     background-color: #FFFFFF;
     padding-right: 5px;
+}
+
+.checkInput {
+    margin-top: 35px;
 }
 
 .inputSearch {
@@ -1128,6 +1119,22 @@
     position: fixed;
 }
 
+.posCheckTable{
+    top: 390px;
+}
+
+.checkTable {
+    position: absolute;
+    z-index: -1;
+    float: left;
+    overflow: auto;
+    height: 400px;
+}
+
+.posCheckInactiveTable {
+    top: 890px;
+}
+
 .posFixed {
     position: fixed;
     z-index: 1;
@@ -1229,7 +1236,7 @@
 
 .rangeBox {
     position: absolute;
-    top: 5px;
+    top: -10px;
     left: -30px;
     width: 50px;
 }
@@ -1504,6 +1511,58 @@ input[type=checkbox] {
     border: 1px solid #8c8c8c;
 }
 
+.rTableHeadCheck {
+    position: fixed;
+    top: 350px;
+    background-color: #AA3939;
+}
+
+.rTableHeadInactive {
+    position: absolute;
+    top: 850px;
+    background-color: #AA3939;
+}
+
+.inActiveList {
+    margin-top: 55px;
+}
+
+.posHeadText {
+
+}
+
+.posCheckListText {
+    left: 450px;
+}
+
+.posActiveText {
+    position: fixed;
+    top: 300px;
+    background-color: #0ee614;
+}
+
+.posTextInactive {
+    position: absolute;
+    top: 800px;
+    background-color: red;
+}
+
+.posWidth {
+    width: 120px;
+}
+
+.posFailure {
+    width: 400px;
+}
+
+.posType {
+    width: 140px;
+}
+
+.posRange {
+    width: 250px;
+}
+
 .rTableStyle {
    vertical-align: middle;
     text-align: center;
@@ -1709,6 +1768,14 @@ ul.horizontal-slide li[class*="span"]:first-child {
 
 }
 
+.whiteBoxCheckPoints {
+    position: fixed;
+    top: 50px;
+    height: 320px;
+    width: 1450px;
+    background-color: white;
+}
+
 .whiteBox_2 {
     position: fixed;
     top: 0;
@@ -1814,6 +1881,7 @@ ul.horizontal-slide li[class*="span"]:first-child {
     font-size: 15px;
     font-weight: bold;
     background-color: #9bff99;
+    margin-top: -50px;
 }
 
 #newComment{

@@ -55,10 +55,12 @@ if(Meteor.isClient) {
             const selectedPdiMachineId = Session.get('selectedPdiMachine');
             const selectedPdiMachineNr = Session.get('pdiMachineNumber');
             const firstRange =  JSON.stringify(selectedPdiMachineNr).slice(1,4);
-            const range = ["All Machines"];
+            const range = [];
             range.push(firstRange);
+            console.log(range);
             const dateStart = Date.now();
-            Meteor.call('generatePdiList', selectedPdiMachineId, dateStart, selectedPdiMachineNr, range);
+          Meteor.call('generatePdiList', selectedPdiMachineId, dateStart, selectedPdiMachineNr,
+                range);
             FlowRouter.go('machineInspect');
         },
 
