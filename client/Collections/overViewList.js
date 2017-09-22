@@ -5,9 +5,9 @@ if (Meteor.isClient) {
 
     Template.overViewList.helpers({
         overView: function() {
-         //   return MachineReady.find({machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0},
-           //     {shipStatus: 2}]}, {sort: {date: 1}});
-            return overview.find();
+          return MachineReady.find({machineId: {$gt: 'C00000'}, $or: [{shipStatus: 0},
+               {shipStatus: 2}]}, {sort: {date: 1}});
+
         }
     });
 
